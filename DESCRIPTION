@@ -1,0 +1,11 @@
+Package: secrgam
+Type: Package
+Title: GAM Density Models for Spatially Explicit Capture-Recapture
+Version: 1.0
+Date: 2013-01-12
+Author: David Borchers
+Maintainer: David Borchers <dlb@st-andrews.ac.uk>
+Description: Spatially explicit capture-recapture estimation with generalized additive modelling of the density surface.
+License: GPL (>= 2)
+Depends: secr (>= 2.7.0), mgcv (>= 1.7-27), splines (>= 3.0.0), fields (>= 6.8)
+LinkingTo: secr, mgcv, splines, fields
