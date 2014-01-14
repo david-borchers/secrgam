@@ -2,7 +2,7 @@
 \alias{trap.covar}
 \title{Returns covariate values of mask point closest to each trap.}
 \usage{
-  trap.covar(traps, mask, cname)
+trap.covar(traps, mask, cname)
 }
 \arguments{
   \item{traps}{Trap object.}
@@ -13,23 +13,19 @@
   mask that you want to attach to the traps.}
 }
 \value{
-  Returns a vector with covariate values associated with
-  each trap, in the same order as they appear in
-  \code{traps}
+Returns a vector with covariate values associated with each
+trap, in the same order as they appear in \code{traps}
 }
 \description{
-  Finds mask point closest to each trap then assigns to the
-  trap the covariate value in
-  \code{attributes(mask)$covariates[[cname]]} that is
-  associated with this mask point.
+Finds mask point closest to each trap then assigns to the
+trap the covariate value in
+\code{attributes(mask)$covariates[[cname]]} that is
+associated with this mask point.
 }
 \details{
-  Finds mask point closest to each trap then assigns to the
-  trap the covariate value in
-  attributes(mask)$covariates[[cname]] that is associated
-  with this mask point.
-}
-\examples{
-# (None as yet)
+Finds mask point closest to each trap then assigns to the
+trap the covariate value in
+attributes(mask)$covariates[[cname]] that is associated
+with this mask point.
 }
 

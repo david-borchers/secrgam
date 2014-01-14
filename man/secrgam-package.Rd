@@ -31,33 +31,29 @@ Maintainer: David Borchers <dlb@st-andrews.ac.uk>
 \code{\link{secr}}
 }
 \examples{
-library(secrgam)
-
-data(Boland.leopards)
-
-# plot survey region and traps
-Boland.image=Boland.leopards$image
-Boland.capthist=Boland.leopards$capthist
-Boland.cameras=traps(Boland.capthist)
-image(Boland.image,col=terrain.colors(60))
-contour(Boland.image,add=TRUE)
-plot(Boland.cameras,add=TRUE,detpar=list(pch="+",cex=1.2))
-
-# summarise and plot capture histories
-summary(Boland.capthist)
-plot(Boland.capthist,border=0,rad=0.01,tracks=TRUE,icolour=colors()[seq(2,202,10)])
-
-# make a model with dependence on altitude via smooth with 2 degrees of freedom
-model=list(D~s(alt,k=2),g0~1,sigma~1)
-Boland.mask=Boland.leopards$mask
-# fit model (and look at how long it takes)
-system.time(fit<-secr.fit.gam(capthist=Boland.capthist,model=model,mask=Boland.mask,trace=FALSE))
-fit # look at fit results
-# plot fitted surface:
-Dsurface <- predictDsurface(fit)
-plot(Dsurface,border=0, polyc='blue', plottype='shaded',col=terrain.colors(30), breaks=25, meshcol=NA)
-plot(traps(Boland.capthist), add=TRUE)
-# plot smooths:
-plotDgam(fit)
-
+  library(secrgam)
+  
+  data(Boland.leopards)
+  
+  # plot survey region and traps
+  Boland.cameras=traps(Boland.CH)
+  image(Boland.image,col=terrain.colors(60))
+  contour(Boland.image,add=TRUE)
+  plot(Boland.cameras,add=TRUE,detpar=list(pch="+",cex=1.2))
+  
+  # summarise and plot capture histories
+  summary(Boland.CH)
+  plot(Boland.CH,border=0,rad=0.01,tracks=TRUE,icolour=colors()[seq(2,202,10)])
+  
+  # make a model with dependence on altitude via smooth with 2 degrees of freedom
+  model=list(D~s(alt,k=2),g0~1,sigma~1)
+  # fit model (and look at how long it takes)
+  fit<-secr.fit.gam(capthist=Boland.CH,model=model,mask=Boland.mask,trace=FALSE)
+  fit # look at fit results
+  # plot fitted surface:
+  Dsurface <- predictDsurface(fit)
+  plot(Dsurface,border=0, polyc='blue', plottype='shaded',col=terrain.colors(30), breaks=25, meshcol=NA)
+  plot(traps(Boland.CH), add=TRUE)
+  # plot smooths:
+  plotDgam(fit)
 }

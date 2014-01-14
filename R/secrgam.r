@@ -187,9 +187,6 @@ D.bspline=function(Dbeta, mask, ngroup=1, nsession=1){
 #' @param mask, as for function secr.fit().
 #' @param ... other arguments to secr.fit()
 #' 
-#' @details
-#' (None as yet)
-#' 
 secr.fit.gam=function(capthist,model,mask,...){
   gamask=prepare.mask.bases(model,mask) # create basis functions in gamask
   if(is.null(gamask)) { # no smoothed terms
@@ -229,14 +226,6 @@ secr.fit.gam=function(capthist,model,mask,...){
 #' @details
 #' (None as yet)
 #' 
-#' @examples
-#' data(Boland.leopards)
-#' # make a model with dependence on altitude via smooth with 2 degrees of freedom
-#' model=list(D~s(alt,k=2),g0~1,sigma~1)
-#' # fit model
-#' fit=secr.fit.gam(capthist=Boland.CH,model=model,mask=Boland.mask,trace=FALSE)
-#' fit # look at fit results
-#' plotDgam(fit)
 plotDgam=function(fit,type="link",mask.rug=FALSE,det.rug=TRUE,npts=200,show.knots=TRUE){
   if(type!="link" & type!="response") {
     type="link"
@@ -315,11 +304,6 @@ plotDgam=function(fit,type="link",mask.rug=FALSE,det.rug=TRUE,npts=200,show.knot
 #' Sorts z on values of x first, then y, then creates a matrix of z-values from this. Returns a list with
 #' elemets x (unique values of x, in increasing order), y (unique values of y, in increasing order) and z
 #' (matrix of z-values in appropriate order for image/contour/persp).
-#' 
-#' @examples
-#' data(WCape.alt)
-#' WCape.image=prep4image(WCape.alt,plot=TRUE,col=terrain.colors(30))
-#' contour(WCape.image,add=TRUE)
 prep4image=function(obj,plot=FALSE,...){
   ord=order(obj$x,obj$y)
   x=sort(unique(obj$x))
@@ -349,8 +333,6 @@ prep4image=function(obj,plot=FALSE,...){
 #' Returns a vector with covariate values associated with each trap, in the same order as they appear 
 #' in \code{traps}
 #' 
-#' @examples
-#' # (None as yet)
 trap.covar=function(traps,mask,cname){
   if(!is.element(cname,names(attr(mask,"covariates")))) stop(paste("Variable ",cname," is not in mask covariates",sep=""))
   mask.xy=data.frame(x=mask$x,y=mask$y)
@@ -372,7 +354,7 @@ trap.covar=function(traps,mask,cname){
 #' @name WCape.alt
 #' @title Altitudes of terrain in Western Cape, South Africa.
 #' @docType data
-#' @description .
+#' @description Altitudes of terrain in the Western Cape, South Africa.
 #' @usage data(WCape.alt)
 #' @format A data frame with the following elements $x, $y and $z, where $x and $y are longitude
 #' and latitude and $z is altitude (in m).
@@ -380,11 +362,6 @@ trap.covar=function(traps,mask,cname){
 #' @references
 #' Amante, C. and B. W. Eakins, ETOPO1 1 Arc-Minute Global Relief Model: Procedures, Data Sources 
 #' and Analysis. NOAA Technical Memorandum NESDIS NGDC-24, 19 pp, March 2009.
-#' @examples
-#'  data(WCape.alt)
-#'  # use \code{\link{prep4image}} to format for \code{\link{image}}.
-#'  WCape.image=prep4image(WCape.alt,plot=TRUE,col=terrain.colors(30))
-#'  contour(WCape.image,add=TRUE)
 NULL
 
 #' @name Boland.leopards
@@ -417,15 +394,7 @@ NULL
 #' @references
 #' Amante, C. and B. W. Eakins, ETOPO1 1 Arc-Minute Global Relief Model: Procedures, Data Sources 
 #' and Analysis. NOAA Technical Memorandum NESDIS NGDC-24, 19 pp, March 2009.
-#' @examples
-#'  data(Boland.leopards)
-#'  Boland.image=Boland.leopards$image
-#'  image(Boland.image,col=terrain.colors(60))
-#'  contour(Boland.image,add=TRUE)
-#'  Boland.cameras=traps(Boland.leopards$capthist)
-#'  plot(Boland.cameras,add=TRUE,detpar=list(pch="+",cex=1.2))
 NULL
-
 
 #' @name secr.possum
 #' @title Data from a trapping study of brushtail possums at Waitarere, North Island, 
@@ -436,30 +405,23 @@ NULL
 #' @usage data(secr.possum)
 #' @format An object containing the following data objects.
 #'  \describe{
-#'    \item{\code{possumarea:}{A set of Cartesian coordinates defining the study area. The 
+#'    \item{\code{possumarea:}}{A set of Cartesian coordinates defining the study area. The 
 #'    variable \code{d.to.shore} in \code{possummask} is the distance from this line (except 
 #'    the bottom boundary, which is not the shore).}
-#'    \item{\code{possumremovalarea:}{A set of Cartesian coordinates defining the area in 
+#'    \item{\code{possumremovalarea:}}{A set of Cartesian coordinates defining the area in 
 #'    which possums were removed (the nominal removal area of Efford et al. (2005, Fig. 1).}
-#'    \item{\code{possummask:}{An \code{secr} mask object for the study.}
-#'    \item{\code{possumCH:}{An \code{secr} capture history object.}
-#'    \item{\code{possum.model.0:}{Fitted \code{secr} object using default model with 
+#'    \item{\code{possummask:}}{An \code{secr} mask object for the study.}
+#'    \item{\code{possumCH:}}{An \code{secr} capture history object.}
+#'    \item{\code{possum.model.0:}}{Fitted \code{secr} object using default model with 
 #'    \code{D~1, g0~1, sigma~1}.}
-#'    \item{\code{possum.model.b:}{Fitted \code{secr} object using density model with 
+#'    \item{\code{possum.model.b:}}{Fitted \code{secr} object using density model with 
 #'    \code{D~1, g0~b, sigma~1}.}
-#'    \item{\code{possum.model.Dh2:}{Fitted \code{secr} object using density model with 
+#'    \item{\code{possum.model.Dh2:}}{Fitted \code{secr} object using density model with 
 #'    \code{D~x + y + x2 + y2 + xy, g0~h2, sigma~h2, pmix~h2}.}
-#'    \item{\code{possum.model.Dsh2:}{Fitted \code{secr} object using density model with 
+#'    \item{\code{possum.model.Dsh2:}}{Fitted \code{secr} object using density model with 
 #'    \code{D~d.to.shore, g0~h2, sigma~h2, pmix~h2}.}
-#'    \item{\code{possum.model.h2:}{Fitted \code{secr} object using density model with 
+#'    \item{\code{possum.model.h2:}}{Fitted \code{secr} object using density model with 
 #'    \code{D~1, g0~h2, sigma~h2, pmix~h2}.}
 #'  }
 #' @source Pakcage \code{secr}; origonally from Landcare Research, New Zealand.
-#' @references
-#' Efford, M. G., Dawson, D. K. and Robbins C. S. (2004) DENSITY: software for analysing 
-#' capture-recapture data from passive detector arrays. Animal Biodiversity and Conservation 
-#' 27, 217–228.
-#' 
-#' Efford, M. G., Warburton, B., Coleman, M. C. and Barker, R. J. (2005) A field test of 
-#' two methods for density estimation. Wildlife Society Bulletin 33, 731–738.
 NULL

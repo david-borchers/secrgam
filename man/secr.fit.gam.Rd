@@ -2,7 +2,7 @@
 \alias{secr.fit.gam}
 \title{SECR fit with B-pline Density GAM.}
 \usage{
-  secr.fit.gam(capthist, model, mask, ...)
+secr.fit.gam(capthist, model, mask, ...)
 }
 \arguments{
   \item{capthist}{capture history, as for function
@@ -19,12 +19,9 @@
   \item{...}{other arguments to secr.fit()}
 }
 \description{
-  Fits GAM using regression B-splines for density model.
-  Does this by creating B-spline basis functions (which are
-  stored in mask object) and then calling function secr()
-  using these.
-}
-\details{
-  (None as yet)
+Fits GAM using regression B-splines for density model. Does
+this by creating B-spline basis functions (which are stored
+in mask object) and then calling function secr() using
+these.
 }
 

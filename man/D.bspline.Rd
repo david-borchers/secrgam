@@ -2,7 +2,7 @@
 \alias{D.bspline}
 \title{B-spline density surface evaluation.}
 \usage{
-  D.bspline(Dbeta, mask, ngroup = 1, nsession = 1)
+D.bspline(Dbeta, mask, ngroup = 1, nsession = 1)
 }
 \arguments{
   \item{Dbeta}{model parameter values.}
@@ -18,17 +18,17 @@
   \code{userDfun} in package \code{\link{secr}}.}
 }
 \description{
-  Calculates density at all points in mask, using basis
-  functions in attr(mask,"bases") and parameter values in
-  Dbeta. Currently only works for 1 session and with
-  ngroup=1.
+Calculates density at all points in mask, using basis
+functions in attr(mask,"bases") and parameter values in
+Dbeta. Currently only works for 1 session and with
+ngroup=1.
 }
 \details{
-  This function conforms to the specifiction for
-  user-defined functions given in the vignette "modelling
-  density surfaces" of package "secr". It is intended for
-  use with the function secr.fit() via the userDfn
-  component of the details argument, as follows:
-  secr.fit(...,details = list(userDfn = userDfn0),...).
+This function conforms to the specifiction for user-defined
+functions given in the vignette "modelling density
+surfaces" of package "secr". It is intended for use with
+the function secr.fit() via the userDfn component of the
+details argument, as follows: secr.fit(...,details =
+list(userDfn = userDfn0),...).
 }
 

@@ -2,7 +2,7 @@
 \alias{prep4image}
 \title{Prepares data frame for plotting with image/contour/persp.}
 \usage{
-  prep4image(obj, plot = FALSE, ...)
+prep4image(obj, plot = FALSE, ...)
 }
 \arguments{
   \item{obj}{a data frame with columns x and y being
@@ -17,21 +17,15 @@
   used if plot==TRUE.}
 }
 \description{
-  From an input data frame with columns x, y and z, this
-  function creates a list with elements x, y and z in
-  format suitable for passing to functions image, contour
-  or persp.
+From an input data frame with columns x, y and z, this
+function creates a list with elements x, y and z in format
+suitable for passing to functions image, contour or persp.
 }
 \details{
-  Sorts z on values of x first, then y, then creates a
-  matrix of z-values from this. Returns a list with elemets
-  x (unique values of x, in increasing order), y (unique
-  values of y, in increasing order) and z (matrix of
-  z-values in appropriate order for image/contour/persp).
-}
-\examples{
-data(WCape.alt)
-WCape.image=prep4image(WCape.alt,plot=TRUE,col=terrain.colors(30))
-contour(WCape.image,add=TRUE)
+Sorts z on values of x first, then y, then creates a matrix
+of z-values from this. Returns a list with elemets x
+(unique values of x, in increasing order), y (unique values
+of y, in increasing order) and z (matrix of z-values in
+appropriate order for image/contour/persp).
 }
 
