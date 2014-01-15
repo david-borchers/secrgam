@@ -1,8 +1,8 @@
-\name{secr.fit.gam}
-\alias{secr.fit.gam}
+\name{secrgam.fit}
+\alias{secrgam.fit}
 \title{SECR fit with B-pline Density GAM.}
 \usage{
-secr.fit.gam(capthist, model, mask, ...)
+secrgam.fit(capthist, model, mask, ...)
 }
 \arguments{
   \item{capthist}{capture history, as for function
@@ -23,5 +23,10 @@ Fits GAM using regression B-splines for density model. Does
 this by creating B-spline basis functions (which are stored
 in mask object) and then calling function secr() using
 these.
+}
+\details{
+Returns an object of class "secr", i.e., the same class of
+object as is returned by secr.fit of package
+\code{\link{secr}}.
 }
 

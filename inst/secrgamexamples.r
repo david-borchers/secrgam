@@ -3,7 +3,7 @@
 #' # make a model with dependence on altitude via smooth with 2 degrees of freedom
 #' model=list(D~s(alt,k=2),g0~1,sigma~1)
 #' # fit model
-#' fit=secr.fit.gam(capthist=Boland.CH,model=model,mask=Boland.mask,trace=FALSE)
+#' fit=secrgam.fit(capthist=Boland.CH,model=model,mask=Boland.mask,trace=FALSE)
 #' fit # look at fit results
 #' plotDgam(fit)
 plotDgam=function(fit,type="link",mask.rug=FALSE,det.rug=TRUE,npts=200,show.knots=TRUE)

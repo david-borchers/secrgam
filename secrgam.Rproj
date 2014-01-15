@@ -16,4 +16,4 @@ BuildType: Package
 PackageInstallArgs: --no-multiarch --with-keep.source
 PackageBuildArgs: --resave-data
 PackageBuildBinaryArgs: --resave-data
-PackageRoxygenize: rd,namespace
+PackageRoxygenize: rd

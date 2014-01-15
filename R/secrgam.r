@@ -187,7 +187,10 @@ D.bspline=function(Dbeta, mask, ngroup=1, nsession=1){
 #' @param mask, as for function secr.fit().
 #' @param ... other arguments to secr.fit()
 #' 
-secr.fit.gam=function(capthist,model,mask,...){
+#' @details
+#' Returns an object of class "secr", i.e., the same class of object as is returned by 
+#' secr.fit of package \code{\link{secr}}.
+secrgam.fit=function(capthist,model,mask,...){
   gamask=prepare.mask.bases(model,mask) # create basis functions in gamask
   if(is.null(gamask)) { # no smoothed terms
     Dfit=secr.fit(capthist=capthist,model=model,mask=mask,...)
