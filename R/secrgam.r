@@ -14,7 +14,7 @@
 #' @param mask secr mask object.
 #' 
 #' @details
-#' (None as yet)
+#' (None as yet...)
 #' 
 #' @return Returns NULL if the Density model in model has no smooth terms (of form "s(x,k=b)"), else 
 #' returns mask object with attributes "bases" and "covariates" as described above.
