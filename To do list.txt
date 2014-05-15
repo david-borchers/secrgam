@@ -1,0 +1,71 @@
+## ************************************************************************** ##
+## ************************************************************************** ##
+##                                                                            ##
+##                           secrgam - to do list                             ##
+##                                                                            ##
+## ************************************************************************** ##
+## ************************************************************************** ##
+
+
+# done -----
+
+1. Extended secrgam.fit to implement tensor product regression splines (from mgcv)
+
+2. Made fxi.secrgam() - calculates P(X | Omega) using a secrgam fitted model
+
+
+
+
+
+# still to do -----
+
+PUSH TO GITHUB
+
+3. function to visualise gam smooths (borrow from mgcv)
+
+4. function to simulate popn and capthist for non-uniform density models
+
+5. function to turn rastor into gmask covariates (options to name layers, drop layers and calculate distance to layers)
+
+
+
+2. Implement "delta method" for abundance and density estimation from (regression spline or other) secr fitted model, taking as input an object output by function secrgam.fit of package secrgam. Ideally this would also take as input a mask defining the points over which density/abundance is to be estimated (hence allowing you to estimate it over sub-regions of your survey region). 
+
+3. Create a function that plots contours of activity centre location probabilities, taking as input an object output by function secrgam.fit of package secrgam and the index of an individual whose activity centre is to be plotted.
+
+3b. check that plotDgam works with updated s() functions
+
+3c. extend plotDgam to plot 2D gam...? - use vis.gam
+
+4. Create a function, plot.secrgam, similar to the plot.gam function of library mgcv, for plotting component smooth functions, taking as input an object output by secrgam.fit. (Note: the function plotDgam of library secrgam currently does this for 1D B-splines.)
+
+5. Create a function plot.dsurface to make image/contour/persp plots of fitted density surfaces obtained from secrgam.fit.  Ideally this would also take as input a mask defining the points over which density/abundance is to be plotted. 
+
+6. Test above functions, using some example datasets and tests to be decide on.
+
+7. Write Roxygen documentation for above functions.
+
+8. Build library secrgam on github with the updated functions.
+
+9. (Maybe?) Implement some unit testing of package secrgam.
+
+10. Collaborate on paper (target journal MEE?) on GAM density surface estimation for SECR, using above methods and software.
+
+11. (Maybe?) Collaborate on a short paper for MEE Applications describing the secrgam package.
+
+12. To think about: What if we have individual covariates? In this case secr will fit conditional on n, assuming constant density, and then use Horvitz-Thompson to estimate density or abundance. How is this handled for GA spatial modelling of a density surface? Do Horvitz-Thompson at each array, assuming constant density, and then fit a GAM density surface to the resulting estimates of N at each array?
+
+13. simulation using bivariate normal surface (later using rcpp version of rejection sampling for any surface)
+
+14. later on, how to deal with individual covariates
+
+15. @references section
+
+16. CITATION file
+ 
+17. NEWS file
+
+## ************************************************************************** ##
+## ************************************************************************** ##
+## ************************************************************************** ##
+## ************************************************************************** ##

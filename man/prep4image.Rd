@@ -2,28 +2,34 @@
 \alias{prep4image}
 \title{Prepares data frame for plotting with image/contour/persp.}
 \usage{
-prep4image(obj, plot = FALSE, ...)
+prep4image(data, plot = TRUE, contour = TRUE, ...)
 }
 \arguments{
-  \item{obj}{a data frame with columns x and y being
-  Cartesian coordinates on a REGULAR RECTANGULAR GRID, and
-  z being the values of some variable at each coordinate.}
+  \item{data}{a data frame with columns x and y being
+  Cartesian coordinates, and z being the values of some
+  variable at each coordinate.}
 
-  \item{plot}{A logical indicating whether or not an image
-  plot should be created (by way of checking the output of
-  this function).}
+  \item{plot}{if \code{TRUE} then an image plot will be
+  drawn using \code{\link{image.plot}}}
 
-  \item{...}{other arguments to \code{\link{image}}; only
-  used if plot==TRUE.}
+  \item{contour}{if \code{TRUE} then contours will be added
+  if (only used when \code{plot=TRUE})}
+
+  \item{...}{other arguments to pass to
+  \code{\link{image.plot}} (only used when
+  \code{plot=TRUE})}
 }
 \description{
 From an input data frame with columns x, y and z, this
-function creates a list with elements x, y and z in format
-suitable for passing to functions image, contour or persp.
+function creates a list with elements x, y and z in a
+format suitable for passing to functions
+\code{\link{image}}, \code{\link{contour}} or
+\code{\link{persp}}. The coordinates in \code{data} are
+assumed to come from a 2D grid of points.
 }
 \details{
 Sorts z on values of x first, then y, then creates a matrix
-of z-values from this. Returns a list with elemets x
+of z-values from this. Returns a list with elements x
 (unique values of x, in increasing order), y (unique values
 of y, in increasing order) and z (matrix of z-values in
 appropriate order for image/contour/persp).
