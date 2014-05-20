@@ -26,17 +26,8 @@ the Cape Leopard Trust Boland Leopard Project
 \code{Boland.image} was downloaded from
 www.ngdc.noaa.gov/mgg/global/ (and then formatted using
 \code{\link{prep4image}}).
-
-\code{Boland.CH} and \code{Boland.mask} were provided by
-the Cape Leopard Trust Boland Leopard Project
-(http://capeleopard.org.za/research/leopard/boland).
-\code{Boland.image} was downloaded from
-www.ngdc.noaa.gov/mgg/global/ (and then formatted using
-\code{\link{prep4image}}).
 }
 \usage{
-data(Boland.leopards)
-
 data(Boland.leopards)
 }
 \description{
@@ -45,18 +36,8 @@ Boland region of South Africa. Cameras were checked weekly
 and data recorded in binary format (i.e. only whether or
 not an animal was detected on each occasion, not the number
 of detections within occasions).
-
-The data are from a camera-trap survey of leopards in the
-Boland region of South Africa. Cameras were checked weekly
-and data recorded in binary format (i.e. only whether or
-not an animal was detected on each occasion, not the number
-of detections within occasions).
 }
 \references{
-Amante, C. and B. W. Eakins, ETOPO1 1 Arc-Minute Global
-Relief Model: Procedures, Data Sources and Analysis. NOAA
-Technical Memorandum NESDIS NGDC-24, 19 pp, March 2009.
-
 Amante, C. and B. W. Eakins, ETOPO1 1 Arc-Minute Global
 Relief Model: Procedures, Data Sources and Analysis. NOAA
 Technical Memorandum NESDIS NGDC-24, 19 pp, March 2009.

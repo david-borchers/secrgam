@@ -23,20 +23,11 @@
 \source{
 Pakcage \code{secr}; origonally from Landcare Research, New
 Zealand.
-
-Pakcage \code{secr}; origonally from Landcare Research, New
-Zealand.
 }
 \usage{
 data(secr.possum)
-
-data(secr.possum)
 }
 \description{
-These data are taken directly from package \code{secr}.
-Type \code{help(possum)} for a detailed description of the
-data.
-
 These data are taken directly from package \code{secr}.
 Type \code{help(possum)} for a detailed description of the
 data.

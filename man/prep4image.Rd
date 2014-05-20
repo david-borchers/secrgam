@@ -2,7 +2,7 @@
 \alias{prep4image}
 \title{Prepares data frame for plotting with image/contour/persp.}
 \usage{
-prep4image(data, plot = TRUE, contour = TRUE, ...)
+prep4image(data, plot = TRUE, contour = TRUE, key = TRUE, ...)
 }
 \arguments{
   \item{data}{a data frame with columns x and y being

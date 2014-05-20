@@ -23,11 +23,11 @@
 #' @export
 #' @importFrom fields image.plot
 
-prep4image = function(data, plot = TRUE, contour = TRUE, ...){
+prep4image = function(data, plot = TRUE, contour = TRUE, key = TRUE, ...){
   
   x = sort(unique(data$x))
   y = sort(unique(data$y))
-
+  
   z = matrix(NA, nr = length(x), nc = length(y))
   for(i in 1:length(x)){
     for(j in 1:length(y)){
@@ -37,7 +37,11 @@ prep4image = function(data, plot = TRUE, contour = TRUE, ...){
   }
   
   if(plot){
-    image.plot(x, y, z, ...)
+    if(key){
+      image.plot(x, y, z, ...)
+    }else{
+      image(x, y, z, ...)
+    }
     if(contour) contour(x, y, z, add = TRUE)
   }
   

@@ -19,11 +19,9 @@
 
 # still to do -----
 
-PUSH TO GITHUB
-
 3. function to visualise gam smooths (borrow from mgcv)
 
-4. function to simulate popn and capthist for non-uniform density models
+4. functions to simulate popn and capthist for non-uniform density models
 
 5. function to turn rastor into gmask covariates (options to name layers, drop layers and calculate distance to layers)
 

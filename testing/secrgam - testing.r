@@ -31,6 +31,7 @@ fit0 = secrgam.fit(
   mask     = Boland.mask, 
   trace    = FALSE
 )
+coef(fit0)
 predict(fit0)["D","estimate"] * 100
 predict(fit0)["g0","estimate"]
 predict(fit0)["sigma","estimate"]
