@@ -13,6 +13,7 @@ wd = setwd("~/Packages/secrgam/development/code to make Boland.leopards/original
 
 load("Boland.leopards.Rda")
 load("Boland.landuse.image.Rda")
+load("Boland.alt.Rda")
 
 
 
@@ -90,11 +91,24 @@ Boland.landuse.image$x = Boland.landuse.image$x * lon2m
 Boland.landuse.image$y = Boland.landuse.image$y * lat2m
 
 
+# alt ---------------------------------------------------------------------
+
+dim(Boland.alt)
+Boland.alt$x = Boland.alt$x * lon2m
+Boland.alt$y = Boland.alt$y * lat2m
+Boland.alt$z = as.numeric(Boland.alt$z)
+
+typeof(Boland.alt$z)
+
+Boland.alt.image = prep4image(Boland.alt)
+image(Boland.alt.image)
+
 
 # save --------------------------------------------------------------------
 
 save(Boland.mask, Boland.CH, Boland.image, file = "~/Packages/secrgam/data/Boland.leopards.rda")
 save(Boland.landuse.image, file = "~/Packages/secrgam/data/Boland.landuse.image.rda")
+save(Boland.alt.image, file = "~/Packages/secrgam/data/Boland.alt.image.rda")
 
 
 

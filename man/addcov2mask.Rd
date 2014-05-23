@@ -2,58 +2,92 @@
 \alias{addcov2mask}
 \title{Add covariates to mask from raster data}
 \usage{
-addcov2mask(mask, raster, layer.names = NULL, distance.to.layer = NULL,
-  plot = TRUE, layer.cols = NULL)
+addcov2mask(mask, raster, names = NULL, distance.to = NULL, drop = NULL,
+  plot = TRUE, cols = NULL)
 }
 \arguments{
-  \item{mask}{description needed...}
+  \item{mask}{\code{\link{mask}} object (as used by
+  \code{\link{secrgam.fit}} and \code{\link{secr.fit}})}
 
-  \item{raster}{description needed...}
+  \item{raster}{list with components x,y, and z in the same
+  style as used by contour, persp, image etc. x and y are
+  the X and Y grid values and z is a matrix with the
+  corresponding values of the surface (this gets passed to
+  \code{\link{interp.surface}})}
 
-  \item{layer.names}{description needed...}
+  \item{names}{names to associate with the values in
+  \code{raster} (for multiple layer types)}
 
-  \item{distance.to.layer}{description needed...}
+  \item{distance.to}{names of any layers for which
+  `distance to' covariates are to be calcuated}
 
-  \item{plot}{description needed...}
+  \item{drop}{names of layers to be deleted from the mask}
 
-  \item{layer.cols}{description needed...}
+  \item{plot}{if TRUE then an image plot will be drawn
+  using \code{\link{prep4image}}}
 
-  \item{...}{additional arguments to pass to
-  \code{\link{prep4image}}}
+  \item{cols}{colours to associate with the layers (only
+  used if \code{plot = TRUE})}
+}
+\value{
+Returns a new mask object.
 }
 \description{
-Adds covaraiates to a habitat mask from a GIS landuse data
-in raster format.
+Adds covaraiates to a habitat mask from a GIS landcover
+data in raster format.
 }
 \details{
-details needed...
+If \code{typeof(raster$z) = "double"} then elements of
+\code{raster$z} are assumed to represent a single layer
+type. If \code{typeof(raster$z) = "integer"} then each
+unique integer is assumed to represent a unique landcover
+type. If the mask already contains covariates whose names
+are identical to those supplied in \code{names} then these
+will be overwritten.
 }
 \examples{
 # load mask and raster data
 data(Boland.leopards)
 data(Boland.landuse.image)
+data(Boland.alt.image)
 
-# function defaults
+# save par settings
 op = par(no.readonly = TRUE)
+
+# single landcover type
 par(mfrow = c(1,1), mar = c(2,2,2,2), oma = c(0,0,0,0))
-newmask = addcov2mask(
-  Boland.mask, Boland.landuse.image,
-  layer.names = c("Unknown", "Natural", "Cultivated", "Degraded", "Urban", "Water", "Plantation"),
-  layer.cols = c("black", "green3", "yellow", "tan", "dimgray", "blue", "gold2"),
-)
-par(op)
+newmask = addcov2mask(Boland.mask, Boland.alt.image, "altitude")
 head(attributes(newmask)$covariates)
 
-# specify colors and calculate distance to water and urbarn landclasses
-op = par(no.readonly = TRUE)
-par(mfrow = c(1,3), mar = c(2,2,2,2), oma = c(0,0,0,0))
+# mutiple landcover types
 newmask = addcov2mask(
   Boland.mask, Boland.landuse.image,
-  layer.names = c("Unknown", "Natural", "Cultivated", "Degraded", "Urban", "Water", "Plantation"),
-  layer.cols = c("black", "green3", "yellow", "tan", "dimgray", "blue", "gold2"),
-  distance.to.layer = c("Urban","Water")
+  names = c("Unknown", "Natural", "Cultivated", "Degraded", "Urban", "Water", "Plantation"),
+  cols = c("black", "green3", "yellow", "tan", "dimgray", "blue", "gold2"),
 )
-par(op)
 head(attributes(newmask)$covariates)
+
+# mutiple landcover types - including distance to water and urbarn
+par(mfrow = c(1,3))
+newmask = addcov2mask(
+  Boland.mask, Boland.landuse.image,
+  names = c("Unknown", "Natural", "Cultivated", "Degraded", "Urban", "Water", "Plantation"),
+  cols = c("black", "green3", "yellow", "tan", "dimgray", "blue", "gold2"),
+  distance.to = c("Urban","Water")
+)
+head(attributes(newmask)$covariates)
+
+# mutiple landcover types - including distance to water and urbarn (and deleting these mask points)
+newmask = addcov2mask(
+  Boland.mask, Boland.landuse.image,
+  names = c("Unknown", "Natural", "Cultivated", "Degraded", "Urban", "Water", "Plantation"),
+  cols = c("black", "green3", "yellow", "tan", "dimgray", "blue", "gold2"),
+  distance.to = c("Urban","Water"),
+  drop = c("Urban","Water")
+)
+head(attributes(newmask)$covariates)
+
+# reset par settings
+par(op)
 }
 

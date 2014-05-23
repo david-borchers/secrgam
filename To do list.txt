@@ -13,17 +13,17 @@
 
 2. Made fxi.secrgam() - calculates P(X | Omega) using a secrgam fitted model
 
-
+3. Wrote addcov2mask() - convert info from raster landuse to mask covariates
 
 
 
 # still to do -----
 
-3. function to visualise gam smooths (borrow from mgcv)
-
 4. functions to simulate popn and capthist for non-uniform density models
 
-5. function to turn rastor into gmask covariates (options to name layers, drop layers and calculate distance to layers)
+3. function to visualise gam smooths (borrow from mgcv)
+
+5. add param descriptions to addcov2mask() help file
 
 
 
