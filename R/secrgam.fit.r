@@ -23,7 +23,7 @@ secrgam.fit = function(capthist, model, mask, ...){
   model = secr:::stdform(model)
   
   # make a new mask that includes the design matrix for the smooth within the covariates attribute
-  gamask = prepare.mask.bases(model, mask) 
+  gamask = prepare.mask.bases(model, mask)
   
   # get the design matrix term names 
   Dparnames = colnames(attr(gamask, "covariates")) 
@@ -45,8 +45,11 @@ secrgam.fit = function(capthist, model, mask, ...){
   # replace density formula
   model$D = formula(form)
   
+  # add basis covariates to mask
+  covariates(mask)=covariates(gamask)
+  
   # fit with secr.fit
-  fit = secr.fit(capthist = capthist, model = model, mask = gamask, ...)
+  fit = secr.fit(capthist = capthist, model = model, mask = mask, ...)
   
   class(fit) = c("secrgam", class(fit))
   

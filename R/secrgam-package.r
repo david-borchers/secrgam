@@ -49,7 +49,8 @@
 #' # make a model with dependence on altitude via smooth with 2 degrees of freedom
 #' model = list(D ~ s(alt, k = 2), g0 ~ 1, sigma ~ 1)
 #' 
-#' # fit model (and look at how long it takes)
+#' # fit model
+#' \dontrun{
 #' fit <- secrgam.fit(capthist = Boland.CH, model = model, mask = Boland.mask, trace = FALSE)
 #' fit # look at fit results
 #' 
@@ -60,5 +61,6 @@
 #' 
 #' # plot smooths:
 #' plotDgam(fit)
+#' }
 
 NULL
