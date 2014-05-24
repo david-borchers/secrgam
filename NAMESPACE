@@ -1,3 +1,5 @@
+S3method(AIC,secr)
+S3method(AIC,secrlist)
 export(D.bspline)
 export(add.covariate.bases)
 export(addcov2mask)
