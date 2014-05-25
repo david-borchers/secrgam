@@ -32,7 +32,10 @@ prepare.mask.bases = function(model, mask){
   
   # make a dummy data frame with a response column
   mask$D = 1
-
+  # put x and y in mask
+  covariates(mask)=cbind(covariates(mask),x=mask$x)
+  covariates(mask)=cbind(covariates(mask),y=mask$y)
+  
   # add mask attributes (if there are any)
   if(!is.null(attr(mask, "covariates"))) 
     for(cov in names(attr(mask, "covariates")))
@@ -53,10 +56,14 @@ prepare.mask.bases = function(model, mask){
   # clean up the names so they can be used inside formula objects (without the use of backticks)
   colnames(X) = gsub("\\(", ".", colnames(X)) 
   colnames(X) = gsub("[\\)]|[,]", "", colnames(X)) 
-
+  
+  # set up a few things to help plotting later:
+  covs=attr(G$terms,"term.labels") # names of covariates in model
+  covrange=apply(covariates(mask)[,covs,drop=FALSE],2,range) # range of covariates in model
+  
   # replace the mask attributes with the new design matrix
   attributes(mask)$covariates = as.data.frame(X)
   
-  return(mask)   
+  return(list(mask=mask,cov.range=covrange))   
   
 }
