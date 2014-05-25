@@ -1,9 +1,9 @@
 \name{plotDgam}
 \alias{plotDgam}
-\title{SECR Density B-pline plotting.}
+\title{SECR Density spline plotting.}
 \usage{
 plotDgam(fit, type = "link", mask.rug = FALSE, det.rug = TRUE,
-  npts = 200, show.knots = TRUE)
+  npts = 200, show.knots = FALSE)
 }
 \arguments{
   \item{fit}{object returned by secr.fit().}
@@ -21,7 +21,7 @@ plotDgam(fit, type = "link", mask.rug = FALSE, det.rug = TRUE,
   evaluate smooth.}
 
   \item{show.knots}{if TRUE, puts crosses on smooth at knot
-  locations.}
+  locations. NOT YET IMPLEMENTED.}
 }
 \description{
 Plots B-spline smooth components of an secr density model
