@@ -50,9 +50,9 @@ fxi.secrgam = function (object, i=1, col=1:length(i),X = NULL, plt=TRUE, add=FAL
   
   ni=length(i)
   fxi=matrix(rep(NA,ni*length(D)),ncol=ni)
-  for(indiv in i){
+  for(indiv in 1:ni){
     # get the normalised version of P(Omega | X) from the fxi.secr function
-    fxi[,indiv] = fxi.secr(object = object, i=indiv, X = X[,c("x","y")], ...)
+    fxi[,indiv] = fxi.secr(object = object, i=i[indiv], X = X[,c("x","y")], ...)
     
     # modify this to incorporate the fitted density surface
     # (the normalising constant used in fxi.secr cancels out)

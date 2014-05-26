@@ -55,7 +55,7 @@ secrgam.fit = function(capthist, model, mask, ...){
   # fit with secr.fit
   fit = secr.fit(capthist = capthist, model = model, mask = mask, ...)
   
-  # add original model and orgiginl mask to fit object
+  # add original model and orginal mask to fit object
   fit$Dmodel=orig.model$D
   fit$orig.mask=orig.mask
   
