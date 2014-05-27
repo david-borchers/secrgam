@@ -1,0 +1,28 @@
+\name{esa}
+\alias{esa}
+\title{Effective survey area calculation for secrgam objects}
+\usage{
+esa(object, ..., use.secr = FALSE)
+}
+\arguments{
+  \item{object}{a fitted secrgam model (returned from
+  \code{\link{secrgam.fit}})}
+
+  \item{...}{additional arguments passed to \code{esa} for
+  package \code{\link{secr}}.}
+
+  \item{use.secr}{logical which, when TRUE, forces
+  estimation with \code{esa} from package
+  \code{\link{secr}}.}
+}
+\description{
+If the density model is uniform, calls \code{esa} from
+package \code{\link{secr}} to calculate effective survey
+area, else returns an error message.
+}
+\details{
+The esa for non-uniform density models is not yet
+implemented. See \code{esa} in package \code{\link{secr}}
+for details of esa calculation when density is uniform.
+}
+
