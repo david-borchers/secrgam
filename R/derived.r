@@ -19,7 +19,6 @@ derived=function(object,...,use.secr=FALSE){
     if(inherits(object,"secrgam")) {
       if(((object$Dmodel=="~-1") | (object$Dmodel=="~ -1") |
             (object$Dmodel=="D~-1") | (object$Dmodel=="D ~ -1"))) {
-        class(object="secr")
         return(secr:::derived(object,...))
       } else stop("Function derived is not implemented for non-uniform density surfaces.")
     } else if(inherits(object,"secrgam")) return(secr:::derived(object,...))

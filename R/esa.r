@@ -16,9 +16,8 @@ esa=function(object,...,use.secr=FALSE){
     return(secr:::esa(object,...))
   } else {
     if(inherits(object,"secrgam")) {
-      if(((object$Dmodel=="~-1") | (object$Dmodel=="~ -1") |
-            (object$Dmodel=="D~-1") | (object$Dmodel=="D ~ -1"))) {
-        class(object="secr")
+      if(((object$Dmodel=="~1") | (object$Dmodel=="~ 1") |
+            (object$Dmodel=="D~1") | (object$Dmodel=="D ~ 1"))) {
         return(secr:::esa(object,...))
       } else stop("Function esa is not implemented for non-uniform density surfaces.")
     } else if(inherits(object,"secrgam")) return(secr:::esa(object,...))

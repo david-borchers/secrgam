@@ -73,7 +73,7 @@
 #' @importFrom fields interp.surface
 #' @export
 
-addcov2mask = function(mask, raster, names = NULL, distance.to = NULL, drop = NULL, plot = TRUE, cols = NULL){
+addcov2mask = function(mask, raster, names = NULL, distance.to = NULL, drop = NULL, plot = TRUE, cols = NULL,domulti=FALSE){
   
   if(0){
     data(Boland.leopards); mask = Boland.mask
@@ -91,7 +91,9 @@ addcov2mask = function(mask, raster, names = NULL, distance.to = NULL, drop = NU
                 "integer" = "multi",
                 stop("typeof(raster$z) must be integer (i.e. multiple layer types) or numeric (i.e. single layer type)"))
   
-  if(type == "single"){
+  if(type == "single"  & domulti) stop("Can only do multi-layer covariates with integer variables")
+  
+  if(type == "single"  & domulti){
     
     # error checks
     if(is.null(names)){
@@ -111,7 +113,7 @@ addcov2mask = function(mask, raster, names = NULL, distance.to = NULL, drop = NU
     
   }
   
-  if(type == "multi"){
+  if(type == "multi" & domulti){
     
     # unique layers in raster data
     layers = sort(unique(as.vector(raster$z))) ; layers

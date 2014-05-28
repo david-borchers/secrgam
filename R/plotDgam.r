@@ -26,9 +26,9 @@ plotDgam=function(fit,type="link",mask.rug=FALSE,det.rug=TRUE,npts=200,show.knot
   # get smooth terms and associted variables:
   Dmodel=as.character(fit$Dmodel)
   terms=strsplit(Dmodel," + ",fixed=TRUE)[[2]]
-  sterms=terms[substr(terms,1,1)=="s"]
+  sterms=terms[substr(terms,1,1)=="s" | substr(terms,1,2)=="te"]
   nsp=length(sterms)
-  if(nsp==0) stop("No smooth terms in Density model has no variables so can't plot anything.")
+  if(nsp==0) stop("No univariate smooths (s() or te()) in Density model so can't plot anything.")
   svar=rep(NA,nsp)
   for(i in 1:nsp){
     svar[i]=strsplit(strsplit(sterms[i],",",fixed=TRUE)[[1]][1],"(",fixed=TRUE)[[1]][2]
