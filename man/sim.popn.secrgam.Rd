@@ -1,0 +1,44 @@
+\name{sim.popn.secrgam}
+\alias{sim.popn.secrgam}
+\title{Generate a population using any density formula}
+\usage{
+sim.popn.secrgam(Dmodel, Dpars, mask, log = TRUE)
+}
+\arguments{
+  \item{Dmodel}{density model formula}
+
+  \item{Dpars}{associated parameters for the density model}
+
+  \item{mask}{\code{\link{mask}} object (as used by
+  \code{\link{secrgam.fit}} and \code{\link{secr.fit}})}
+
+  \item{link}{if \code{TRUE} the log link is used, if
+  \code{FALSE} the identity link is used}
+}
+\value{
+value...
+}
+\description{
+description...
+}
+\details{
+details...
+}
+\examples{
+# construct a tensor product model to represent a bivariate normal
+data(Boland.leopards)
+require(mvtnorm)
+D = dmvnorm(Boland.mask, apply(Boland.mask, 2, mean), 10e7*diag(2)) * 10e6
+N = sum(D) * attributes(Boland.mask)$area ; N
+data = cbind(z = D, Boland.mask)
+prep4image(data, key = FALSE, col = tim.colors(10))
+Dmodel = D ~ te(x, y, k = 3)
+fit = gam(Dmodel, gaussian(link = "log"), data)
+prep4image(data.frame(x = data$x, y = data$y, z = fitted(fit)), key = FALSE)
+Dpars = coef(fit) ; Dpars
+
+# simulate a population
+popn = sim.popn.secrgam(Dmodel, Dpars, Boland.mask) ; head(popn) ; dim(popn)
+points(popn, cex = 0.5, pch = 19)
+}
+
