@@ -5,7 +5,7 @@
 # 6. Update documentation, including:
 #    a. Remove references to B-splines and replace with any spline from mgcv.
 #    b. Make help for "secrgam" rather than (or as well as) "secrgam-package"
-#
+# 7. Convert these ot UTM: WCape.alt, WCape.alt.image, ...
 #
 #
 

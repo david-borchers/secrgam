@@ -1,6 +1,6 @@
 \name{secrgam.fit}
 \alias{secrgam.fit}
-\title{SECR fit with B-pline Density GAM.}
+\title{SECR fit with flexible Density models.}
 \usage{
 secrgam.fit(capthist, model, mask, ...)
 }
@@ -9,10 +9,12 @@ secrgam.fit(capthist, model, mask, ...)
   \code{secr.fit}.}
 
   \item{model}{model list, as for function \code{secr.fit},
-  but allowing terms of the form \code{s(var,k=df)}, where
-  var is a mask coordinate (x or y) or a variable in
-  \code{attr(mask, "covariate")} and df is the degrees of
-  freedom of the B-spline smooth (i.e. the number of
+  but allowing terms of the form \code{s(var,k=df)},
+  \code{s(var,...,k=df)}, \code{te(var,...,k=df)} where var
+  is a mask coordinate (x or y) or a variable in
+  \code{attr(mask, "covariate")}, ``...'' is a
+  comma-separated list of other such variables, and df is
+  the degrees of freedom of the spline basis (the number of
   knots).}
 
   \item{mask,}{as for function \code{secr.fit}}
@@ -20,14 +22,14 @@ secrgam.fit(capthist, model, mask, ...)
   \item{...}{other arguments to \code{secr.fit}}
 }
 \description{
-Fits GAM using regression B-splines for density model. Does
-this by creating B-spline basis functions (which are stored
-in mask object) and then calling function
-\code{\link{secr.fit}} using these.
+Fits GAM using regression splines for the density model.
+Does this by creating spline basis functions (which are
+stored as covariates in a mask object) and then calling
+function \code{\link{secr.fit}} to operate on these.
 }
 \details{
-Returns an object of class "secr", i.e., the same class of
-object as is returned by \code{secr.fit} of package
-\code{\link{secr}}.
+Returns an object of class c("secrgam","secr"), the latter
+being same class of object as is returned by
+\code{secr.fit} of package \code{\link{secr}}.
 }
 

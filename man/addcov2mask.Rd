@@ -3,7 +3,7 @@
 \title{Add covariates to mask from raster data}
 \usage{
 addcov2mask(mask, raster, names = NULL, distance.to = NULL, drop = NULL,
-  plot = TRUE, cols = NULL)
+  plot = TRUE, cols = NULL, domulti = FALSE)
 }
 \arguments{
   \item{mask}{\code{\link{mask}} object (as used by
@@ -28,6 +28,12 @@ addcov2mask(mask, raster, names = NULL, distance.to = NULL, drop = NULL,
 
   \item{cols}{colours to associate with the layers (only
   used if \code{plot = TRUE})}
+
+  \item{domulti}{logical for categorical integer variable
+  (like land use class) into columns of binary data for
+  each category at each mask point if TRUE. If FALSE then
+  treats creates a single column with the integer integer
+  values.}
 }
 \value{
 Returns a new mask object.

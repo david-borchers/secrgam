@@ -1,9 +1,9 @@
 \docType{data}
-\name{WCape.alt}
-\alias{WCape.alt}
-\title{Altitudes in Western Cape.}
-\format{A data frame with the following elements $x, $y and $z, where $x and $y are longitude
-and latitude and $z is altitude (in m).}
+\name{WCape.alt.image}
+\alias{WCape.alt.image}
+\title{Altitudes in Western Cape (in fromat for plotting).}
+\format{A list with the following elements: $x (vector of unique longitudes, in increasing order),
+$y (vector of unique longitudes, in increasing order) and $z (matrix of altitudes)..}
 \source{
 www.ngdc.noaa.gov/mgg/global/
 }

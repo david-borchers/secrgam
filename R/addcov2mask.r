@@ -18,6 +18,9 @@
 #'   \code{\link{prep4image}}
 #' @param cols colours to associate with the layers (only used if \code{plot =
 #'   TRUE})
+#' @param domulti logical for categorical integer variable (like land use class) into columns of 
+#' binary data for each category at each mask point if TRUE. If FALSE then treats creates a single 
+#' column with the integer integer values.
 #'   
 #' @details If \code{typeof(raster$z) = "double"} then elements of 
 #'   \code{raster$z} are assumed to represent a single layer type. If 
@@ -93,7 +96,7 @@ addcov2mask = function(mask, raster, names = NULL, distance.to = NULL, drop = NU
   
   if(type == "single"  & domulti) stop("Can only do multi-layer covariates with integer variables")
   
-  if(type == "single"  & domulti){
+  if(type == "single"  | !domulti){
     
     # error checks
     if(is.null(names)){
