@@ -1,6 +1,6 @@
 
 #' @name secrgam-package
-#' @alias secrgam
+#' @aliases secrgam
 #' @docType package
 #' @title SECR with Density Surface GAMs
 #' @description Implements Genaralized Additive Models for modelling density 
