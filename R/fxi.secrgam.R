@@ -7,9 +7,15 @@
 #'   
 #' @param object a fitted secrgam model (returned from 
 #'   \code{\link{secrgam.fit}})
+#' @param i integer or character vector of individuals for which to plot contours
+#' @param col integer or character vector of colour for individuals' contours
 #' @param X 2-column matrix of x- and y- coordinates (e.g. the original mask)
-#' @param ... additional arguments passed to \code{\link{fxi.secr}} (i.e. 
-#'   \code{i}, \code{sessnum} or \code{normal})
+#' @param plt logical to do contour plot
+#' @param add logical to add to existing plot
+#' @param sessnum session number if object$capthist spans multiple sessions
+#' @param border width of blank margin around the outermost detectors
+#' @param normal logical; should values of pdf be normalised?
+#' @param ... additional arguments passed to contour.
 #'   
 #' @details \code{fxi.secr} returns a vector of probability densities assuming a
 #'   uniform density distribution,
@@ -25,7 +31,7 @@
 #'   Needs to be tested for cases where density model has fixed parameters. Also assumes that log link is used for density.
 #' @export
 
-fxi.secrgam = function (object, X = NULL, ...) {
+fxi.secrgam = function (object, i=1, col=1:length(i),X = NULL, plt=TRUE, add=FALSE, sessnum=1, border=0, normal=TRUE, ...) {
 
   # if no X supplied, then use the original mask
   if(is.null(X)) X = object$mask
@@ -42,14 +48,24 @@ fxi.secrgam = function (object, X = NULL, ...) {
   # modify the density model so that fxi.secr doesn't throw an error
   object$model$D = ~1
   
-  # get the normalised version of P(Omega | X) from the fxi.secr function
-  fxi = fxi.secr(object = object, X = X[,c("x","y")], ...)
-  
-  # modify this to incorporate the fitted density surface
-  # (the normalising constant used in fxi.secr cancels out)
-  fxi = fxi * D / sum(fxi * D)
-  
-  return(fxi)
+  ni=length(i)
+  fxi=matrix(rep(NA,ni*length(D)),ncol=ni)
+  for(indiv in 1:ni){
+    # get the normalised version of P(Omega | X) from the fxi.secr function
+    fxi[,indiv] = fxi.secr(object = object, i=i[indiv], X = X[,c("x","y")], ...)
+    
+    # modify this to incorporate the fitted density surface
+    # (the normalising constant used in fxi.secr cancels out)
+    fxi[,indiv] = fxi[,indiv] * D / sum(fxi[,indiv] * D)
+    
+    if(plt){
+      ctdf=data.frame(x=X$x,y=X$y,z=fxi[,indiv])
+      contour(prep4image(ctdf,plot=FALSE),add=add,col=col[indiv],...)
+    }
+    if(!add) add=TRUE # so that subsequent contours are on same plot
+  }
+  if (plt) invisible(fxi)
+  else return(fxi)
 
   # Note - it would probably be a bit quicker to use:
   # fxi = D * fxi.secr(object = object, X = X, ...)

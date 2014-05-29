@@ -1,13 +1,15 @@
 
-#' @title Add B-splines to mask.
+#' @title Add spline basis functions to mask covariates.
 #'   
 #' @description Replaces attr(mask,"covariates") with a data frame containing
 #' new variables comprising basis function values for smoopthed variables,
 #' toghether with non-smoothed variables (but excluding "x" and "y", which are
-#' in mask already). Also adds a list of basis functions to
+#' in mask already). 
+#' 
+#' Also adds a list of basis functions to
 #' attributes(mask)$bases, and the df of each basis in
 #' attributes(mask)$bases.df. The list attribtes(mask)$bases contains original
-#' variables as 1D matrix if the variable is not smoothed, and B-spline basis
+#' variables as 1D matrix if the variable is not smoothed, and spline basis
 #' object (a >1D matrix with attributes givning knots, etc.) if it is smoothed. 
 #' The vector attr(mask,"bases.df") contains the degrees of freedom of the
 #' smooths.
@@ -30,7 +32,10 @@ prepare.mask.bases = function(model, mask){
   
   # make a dummy data frame with a response column
   mask$D = 1
-
+  # put x and y in mask
+  covariates(mask)=cbind(covariates(mask),x=mask$x)
+  covariates(mask)=cbind(covariates(mask),y=mask$y)
+  
   # add mask attributes (if there are any)
   if(!is.null(attr(mask, "covariates"))) 
     for(cov in names(attr(mask, "covariates")))
@@ -51,10 +56,14 @@ prepare.mask.bases = function(model, mask){
   # clean up the names so they can be used inside formula objects (without the use of backticks)
   colnames(X) = gsub("\\(", ".", colnames(X)) 
   colnames(X) = gsub("[\\)]|[,]", "", colnames(X)) 
-
+  
+  # set up a few things to help plotting later:
+  covs=attr(G$terms,"term.labels") # names of covariates in model
+  covrange=apply(covariates(mask)[,covs,drop=FALSE],2,range) # range of covariates in model
+  
   # replace the mask attributes with the new design matrix
   attributes(mask)$covariates = as.data.frame(X)
-    
-  return(mask)   
+  
+  return(list(mask=mask,cov.range=covrange))   
   
 }
