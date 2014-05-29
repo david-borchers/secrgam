@@ -1,5 +1,6 @@
 \docType{package}
 \name{secrgam-package}
+\alias{secrgam}
 \alias{secrgam-package}
 \title{SECR with Density Surface GAMs}
 \description{
