@@ -22,7 +22,7 @@ returns an error message.
 }
 \details{
 The density for non-uniform density models is not yet
-implemented. See \code{\link{secr:::derived}} in package
+implemented. See \code{derived} in package
 \code{\link{secr}} for details of derived calculations when
 density is uniform.
 }
