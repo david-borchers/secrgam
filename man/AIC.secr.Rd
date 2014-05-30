@@ -26,8 +26,8 @@
 }
 \description{
 Terse report on the fit of one or more spatially explicit
-capture–recapture models. Models with smaller values of
-AIC (Akaike's Information Criterion) are preferred.
+capture–recapture models. Models with smaller values of AIC
+(Akaike's Information Criterion) are preferred.
 }
 \details{
 Same as the function of same name in package \code{secr},
