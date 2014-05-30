@@ -2,8 +2,9 @@
 \alias{image.plot.mask}
 \title{Image plot of mask object.}
 \usage{
-image.plot.mask(mask, covariate = NULL, contours = TRUE, xlab = NULL,
-  ylab = NULL, main = NULL, ppoly = TRUE, polycol = "red", ...)
+\method{image}{plot.mask}(mask, covariate = NULL, contours = TRUE,
+  xlab = NULL, ylab = NULL, main = NULL, ppoly = TRUE,
+  polycol = "red", ...)
 }
 \arguments{
   \item{mask}{object of class \code{mask}.}

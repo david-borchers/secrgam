@@ -1,4 +1,4 @@
-#' @title Compare SECR models.
+#' @title Compare SECRgam models.
 #'   
 #' @description Terse report on the fit of one or more spatially explicit capture–recapture models. 
 #' Models with smaller values of AIC (Akaike's Information Criterion) are preferred.
@@ -13,8 +13,12 @@
 #' 
 #' @details Same as the function of same name in package \code{secr}, but also takes objects of
 #' class \code{secrgam} as input. See \code{help(secr:::AIC.secr)} for details.
+#' 
+#' @details NOTE: This function can be used to compare objects of class "secrgam" (output by secrgam.fit)
+#' and those of class "secr" PROVIDING that the first object passed to the function is of class "secrgam". 
+#' 
 #' @export
-AIC.secr=function(object,...,sort=TRUE,k=2,dmax=10,criterion=c("AICc","AIC"))
+AIC.secrgam=function(object,...,sort=TRUE,k=2,dmax=10,criterion=c("AICc","AIC"))
 {
   allargs <- list(...)
   nargs=length(allargs)
