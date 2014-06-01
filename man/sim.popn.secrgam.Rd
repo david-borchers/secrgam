@@ -2,7 +2,7 @@
 \alias{sim.popn.secrgam}
 \title{Generate a population using any density formula}
 \usage{
-sim.popn.secrgam(Dmodel, Dpars, mask, log = TRUE)
+sim.popn.secrgam(Dmodel, Dpars, mask, link = "log")
 }
 \arguments{
   \item{Dmodel}{density model formula}
@@ -25,9 +25,10 @@ description...
 details...
 }
 \examples{
+\dontrun{
 # construct a tensor product model to represent a bivariate normal
 data(Boland.leopards)
-require(mvtnorm)
+library(mvtnorm)
 D = dmvnorm(Boland.mask, apply(Boland.mask, 2, mean), 10e7*diag(2)) * 10e6
 N = sum(D) * attributes(Boland.mask)$area ; N
 data = cbind(z = D, Boland.mask)
@@ -40,5 +41,6 @@ Dpars = coef(fit) ; Dpars
 # simulate a population
 popn = sim.popn.secrgam(Dmodel, Dpars, Boland.mask) ; head(popn) ; dim(popn)
 points(popn, cex = 0.5, pch = 19)
+}
 }
 

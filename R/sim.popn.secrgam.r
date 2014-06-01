@@ -1,4 +1,3 @@
-
 #' @title Generate a population using any density formula
 #'   
 #' @description description...
@@ -12,9 +11,10 @@
 #' @details details...
 #' @return value...
 #' @examples
+#' \dontrun{
 #' # construct a tensor product model to represent a bivariate normal
 #' data(Boland.leopards)
-#' require(mvtnorm)
+#' library(mvtnorm)
 #' D = dmvnorm(Boland.mask, apply(Boland.mask, 2, mean), 10e7*diag(2)) * 10e6
 #' N = sum(D) * attributes(Boland.mask)$area ; N
 #' data = cbind(z = D, Boland.mask)
@@ -27,20 +27,23 @@
 #' # simulate a population
 #' popn = sim.popn.secrgam(Dmodel, Dpars, Boland.mask) ; head(popn) ; dim(popn)
 #' points(popn, cex = 0.5, pch = 19)
+#' }
 #' @importFrom mgcv gam
 #' @export
 
-sim.popn.secrgam = function(Dmodel, Dpars, mask, log = TRUE){
+sim.popn.secrgam = function(Dmodel, Dpars, mask, link = "log"){
   
+  if(!is.element(link,c("log","identit"))) stop("Only log and idenity links implemented.")
+    
   # make dummy data for use in gam
   data = cbind(D = 1, mask, attributes(mask)$covariates)
   
   # use gam to get design matrix
-  X = gam(Dmodel, gaussian(link = if(log) "log" else "identity"), data, fit = FALSE)$X
+  X = gam(Dmodel, gaussian(link = link), data, fit = FALSE)$X
   
   # evaluate the model for each mask point
   D = X %*% Dpars
-  if(log) D = exp(D)
+  if(link=="log") D = exp(D)
   
   # use the IHP option in sim.popn
   sim.popn(D, mask, model2D = "IHP", covariates = NULL) 

@@ -35,11 +35,12 @@
 #' library(secrgam)
 #' 
 #' data(Boland.leopards)
+#' data(Boland.alt.image)
 #' 
 #' # plot survey region and traps
 #' Boland.cameras = traps(Boland.CH)
-#' image(Boland.image, col = terrain.colors(60))
-#' contour(Boland.image, add = TRUE)
+#' image(Boland.alt.image, col = terrain.colors(60),main="Altitude map")
+#' contour(Boland.alt.image, add = TRUE)
 #' plot(Boland.cameras, add = TRUE, detpar = list(pch = "+", cex = 1.2))
 #' 
 #' # summarise and plot capture histories

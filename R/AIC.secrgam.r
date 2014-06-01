@@ -12,7 +12,7 @@
 #' @param criterion	character, criterion to use for model comparison and weights.
 #' 
 #' @details Same as the function of same name in package \code{secr}, but also takes objects of
-#' class \code{secrgam} as input. See \code{help(secr:::AIC.secr)} for details.
+#' class \code{secrgam} as input. See \code{help(AIC.secr)} for details.
 #' 
 #' @details NOTE: This function can be used to compare objects of class "secrgam" (output by secrgam.fit)
 #' and those of class "secr" PROVIDING that the first object passed to the function is of class "secrgam". 

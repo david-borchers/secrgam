@@ -15,6 +15,9 @@ prep4image(data, plot = TRUE, contour = TRUE, key = TRUE, ...)
   \item{contour}{if \code{TRUE} then contours will be added
   if (only used when \code{plot=TRUE})}
 
+  \item{key}{logical for whether or not to plot color key
+  with plot}
+
   \item{...}{other arguments to pass to
   \code{\link{image.plot}} (only used when
   \code{plot=TRUE})}

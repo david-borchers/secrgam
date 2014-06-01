@@ -9,6 +9,8 @@
 #' @param xlab label for x-axis. If NULL, prints "x".
 #' @param ylab label for x-axis. If NULL, prints "y".
 #' @param ppoly logical for whether the bounding polygon should be plotted (if mask has a ‘polygon’ attribute),
+#' @param polycol color of bounding polygon line.
+#' @param main main title of plot.
 #' @param ... other arguments to \code{\link{image.plot}} 
 #' (which includes arguments to \code{\link{image}}).
 #'   

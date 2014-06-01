@@ -2,9 +2,8 @@
 \alias{image.plot.mask}
 \title{Image plot of mask object.}
 \usage{
-\method{image}{plot.mask}(mask, covariate = NULL, contours = TRUE,
-  xlab = NULL, ylab = NULL, main = NULL, ppoly = TRUE,
-  polycol = "red", ...)
+image.plot.mask(mask, covariate = NULL, contours = TRUE, xlab = NULL,
+  ylab = NULL, main = NULL, ppoly = TRUE, polycol = "red", ...)
 }
 \arguments{
   \item{mask}{object of class \code{mask}.}
@@ -22,6 +21,10 @@
 
   \item{ppoly}{logical for whether the bounding polygon
   should be plotted (if mask has a ‘polygon’ attribute),}
+
+  \item{polycol}{color of bounding polygon line.}
+
+  \item{main}{main title of plot.}
 
   \item{...}{other arguments to \code{\link{image.plot}}
   (which includes arguments to \code{\link{image}}).}

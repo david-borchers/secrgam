@@ -13,6 +13,7 @@
 #'   \code{\link{image.plot}}
 #' @param contour if \code{TRUE} then contours will be added if (only used when 
 #'   \code{plot=TRUE})
+#' @param key logical for whether or not to plot color key with plot
 #' @param ... other arguments to pass to \code{\link{image.plot}} (only used 
 #'   when \code{plot=TRUE})
 #'   

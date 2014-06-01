@@ -32,6 +32,6 @@ capture–recapture models. Models with smaller values of AIC
 \details{
 Same as the function of same name in package \code{secr},
 but also takes objects of class \code{secrgam} as input.
-See \code{help(secr:::AIC.secr)} for details.
+See \code{help(AIC.secr)} for details.
 }
 
