@@ -2,52 +2,88 @@
 #'   
 #' @description description...
 #'   
+#' @param fit a fitted \code{\link{secrgam}} or \code{\link{secr}} model
+#' @param N average abundance (converts density surface to relative density)
 #' @param Dmodel density model formula
 #' @param Dpars associated parameters for the density model
+#' @param Dlink link function (default is "log")
 #' @param mask \code{\link{mask}} object (as used by \code{\link{secrgam.fit}} 
 #'   and \code{\link{secr.fit}})
-#' @param link if \code{TRUE} the log link is used, if \code{FALSE} the identity link is used
+#' @param log if \code{TRUE} the log link is used, if \code{FALSE} the identity
+#'   link is used
 #'   
 #' @details details...
 #' @return value...
 #' @examples
-#' \dontrun{
-#' # construct a tensor product model to represent a bivariate normal
 #' data(Boland.leopards)
-#' library(mvtnorm)
-#' D = dmvnorm(Boland.mask, apply(Boland.mask, 2, mean), 10e7*diag(2)) * 10e6
-#' N = sum(D) * attributes(Boland.mask)$area ; N
-#' data = cbind(z = D, Boland.mask)
-#' prep4image(data, key = FALSE, col = tim.colors(10))
-#' Dmodel = D ~ te(x, y, k = 3)
-#' fit = gam(Dmodel, gaussian(link = "log"), data)
-#' prep4image(data.frame(x = data$x, y = data$y, z = fitted(fit)), key = FALSE)
-#' Dpars = coef(fit) ; Dpars
 #' 
-#' # simulate a population
-#' popn = sim.popn.secrgam(Dmodel, Dpars, Boland.mask) ; head(popn) ; dim(popn)
+#' # use a fitted model
+#' popn = sim.popn.secrgam(Boland.fit) ; head(popn) ; dim(popn)
+#' plot(Boland.fit, asp = 1)
+#' points(popn, cex = 0.5, pch = 19)
+#' 
+#' # use an inflated density surface from a fitted model
+#' popn = sim.popn.secrgam(Boland.fit, N = 1000) ; head(popn) ; dim(popn)
+#' plot(Boland.fit, asp = 1)
+#' points(popn, cex = 0.5, pch = 19)
+#' 
+#' \dontrun{
+#' # use an alternative model
+#' # e.g. construct a tensor product model to represent a bivariate normal
+#' require(mvtnorm)
+#' D = dmvnorm(Boland.mask, apply(Boland.mask, 2, mean), 10e7 * diag(2)) * 10e6
+#' N = sum(D) * attributes(Boland.mask)$area ; N # expected sample size
+#' data = cbind(z = D, Boland.mask)
+#' prep4image(data, key = FALSE, col = topo.colors(10), asp = 1)
+#' model = D ~ te(x, y, k = 3)
+#' fit = gam(model, gaussian(link = "log"), data, fx = TRUE)
+#' prep4image(data.frame(x = data$x, y = data$y, z = fitted(fit)), key = FALSE, asp = 1)
+#' popn = sim.popn.secrgam(Dmodel = model, Dpars = coef(fit), mask = Boland.mask) ; head(popn) ; dim(popn)
 #' points(popn, cex = 0.5, pch = 19)
 #' }
 #' @importFrom mgcv gam
 #' @export
 
-sim.popn.secrgam = function(Dmodel, Dpars, mask, link = "log"){
+sim.popn.secrgam = function(fit = NULL, N = NULL, Dmodel = NULL, Dpars = NULL, Dlink = "log", mask = NULL){
   
-  if(!is.element(link,c("log","identit"))) stop("Only log and idenity links implemented.")
+  # if a fitted model is supplied, then extract Dmodel, Dpars, Dlink and mask
+  if(!is.null(fit)){
     
-  # make dummy data for use in gam
-  data = cbind(D = 1, mask, attributes(mask)$covariates)
+    # use mask from fitted model if mask not supplied separately
+    mask = if(is.null(mask)) fit$mask else mask 
+    
+    D = fitted(fit, mask)
+    
+  }else{
+    
+    # fitted model not supplied
+    if(is.null(Dmodel) || is.null(Dpars) || is.null(mask)) 
+      stop("'Dmodel', 'Dpars' and 'mask' must all be supplied if a fitted model is not given")
+    
+    if(!inherits(mask, "mask")) stop("'mask' must be a mask object")
+    
+    # make dummy data for use in gam
+    data = cbind(D = 1, mask, attributes(mask)$covariates)
+    
+    # use gam to get the design matrix
+    X = gam(Dmodel, gaussian(link = Dlink), data, fx = TRUE, fit = FALSE)$X
+    
+    # evaluate the model for each mask point
+    D = switch(
+      Dlink, 
+      "identity" = X %*% Dpars,
+      "log" = exp(X %*% Dpars),
+      stop("'Dlink' not recognsed - only log and idenity links implemented")
+    )
+    
+  }
   
-  # use gam to get design matrix
-  X = gam(Dmodel, gaussian(link = link), data, fit = FALSE)$X
-  
-  # evaluate the model for each mask point
-  D = X %*% Dpars
-  if(link=="log") D = exp(D)
+  # inflate D so that E[N] = N
+  if(!is.null(N)) D = D * N / sum(D * attr(mask, "area"))
   
   # use the IHP option in sim.popn
   sim.popn(D, mask, model2D = "IHP", covariates = NULL) 
-    
+  
 }
 
 

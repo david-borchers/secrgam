@@ -27,7 +27,7 @@
 #' 
 #' Maintainer: David Borchers \email{dlb@@st-andrews.ac.uk}
 #' 
-#' @keyword spatially explicit, capture-recapture, regression spline,
+#' @keywords spatially explicit, capture-recapture, regression spline,
 #'   generalized
 #'   
 #' @seealso \code{\link{secr}}

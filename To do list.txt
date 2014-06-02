@@ -19,6 +19,24 @@
 
 # still to do -----
 
+- tidy up sim.popn
+  - so it can simulate from a fitted object
+  - add optional facility for specifying N, using relative density surface
+  - make comments in help file to make these things clear
+
+- sim.capthist 
+  - either specify g0 and sigma
+  - of use a fit model object includes covariates for detection function
+
+- function to calculate abundance from a fitted model, giving upper and lower estimates using numericDeriv 
+  - use lognormal ci and david's utility function (to stop lower bound going below n)
+  - also give results in terms of density (trivial after you've calculated abundance)
+
+
+
+
+
+
 4. functions to simulate popn and capthist for non-uniform density models
 
 3. function to visualise gam smooths (borrow from mgcv)
