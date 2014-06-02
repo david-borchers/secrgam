@@ -50,10 +50,9 @@ fitted.secrgam = function(fit, mask = NULL){
   
   # evaluate the model for each mask point
   as.numeric(switch(
-    Dlink, 
+    fit$link$D, 
     "identity" = X %*% Dpars,
-    "log" = exp(X %*% Dpars),
-    stop("'Dlink' not recognsed")
+    "log" = exp(X %*% Dpars)
   ))
   
 }
