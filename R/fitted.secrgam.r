@@ -149,7 +149,7 @@ fitted.secrgam = function(fit, mask = NULL, se = FALSE, type = c("individual","m
     
   }else{
     
-    Dhat = if(link == "log") sum(exp(Dhat)) / M else sum(Dhat) / M ; Dhat
+    Dhat = if(fit$link$D == "log") sum(exp(Dhat)) / M else sum(Dhat) / M ; Dhat
 
     if(se){
       
@@ -159,7 +159,7 @@ fitted.secrgam = function(fit, mask = NULL, se = FALSE, type = c("individual","m
       
       cvDhat = seDhat / Dhat ; cvDhat
       
-      Dhat = lnci.nmin(n = nrow(fit$capthist), Nhat, cv = cvDhat) ; Dhat
+      Dhat = lognormal.CI.Nhat(n = nrow(fit$capthist), Nhat, cv = cvDhat) ; Dhat
       
       Dhat = lapply(Dhat, function(x) x / (M * a)) ; Dhat
       
