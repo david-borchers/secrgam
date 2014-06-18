@@ -25,45 +25,19 @@
 #' @export
 #' @importFrom mgcv gam
 
-prepare.mask.bases = function(model, mask){
+prepare.mask.bases = function(Dmodel, mask){
   
-  if(!"D" %in% names(model)) 
-    stop("No D model in model object.")
+  # make the design matrix
+  X = make.density.design.matrix(Dmodel, mask) # head(X)
   
-  # make a dummy data frame with a response column
-  mask$D = 1
-  # put x and y in mask
-  covariates(mask)=cbind(covariates(mask),x=mask$x)
-  covariates(mask)=cbind(covariates(mask),y=mask$y)
+  # add range of original covariates in Dmodel as an attribute
+  # (will be added to fitted model for help with plotting)
+  covs = attr(X, "term.labels") # names of covariates in Dmodel
+  attr(mask, "cov.range") = apply(cbind(mask, covariates(mask))[, covs, drop = FALSE], 2, range)
   
-  # add mask attributes (if there are any)
-  if(!is.null(attr(mask, "covariates"))) 
-    for(cov in names(attr(mask, "covariates")))
-      mask[[cov]] = attr(mask, "covariates")[[cov]]
-
-  # update the density formula so it has a left hand side
-  form = update.formula(model$D, D ~ .)
+  # replace the mask covariates with the design matrix
+  covariates(mask) = as.data.frame(X)
   
-  # use gam to get the design matrix
-  G = gam(formula = form, data = mask, fit = FALSE)
-  
-  # extract the design matrix  
-  X = G$X 
-  
-  # add the column names
-  colnames(X) = G$term.names 
-  
-  # clean up the names so they can be used inside formula objects (without the use of backticks)
-  colnames(X) = gsub("\\(", ".", colnames(X)) 
-  colnames(X) = gsub("[\\)]|[,]", "", colnames(X)) 
-  
-  # set up a few things to help plotting later:
-  covs=attr(G$terms,"term.labels") # names of covariates in model
-  covrange=apply(covariates(mask)[,covs,drop=FALSE],2,range) # range of covariates in model
-  
-  # replace the mask attributes with the new design matrix
-  attributes(mask)$covariates = as.data.frame(X)
-  
-  return(list(mask=mask,cov.range=covrange))   
+  return(mask)   
   
 }

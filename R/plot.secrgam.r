@@ -22,6 +22,7 @@
 #' 
 #' par(op)
 #' @export
+#' @seealso fitted.secrgam
 
 plot.secrgam = function(fit, density = TRUE, mask = NULL, ...){
   
@@ -29,9 +30,15 @@ plot.secrgam = function(fit, density = TRUE, mask = NULL, ...){
     
     # plot fitted density surface
     
-    if(is.null(mask)) mask = fit$mask
-    
-    prep4image(data.frame(x = mask$x, y = mask$y, z = fitted(fit, mask)), ...)  
+    if(is.null(mask)){
+      
+      prep4image(data.frame(x = fit$mask$x, y = fit$mask$y, z = fitted(fit)), ...)  
+      
+    }else{
+      
+      prep4image(data.frame(x = mask$x, y = mask$y, z = fitted(fit, mask)), ...)  
+      
+    }
     
   }else{
     

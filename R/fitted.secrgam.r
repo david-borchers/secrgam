@@ -1,5 +1,5 @@
 
-#' @title Extract fitted density values from an secrgam model
+#' @title Get fitted density values from an secrgam model
 #' 
 #' @description description...
 #'   
@@ -8,45 +8,39 @@
 #' @details details...
 #' @return value...
 #' @examples
-#' # construct a tensor product model to represent a bivariate normal
 #' data(Boland.leopards)
 #' fitted(Boland.fit)
 #' @export
+#' @seealso plot.secrgam
 
 fitted.secrgam = function(fit, mask = NULL){
   
   if(fit$CL) stop("Fitted model used conditional likelihood, therefore no density model")
   
-  if(is.null(fit$fixed$D)){
-    
-    # density parameter not fixed
-    Dmodel = formula(paste("D", paste(fit$model$D, collapse = ""), collapse = ""))
-    Dpars = fit$fit$estimate[fit$parindx$D]
-    
-  }else{
-    
-    # density parameter fixed
-    Dmodel = D ~ 1 
-    Dpars = fit$fixed$D 
-    
-  }
+  # the Dmodel element gives the original D model passed to secrgam.fit - e.g. in terms of s() or te()
+  # (whereas the D element of the model list gives the interpreted regression model passed to secr.fit)
   
-  # use mask from fitted model if mask not supplied separately
-  if(is.null(mask)){
+  # is D model fixed?
+  fixedD = is.null(fit$model$D) ; fixedD
     
-    mask = fit$mask 
+  # get D parameters
+  Dpars = if(fixedD) fit$fixed$D else fit$fit$estimate[fit$parindx$D] ; Dpars
+  Dparnames = if(fixedD) "D" else fit$betanames[fit$parindx$D] ; Dparnames
+
+  # use the mask from fit if an alternative mask is not supplied
+  X = if(is.null(mask)){
+    
+    as.matrix(covariates(fit$mask))
     
   }else{
     
     if(!inherits(mask, "mask")) stop("'mask' must be a mask object")
     
-  }
-  
-  # make dummy data for use in gam
-  data = cbind(D = 1, mask, attributes(mask)$covariates)
-  
-  # use gam to get the design matrix
-  X = gam(Dmodel, gaussian(link = fit$link$D), data, fx = TRUE, fit = FALSE)$X
+    Dmodel = if(fixedD)  ~ 1 else fit$Dmodel
+      
+    make.density.design.matrix(Dmodel, mask) 
+    
+  } # head(X)
   
   # evaluate the model for each mask point
   as.numeric(switch(
@@ -56,3 +50,4 @@ fitted.secrgam = function(fit, mask = NULL){
   ))
   
 }
+

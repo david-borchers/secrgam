@@ -36,4 +36,7 @@ plot(Boland.fit, FALSE, xval = 0:20000, main = "Detection function")
 
 par(op)
 }
+\seealso{
+fitted.secrgam
+}
 
