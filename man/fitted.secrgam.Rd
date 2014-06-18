@@ -3,27 +3,61 @@
 \alias{fitted.secrgam}
 \title{Get fitted density values from an secrgam model}
 \usage{
-\method{fitted}{secrgam}(fit, mask = NULL)
+\method{fitted}{secrgam}(fit, mask = NULL, se = FALSE,
+  type = c("individual", "mean"), level = 0.95)
 }
 \arguments{
 \item{fit}{a fitted \code{\link{secrgam}} or \code{\link{secr}} model}
 
 \item{mask}{a \code{\link{mask}} object}
+
+\item{type}{the type of fitted value required: use \code{type = "individual"} for fitted values at each individual mask point, and \code{type = "mean"} for the estmated mean density across all mask points.}
+
+\item{se}{if \code{TRUE}, upper and lower confidence intervals are returned}
+
+\item{level}{confidence interval level}
 }
 \value{
-value...
+If \code{se = FALSE} a numeric vector of fitted values is returned (or a single value if \code{type = "mean"}. If \code{se = TRUE} a list is returned with elements \code{lower}, \code{estimate} and \code{upper}.
 }
 \description{
-description...
+Get fitted density values for each point on the mask or average density across the mask. The delta method is used to calculate standard errors for fitted values.
 }
 \details{
 details...
 }
 \examples{
 data(Boland.leopards)
-fitted(Boland.fit)
+op = par(no.readonly = TRUE)
+
+# fitted density values at each mask point
+Dhat = fitted(Boland.fit)
+par(mfrow = c(1,1))
+prep4image(list(x = Boland.fit$mask$x,
+                y = Boland.fit$mask$y,
+                z = Dhat), asp = 1)
+
+# fitted density values at each mask point plus upper and lower 95\% CIs
+Dhat = fitted(Boland.fit, se = TRUE)
+par(mfrow = c(1,3))
+for(i in names(Dhat))
+  prep4image(list(x = Boland.fit$mask$x,
+                  y = Boland.fit$mask$y,
+                  z = Dhat[[i]]), main = i, asp = 1, zlim = range(Dhat))
+par(op)
+
+# fitted mean density across all mask points
+Dhat = fitted(Boland.fit, type = "mean") ; Dhat
+M = nrow(Boland.fit$mask) ; M # number of mask points
+a = attr(Boland.fit$mask, "a") ; a # area of each mask cell
+A = M * a ; A # total area of mask
+Nhat = Dhat * A ; Nhat # abundance within mask
+
+# fitted mean density across all mask points plus upper and lower 95\% CI
+Dhat = fitted(Boland.fit, se = TRUE, type = "mean") ; Dhat
+Nhat = lapply(Dhat, function(x) x * A) ; Nhat
 }
 \seealso{
-plot.secrgam
+\link{plot.secrgam}
 }
 
