@@ -109,7 +109,8 @@ addcov2mask = function(mask, raster, names = NULL, distance.to = NULL, drop = NU
     z = round(interp.surface(raster, mask))
     
     # append z variables to mask covariates
-    attributes(mask)$covariates[[names]] = z ; head(attributes(mask)$covariates)
+#    attributes(mask)$covariates[[names]] = z ; head(attributes(mask)$covariates)
+    covariates(mask)[[names]] = z ; head(attributes(mask)$covariates)
     
     if(plot)      
       prep4image(data.frame(mask, z), asp = 1, xlab = "Longitude", ylab = "Latitude", main = names)
@@ -142,13 +143,18 @@ addcov2mask = function(mask, raster, names = NULL, distance.to = NULL, drop = NU
     
     # interpolate landcover types onto mask points
     z = round(interp.surface(raster, mask))
+    if(any(is.na(z))) {
+      z[is.na(z)]=min(raster$z)
+      warning("Some interpolated NAs; set these to min(raster$z).")
+    }
     
     # convert z to dummy variables
     dummy = as.matrix(model.matrix( ~ as.factor(z)-1, data.frame(mask, z)))
     colnames(dummy) = names[layers %in% sort(unique(z))] ; head(dummy)
     
     # append dummy variables to mask covariates
-    for(i in colnames(dummy)) attributes(mask)$covariates[[i]] = dummy[,i] ; head(attributes(mask)$covariates)
+#    for(i in colnames(dummy)) attributes(mask)$covariates[[i]] = dummy[,i] ; head(attributes(mask)$covariates)
+    for(i in colnames(dummy)) covariates(mask)[[i]] = dummy[,i] ; head(attributes(mask)$covariates)
     
     if(!is.null(distance.to)){
       
@@ -173,7 +179,8 @@ addcov2mask = function(mask, raster, names = NULL, distance.to = NULL, drop = NU
       colnames(dist2) = paste("dist2", distance.to, sep = ".") ; head(dist2) ; dim(dist2)
       
       # append dist2 variables to mask covariates
-      for(i in colnames(dist2)) attributes(mask)$covariates[[i]] = dist2[,i] ; head(attributes(mask)$covariates)
+#      for(i in colnames(dist2)) attributes(mask)$covariates[[i]] = dist2[,i] ; head(attributes(mask)$covariates)
+      for(i in colnames(dist2)) covariates(mask)[[i]] = dist2[,i] ; head(attributes(mask)$covariates)
       
     }
     
@@ -185,13 +192,15 @@ addcov2mask = function(mask, raster, names = NULL, distance.to = NULL, drop = NU
         i = attributes(mask)$covariates[[layer]] == 0
 
         # delete these rows from the covariates
-        attributes(mask)$covariates = attributes(mask)$covariates[i,]
+#        attributes(mask)$covariates = attributes(mask)$covariates[i,]
+        covariates(mask) = covariates(mask)[i,]
         
         # delete these elements from z
         z = z[i]
         
         # delete this landcover type from the mask covariates
-        attributes(mask)$covariates[[layer]] = NULL
+#        attributes(mask)$covariates[[layer]] = NULL
+        covariates(mask)[[layer]] = NULL
 
         # save mask attributes
         attr = attributes(mask)
