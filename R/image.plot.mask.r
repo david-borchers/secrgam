@@ -18,12 +18,12 @@
 #' @examples
 #' library(secrgam)
 #' 
-#' data(Boland.leopards)
+#' data(Boland.leopards1)
 #' data(possums)
 #' 
 #' # plot image of distance to urban areas, with contours, and plot traps on top of it
-#' image.plot.mask(Boland.mask,"dist2.Urban",asp=1,axes=FALSE,xlab="Easting",ylab="Northing",main="Distance to Urban")
-#' plot(traps(Boland.CH),add=TRUE)
+#' image.plot.mask(Boland.mask1,"dist2.Urban",asp=1,axes=FALSE,xlab="Easting",ylab="Northing",main="Distance to Urban")
+#' plot(traps(Boland.CH1),add=TRUE)
 #' # a plot with different colour scheme, no contours and 1:1 aspect ratio:
 #' image.plot.mask(possummask,"d.to.shore",col=terrain.colors(30),contours=FALSE)
 #' plot(traps(possumCH),add=TRUE)

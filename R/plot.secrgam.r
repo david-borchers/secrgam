@@ -10,15 +10,15 @@
 #' @details details...
 #' @return value...
 #' @examples
-#' data(Boland.leopards)
+#' data(Boland.leopards1)
 #' op = par(no.readonly = TRUE)
 #' par(mfrow = c(1,2), oma = c(0,0,0,0), mar = c(4,4,4,4))
 #' 
 #' # density surface
-#' plot(Boland.fit, asp = 1, key = FALSE, main = "Density")
+#' plot(fit1.a3, asp = 1, key = FALSE, main = "Density")
 #' 
 #' # detection function
-#' plot(Boland.fit, FALSE, xval = 0:20000, main = "Detection function")
+#' plot(fit1.a3, FALSE, xval = 0:20000, main = "Detection function")
 #' 
 #' par(op)
 #' @export
