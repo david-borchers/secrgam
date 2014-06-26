@@ -46,8 +46,8 @@
 #' summary(Boland.CH1)
 #' plot(Boland.CH1, border = 0, rad = 0.01, tracks = TRUE, icolour = colors()[seq(2, 202, 10)])
 #' 
-#' # make a model with dependence on altitude via smooth with 2 degrees of freedom
-#' model = list(D ~ s(alt, k = 2), g0 ~ 1, sigma ~ 1)
+#' # make a model with dependence on altitude via smooth with 4 degrees of freedom
+#' model = list(D ~ s(alt, k = 4), g0 ~ 1, sigma ~ 1)
 #' 
 #' # fit model
 #' \dontrun{
@@ -55,8 +55,7 @@
 #' fit # look at fit results
 #' 
 #' # plot fitted surface:
-#' Dsurface <- predictDsurface(fit)
-#' plot(Dsurface, border = 0, polyc = 'blue', plottype = 'shaded', col = terrain.colors(30), breaks = 25, meshcol = NA)
+#' plot(fit,asp=1)
 #' plot(traps(Boland.CH1), add = TRUE)
 #' 
 #' # plot smooths:
