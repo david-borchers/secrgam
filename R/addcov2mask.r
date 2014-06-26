@@ -63,7 +63,7 @@
 #' 
 #' # mutiple landcover types - including distance to water and urbarn (and deleting these mask points)
 #' newmask = addcov2mask(
-#'   Boland.mask, Boland.landuse.image,
+#'   Boland.mask1, Boland.landuse.image,
 #'   names = c("Unknown", "Natural", "Cultivated", "Degraded", "Urban", "Water", "Plantation"), 
 #'   cols = c("black", "green3", "yellow", "tan", "dimgray", "blue", "gold2"),
 #'   distance.to = c("Urban","Water"),
@@ -79,7 +79,7 @@
 addcov2mask = function(mask, raster, names = NULL, distance.to = NULL, drop = NULL, plot = TRUE, cols = NULL,domulti=FALSE){
   
   if(0){
-    data(Boland.leopards); mask = Boland.mask
+    data(Boland.leopards1); mask = Boland.mask1
     data(Boland.landuse.image); raster = Boland.landuse.image
     names = c("Unknown", "Natural", "Cultivated", "Degraded", "Urban", "Water", "Plantation")
     distance.to = c("Urban","Water")

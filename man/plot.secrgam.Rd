@@ -25,6 +25,7 @@ details...
 }
 \examples{
 data(Boland.leopards1)
+data(Boland.fits1)
 op = par(no.readonly = TRUE)
 par(mfrow = c(1,2), oma = c(0,0,0,0), mar = c(4,4,4,4))
 

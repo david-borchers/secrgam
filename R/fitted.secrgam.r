@@ -12,6 +12,7 @@
 #' @return If \code{se = FALSE} a numeric vector of fitted values is returned (or a single value if \code{type = "mean"}. If \code{se = TRUE} a list is returned with elements \code{lower}, \code{estimate} and \code{upper}.
 #' @examples
 #' data(Boland.leopards1)
+#' data(Boland.fits1)
 #' op = par(no.readonly = TRUE)
 #' 
 #' # fitted density values at each mask point

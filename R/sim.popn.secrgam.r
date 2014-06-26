@@ -16,6 +16,7 @@
 #' @return value...
 #' @examples
 #' data(Boland.leopards1)
+#' data(Boland.fits1)
 #' 
 #' # use a fitted model
 #' popn = sim.popn.secrgam(fit1.a3) ; head(popn) ; dim(popn)
@@ -31,14 +32,14 @@
 #' # use an alternative model
 #' # e.g. construct a tensor product model to represent a bivariate normal
 #' require(mvtnorm)
-#' D = dmvnorm(Boland.mask, apply(Boland.mask, 2, mean), 10e7 * diag(2)) * 10e6
+#' D = dmvnorm(Boland.mask1, apply(Boland.mask, 2, mean), 10e7 * diag(2)) * 10e6
 #' N = sum(D) * attributes(Boland.mask)$area ; N # expected sample size
 #' data = cbind(z = D, Boland.mask)
 #' prep4image(data, key = FALSE, col = topo.colors(10), asp = 1)
 #' model = D ~ te(x, y, k = 3)
 #' fit = gam(model, gaussian(link = "log"), data, fx = TRUE)
 #' prep4image(data.frame(x = data$x, y = data$y, z = fitted(fit)), key = FALSE, asp = 1)
-#' popn = sim.popn.secrgam(Dmodel = model, Dpars = coef(fit), mask = Boland.mask) ; head(popn) ; dim(popn)
+#' popn = sim.popn.secrgam(Dmodel = model, Dpars = coef(fit), mask = Boland.mask1) ; head(popn) ; dim(popn)
 #' points(popn, cex = 0.5, pch = 19)
 #' }
 #' @importFrom mgcv gam

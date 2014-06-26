@@ -34,6 +34,7 @@ details...
 }
 \examples{
 data(Boland.leopards1)
+data(Boland.fits1)
 
 # use a fitted model
 popn = sim.popn.secrgam(fit1.a3) ; head(popn) ; dim(popn)

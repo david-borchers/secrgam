@@ -28,6 +28,7 @@ details...
 }
 \examples{
 data(Boland.leopards1)
+data(Boland.fits1)
 op = par(no.readonly = TRUE)
 
 # fitted density values at each mask point
