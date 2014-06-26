@@ -11,10 +11,13 @@ make.density.design.matrix(Dmodel, mask)
 \item{mask}{secr mask object.}
 }
 \value{
-Returns a matrix with \code{n} rows and \code{p} columns.
+Returns a matrix with number of rows equal to the number of rows in \code{mask}, and number of columns equal to the number of parameters required to implement the regresssion spline specified in \code{model}.
 }
 \description{
-description...
+Helper function to create a design matrix from a conventional density formula (e.g. including \code{\link{s}} and/or \code{\link{te}} terms) and a mask object (i.e. a dataframe of covariates).
+}
+\details{
+Uses the \code{\link{gam}} function from the \code{\link{mgcv}} package to generate the design matrix (by setting \code{fix = FALSE}).
 }
 \examples{
 data(Boland.leopards1)

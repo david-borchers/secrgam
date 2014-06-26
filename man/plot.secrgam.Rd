@@ -14,14 +14,8 @@
 
 \item{...}{aditional arguments to pass to \code{prep4image} (if \code{density = TRUE}), or \code{plot.secr} (if \code{density = FALSE})}
 }
-\value{
-value...
-}
 \description{
-description...
-}
-\details{
-details...
+Plot the fitted density surface or fitted detection function from an \code{secrgam} model.
 }
 \examples{
 data(Boland.leopards1)
@@ -33,11 +27,11 @@ par(mfrow = c(1,2), oma = c(0,0,0,0), mar = c(4,4,4,4))
 plot(fit1.a3, asp = 1, key = FALSE, main = "Density")
 
 # detection function
-plot(fit1.a3, FALSE, xval = 0:20000, main = "Detection function")
+plot(fit1.a3, density = FALSE, xval = 0:20000, main = "Detection function")
 
 par(op)
 }
 \seealso{
-fitted.secrgam
+\code{\link{fitted.secrgam}}
 }
 
