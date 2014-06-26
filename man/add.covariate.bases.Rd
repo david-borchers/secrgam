@@ -6,7 +6,7 @@
 add.covariate.bases(mask)
 }
 \arguments{
-\item{mask}{secr mask object.}
+\item{mask}{secr \code{\link{mask}} object.}
 }
 \description{
 Adds all basis functions to attr(mask,"covariates"), including linear (non-smoothed)
