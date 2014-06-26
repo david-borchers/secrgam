@@ -1,21 +1,32 @@
 #' @title SECR Density spline plotting.
-#'
-#' @description
-#'  Plots B-spline smooth components of an secr density model
-#'  
-#' @param fit object returned by secr.fit().
-#' @param type either "link" (for plot on link funtion scale) or "response" (for plot on
-#' response scale).
-#' @param mask.rug TRUE if a rugplot of locations of mask points in the covariate dimension
-#' is to be plotted.
-#' @param det.rug TRUE if a rugplot of locations of detectors in the covariate dimension
-#' is to be plotted.
-#' @param npts number of points on x-axis at which to evaluate smooth.
-#' @param show.knots if TRUE, puts crosses on smooth at knot locations. NOT YET IMPLEMENTED.
+#'   
+#' @description Plots regression spline smooth components of an secr density
+#' model.
 #' 
-#' @details
-#' (None as yet)
+#' @param fit object returned by \code{\link{secrgam.fit}}.
+#' @param type either \code{"link"} (for plot on link funtion scale) or
+#'   \code{"response"} (for plot on response scale).
+#' @param mask.rug \code{TRUE} if a rugplot of locations of mask points in the
+#'   covariate dimension is to be plotted.
+#' @param det.rug \code{TRUE} if a rugplot of locations of detectors in the
+#'   covariate dimension is to be plotted.
+#' @param npts number of points on x-axis at which to evaluate smooth.
+#' @param show.knots if \code{TRUE}, puts crosses on smooth at knot locations.
+#'   NOT YET IMPLEMENTED.
+#'   
+#' @details (None as yet)
 #' @export
+#' @examples
+#' op = par(no.readonly = TRUE)
+#' 
+#' data(Boland.fits1)
+#' plotDgam(fit1.a3)
+#' 
+#' par(mfrow = c(1,2))
+#' data(Boland.fits2)
+#' plotDgam(fit2.a3.dW3)
+#' 
+#' par(op)
 
 plotDgam = function(fit, type = "link", mask.rug = FALSE, det.rug = TRUE, npts = 200, show.knots = FALSE){
   
@@ -113,10 +124,10 @@ plotDgam = function(fit, type = "link", mask.rug = FALSE, det.rug = TRUE, npts =
       }
       # then add rug:
       if(mask.rug)
-        points(zvals, rep(min(smooth.x-meansm), length(zvals)), pch = "|", cex = 0.5, col = "gray")
+        points(zvals, rep(min(lower-meansm), length(zvals)), pch = "|", cex = 0.5, col = "gray")
       if(det.rug)
-        points(det.zvals, rep(min(smooth.x-meansm), length(det.zvals)), pch = "|", cex = 0.75)
-      lines(mask[, 2], smooth.x-meansm) # replot line over rug
+        points(det.zvals, rep(min(lower-meansm), length(det.zvals)), pch = "|", cex = 0.75)
+      lines(mask[, 2], lower-meansm) # replot line over rug
     }
   }
 }

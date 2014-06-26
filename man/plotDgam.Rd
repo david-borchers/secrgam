@@ -7,25 +7,39 @@ plotDgam(fit, type = "link", mask.rug = FALSE, det.rug = TRUE,
   npts = 200, show.knots = FALSE)
 }
 \arguments{
-\item{fit}{object returned by secr.fit().}
+\item{fit}{object returned by \code{\link{secrgam.fit}}.}
 
-\item{type}{either "link" (for plot on link funtion scale) or "response" (for plot on
-response scale).}
+\item{type}{either \code{"link"} (for plot on link funtion scale) or
+\code{"response"} (for plot on response scale).}
 
-\item{mask.rug}{TRUE if a rugplot of locations of mask points in the covariate dimension
-is to be plotted.}
+\item{mask.rug}{\code{TRUE} if a rugplot of locations of mask points in the
+covariate dimension is to be plotted.}
 
-\item{det.rug}{TRUE if a rugplot of locations of detectors in the covariate dimension
-is to be plotted.}
+\item{det.rug}{\code{TRUE} if a rugplot of locations of detectors in the
+covariate dimension is to be plotted.}
 
 \item{npts}{number of points on x-axis at which to evaluate smooth.}
 
-\item{show.knots}{if TRUE, puts crosses on smooth at knot locations. NOT YET IMPLEMENTED.}
+\item{show.knots}{if \code{TRUE}, puts crosses on smooth at knot locations.
+  NOT YET IMPLEMENTED.}
 }
 \description{
-Plots B-spline smooth components of an secr density model
+Plots regression spline smooth components of an secr density
+model.
 }
 \details{
 (None as yet)
+}
+\examples{
+op = par(no.readonly = TRUE)
+
+data(Boland.fits1)
+plotDgam(fit1.a3)
+
+par(mfrow = c(1,2))
+data(Boland.fits2)
+plotDgam(fit2.a3.dW3)
+
+par(op)
 }
 
