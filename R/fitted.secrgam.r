@@ -5,11 +5,11 @@
 #'   
 #' @param fit a fitted \code{\link{secrgam}} or \code{\link{secr}} model
 #' @param mask a \code{\link{mask}} object
-#' @param type the type of fitted value required: use \code{type = "individual"} for fitted values at each individual mask point, and \code{type = "mean"} for the estmated mean density across all mask points.
+#' @param type the type of fitted value required (use \code{type = "individual"} for fitted values at each individual mask point, or \code{type = "mean"} for the estmated mean density across all mask points).
 #' @param se if \code{TRUE}, upper and lower confidence intervals are returned 
 #' @param level confidence interval level 
 #' @details details...
-#' @return If \code{se = FALSE} a numeric vector of fitted values is returned (or a single value if \code{type = "mean"}. If \code{se = TRUE} a list is returned with elements \code{lower}, \code{estimate} and \code{upper}.
+#' @return If \code{se = FALSE} a numeric vector of fitted values is returned (or a single value if \code{type = "mean"}). If \code{se = TRUE} a list is returned with elements \code{lower}, \code{estimate} and \code{upper}.
 #' @examples
 #' data(Boland.leopards1)
 #' data(Boland.fits1)
@@ -18,17 +18,17 @@
 #' # fitted density values at each mask point
 #' Dhat = fitted(fit1.a3)
 #' par(mfrow = c(1,1))
-#' prep4image(list(x = fit1.a3$mask$x,
-#'                 y = fit1.a3$mask$y,
-#'                 z = Dhat), asp = 1)
+#' prep4image(cbind(x = fit1.a3$mask$x,
+#'                  y = fit1.a3$mask$y,
+#'                  z = Dhat), asp = 1)
 #' 
 #' # fitted density values at each mask point plus upper and lower 95% CIs
 #' Dhat = fitted(fit1.a3, se = TRUE)
 #' par(mfrow = c(1,3))
 #' for(i in names(Dhat))
-#'   prep4image(list(x = fit1.a3$mask$x,
-#'                   y = fit1.a3$mask$y,
-#'                   z = Dhat[[i]]), main = i, asp = 1, zlim = range(Dhat))
+#'   prep4image(cbind(x = fit1.a3$mask$x,
+#'                    y = fit1.a3$mask$y,
+#'                    z = Dhat[[i]]), main = i, asp = 1, zlim = range(Dhat))
 #' par(op)
 #' 
 #' # fitted mean density across all mask points

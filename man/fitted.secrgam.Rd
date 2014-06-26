@@ -11,14 +11,14 @@
 
 \item{mask}{a \code{\link{mask}} object}
 
-\item{type}{the type of fitted value required: use \code{type = "individual"} for fitted values at each individual mask point, and \code{type = "mean"} for the estmated mean density across all mask points.}
+\item{type}{the type of fitted value required (use \code{type = "individual"} for fitted values at each individual mask point, or \code{type = "mean"} for the estmated mean density across all mask points).}
 
 \item{se}{if \code{TRUE}, upper and lower confidence intervals are returned}
 
 \item{level}{confidence interval level}
 }
 \value{
-If \code{se = FALSE} a numeric vector of fitted values is returned (or a single value if \code{type = "mean"}. If \code{se = TRUE} a list is returned with elements \code{lower}, \code{estimate} and \code{upper}.
+If \code{se = FALSE} a numeric vector of fitted values is returned (or a single value if \code{type = "mean"}). If \code{se = TRUE} a list is returned with elements \code{lower}, \code{estimate} and \code{upper}.
 }
 \description{
 Get fitted density values for each point on the mask or average density across the mask. The delta method is used to calculate standard errors for fitted values.
@@ -34,17 +34,17 @@ op = par(no.readonly = TRUE)
 # fitted density values at each mask point
 Dhat = fitted(fit1.a3)
 par(mfrow = c(1,1))
-prep4image(list(x = fit1.a3$mask$x,
-                y = fit1.a3$mask$y,
-                z = Dhat), asp = 1)
+prep4image(cbind(x = fit1.a3$mask$x,
+                 y = fit1.a3$mask$y,
+                 z = Dhat), asp = 1)
 
 # fitted density values at each mask point plus upper and lower 95\% CIs
 Dhat = fitted(fit1.a3, se = TRUE)
 par(mfrow = c(1,3))
 for(i in names(Dhat))
-  prep4image(list(x = fit1.a3$mask$x,
-                  y = fit1.a3$mask$y,
-                  z = Dhat[[i]]), main = i, asp = 1, zlim = range(Dhat))
+  prep4image(cbind(x = fit1.a3$mask$x,
+                   y = fit1.a3$mask$y,
+                   z = Dhat[[i]]), main = i, asp = 1, zlim = range(Dhat))
 par(op)
 
 # fitted mean density across all mask points
