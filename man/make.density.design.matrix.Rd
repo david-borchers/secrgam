@@ -6,17 +6,19 @@
 make.density.design.matrix(Dmodel, mask)
 }
 \arguments{
-\item{model}{secr model specification list.}
+\item{model}{density model}
 
 \item{mask}{secr mask object.}
 }
 \value{
-return...
+Returns a matrix with \code{n} rows and \code{p} columns.
 }
 \description{
 description...
 }
-\details{
-details...
+\examples{
+data(Boland.leopards1)
+X = make.density.design.matrix(~s(x, k = 3), Boland.mask1)
+head(X)
 }
 

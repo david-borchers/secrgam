@@ -3,14 +3,16 @@
 #'   
 #' @description description...
 #' 
-#' @param model secr model specification list.
+#' @param model density model
 #' @param mask secr mask object.
 #'   
-#' @details details...
-#' 
-#' @return return...
+#' @return Returns a matrix with \code{n} rows and \code{p} columns.
 #' @export
 #' @importFrom mgcv gam
+#' @examples
+#' data(Boland.leopards1)
+#' X = make.density.design.matrix(~s(x, k = 3), Boland.mask1)
+#' head(X)
 
 make.density.design.matrix = function(Dmodel, mask){
   
@@ -44,3 +46,5 @@ make.density.design.matrix = function(Dmodel, mask){
   return(X)   
   
 }
+
+
