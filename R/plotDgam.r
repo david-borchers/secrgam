@@ -18,13 +18,13 @@
 #' @export
 
 plotDgam = function(fit, type = "link", mask.rug = FALSE, det.rug = TRUE, npts = 200, show.knots = FALSE){
-
+  
   if(type != "link" & type != "response") {
     type = "link"
     warning("Invalid type; reset to `link'.")
   }
   if(show.knots) warning("Knot plotting not yet implemented"
-                         )
+  )
   # get smooth terms and associted variables:
   Dmodel = as.character(fit$Dmodel)
   terms = strsplit(Dmodel, " + ", fixed = TRUE)[[2]]
@@ -35,7 +35,10 @@ plotDgam = function(fit, type = "link", mask.rug = FALSE, det.rug = TRUE, npts =
   for(i in 1:nsp){
     svar[i] = strsplit(strsplit(sterms[i], ", ", fixed = TRUE)[[1]][1], "(", fixed = TRUE)[[1]][2]
   }
-
+  
+  # fit$fit$estimate[fit$parindx$D]
+  # fit$betanames[fit$parindx$D]
+  
   # extract relevant coefficients
   coeff = t(as.vector(coefficients(fit)[1])) 
   cnames = colnames(coeff)
@@ -59,20 +62,45 @@ plotDgam = function(fit, type = "link", mask.rug = FALSE, det.rug = TRUE, npts =
     mask = data.frame(D = rep(1, npts), v = seq(vrange[1], vrange[2], length = npts)) # values to span range of svar[i]
     names(mask)[2] = svar[i]
     form = update.formula(as.formula(paste("~", sterms[i], sep = "")), D ~ .) # complete fomula
-    G = gam(formula = form, data = mask, fit = FALSE)  
-    X = G$X # extract the design matrix
-    colnames(X) = G$term.names # add the column names
-    # clean up the names so they can be used inside formula objects (without the use of backticks)
-    colnames(X) = gsub("\\(", ".", colnames(X)) 
-    colnames(X) = gsub("[\\)]|[, ]", "", colnames(X))
+        
+    X = make.density.design.matrix(form, mask)
+    
     keepcoeff = c(1, which(is.element(cnames, colnames(X)))) # extract cols for smooth from X (incude intercept)
+    
     scoeff = coeff[keepcoeff]
-    lp = X%*%scoeff
-    if(type == "response") smooth.x = exp(as.numeric(lp))
-    else smooth.x = as.numeric(lp)
+    smooth.x = as.numeric(X %*% scoeff)
+    
+    # Var[Sum(a_i beta_i)] = Sum(a_i * a_j * Cov[beta_i, beta_j])
+    # X is matrix of covariates
+    # Cov is the covariance matrix for beta
+    
+    Cov = solve(fit$fit$hessian[keepcoeff,keepcoeff])
+    p = ncol(X)
+    n = nrow(X)
+    se = sapply(1:n, function(i){ # i = 1
+      sqrt(sum(sapply(1:p, function(j){ # j = 1
+        sapply(1:p, function(k){ # k = 1
+          as.numeric(X[i,j] * X[i,k] * Cov[j,k])
+        })
+      })))
+    })
+    
+    lower = smooth.x - qt(0.975, n-1) * se
+    upper = smooth.x + qt(0.975, n-1) * se
+    
+    if(type == "response"){
+      smooth.x = exp(smooth.x)
+      lower    = exp(lower)
+      upper    = exp(upper)
+    }
+    
     meansm = mean(smooth.x)
-    plot(mask[, 2], smooth.x-meansm, type = "l", ylim = range(smooth.x-mean(smooth.x)), xlab = svar[i], ylab = paste("Smooth of", svar[i]), main = sterms[i])
-
+    
+    plot(mask[, 2], smooth.x - meansm, type = "l", ylim = range(c(smooth.x, lower, upper) - meansm), xlab = svar[i], ylab = paste("Smooth of", svar[i]), main = sterms[i])
+    
+    lines(mask[, 2], lower - meansm, lty = 2)
+    lines(mask[, 2], upper - meansm, lty = 2)
+    
     # plot mask rug and detector rug if asked to
     if(mask.rug | det.rug){
       # get observed variable values on mask:
