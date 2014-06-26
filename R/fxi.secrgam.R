@@ -5,14 +5,14 @@
 #'   location of one or more range centres, i.e. \eqn{f(X | \Omega)}. Acts as a 
 #'   wrapper function for \code{\link{fxi.secr}}.
 #'   
-#' @param object a fitted secrgam model (returned from 
+#' @param fit a fitted secrgam model (returned from 
 #'   \code{\link{secrgam.fit}})
 #' @param i integer or character vector of individuals for which to plot contours
 #' @param col integer or character vector of colour for individuals' contours
 #' @param X 2-column matrix of x- and y- coordinates (e.g. the original mask)
 #' @param plt logical to do contour plot
 #' @param add logical to add to existing plot
-#' @param sessnum session number if object$capthist spans multiple sessions
+#' @param sessnum session number if \code{fit$capthist} spans multiple sessions
 #' @param border width of blank margin around the outermost detectors
 #' @param normal logical; should values of pdf be normalised?
 #' @param ... additional arguments passed to contour.
@@ -30,29 +30,40 @@
 #'   
 #'   Needs to be tested for cases where density model has fixed parameters. Also assumes that log link is used for density.
 #' @export
+#' @examples
+#' data(Boland.fits1)
+#' 
+#' # capture history data
+#' plot(fit1.a3$capthist)
+#' 
+#' # look at data for animal 20 
+#' animal = 20
+#' k = apply(fit1.a3$capthist[animal,,], 2, sum) > 0
+#' points(traps(fit1.a3$capthist)[k,], col = 2, pch = 19)
+#' fxi.secrgam(fit1.a3, i = animal, add = TRUE)
 
-fxi.secrgam = function (object, i=1, col=1:length(i),X = NULL, plt=TRUE, add=FALSE, sessnum=1, border=0, normal=TRUE, ...) {
+fxi.secrgam = function (fit, i=1, col=1:length(i),X = NULL, plt=TRUE, add=FALSE, sessnum=1, border=0, normal=TRUE, ...) {
 
   # if no X supplied, then use the original mask
-  if(is.null(X)) X = object$mask
+  if(is.null(X)) X = fit$mask
   
   # if X is a mask, then convert it to a model frame
   if(inherits(X, "mask"))
     X = cbind(X, attributes(X)$covariates)
     
   # persuade predict.secr to give you predictions
-#   D = predict(object, X, se = FALSE)[,"D"] ; D # way too slow...
-  D = exp(as.numeric(model.matrix(object$model$D, X) %*% object$fit$par[object$parindx$D])) ; D
+#   D = predict(fit, X, se = FALSE)[,"D"] ; D # way too slow...
+  D = exp(as.numeric(model.matrix(fit$model$D, X) %*% fit$fit$par[fit$parindx$D])) ; D
 #   D = attributes(predictDsurface(fit))$covariates[,"D.0"] ; D
 
   # modify the density model so that fxi.secr doesn't throw an error
-  object$model$D = ~1
+  fit$model$D = ~1
   
   ni=length(i)
   fxi=matrix(rep(NA,ni*length(D)),ncol=ni)
   for(indiv in 1:ni){
     # get the normalised version of P(Omega | X) from the fxi.secr function
-    fxi[,indiv] = fxi.secr(object = object, i=i[indiv], X = X[,c("x","y")], ...)
+    fxi[,indiv] = fxi.secr(object = fit, i=i[indiv], X = X[,c("x","y")], ...)
     
     # modify this to incorporate the fitted density surface
     # (the normalising constant used in fxi.secr cancels out)
@@ -68,7 +79,7 @@ fxi.secrgam = function (object, i=1, col=1:length(i),X = NULL, plt=TRUE, add=FAL
   else return(fxi)
 
   # Note - it would probably be a bit quicker to use:
-  # fxi = D * fxi.secr(object = object, X = X, ...)
+  # fxi = D * fxi.secr(object = fit, X = X, ...)
   # return(fxi / sum(fxi))
   # but the code used is a bit more readable
   

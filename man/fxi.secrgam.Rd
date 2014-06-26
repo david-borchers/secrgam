@@ -3,11 +3,11 @@
 \alias{fxi.secrgam}
 \title{Probability Density of Home Range Centre}
 \usage{
-fxi.secrgam(object, i = 1, col = 1:length(i), X = NULL, plt = TRUE,
+fxi.secrgam(fit, i = 1, col = 1:length(i), X = NULL, plt = TRUE,
   add = FALSE, sessnum = 1, border = 0, normal = TRUE, ...)
 }
 \arguments{
-\item{object}{a fitted secrgam model (returned from
+\item{fit}{a fitted secrgam model (returned from
 \code{\link{secrgam.fit}})}
 
 \item{i}{integer or character vector of individuals for which to plot contours}
@@ -20,7 +20,7 @@ fxi.secrgam(object, i = 1, col = 1:length(i), X = NULL, plt = TRUE,
 
 \item{add}{logical to add to existing plot}
 
-\item{sessnum}{session number if object$capthist spans multiple sessions}
+\item{sessnum}{session number if \code{fit$capthist} spans multiple sessions}
 
 \item{border}{width of blank margin around the outermost detectors}
 
@@ -46,5 +46,17 @@ Calculates the probability density function for the estimated
   x_i) D(x_i) ]}
 
   Needs to be tested for cases where density model has fixed parameters. Also assumes that log link is used for density.
+}
+\examples{
+data(Boland.fits1)
+
+# capture history data
+plot(fit1.a3$capthist)
+
+# look at data for animal 20
+animal = 20
+k = apply(fit1.a3$capthist[animal,,], 2, sum) > 0
+points(traps(fit1.a3$capthist)[k,], col = 2, pch = 19)
+fxi.secrgam(fit1.a3, i = animal, add = TRUE)
 }
 
