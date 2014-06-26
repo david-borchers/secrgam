@@ -15,9 +15,9 @@ and z being the values of some variable at each coordinate.}
 \item{contour}{if \code{TRUE} then contours will be added if (only used when
 \code{plot=TRUE})}
 
-\item{key}{logical for whether or not to plot color key with plot}
+\item{key}{logical for whether or not to include key when \code{plot = TRUE} (\code{\link{image.plot}} is used when \code{key = TRUE}, \code{\link{image}} is used when \code{key = FALSE})}
 
-\item{...}{other arguments to pass to \code{\link{image.plot}} (only used
+\item{...}{other arguments to pass to \code{\link{image}} or \code{\link{image.plot}} (only used
   when \code{plot=TRUE})}
 }
 \description{
@@ -32,5 +32,23 @@ Sorts z on values of x first, then y, then creates a matrix of
   z-values from this. Returns a list with elements x (unique values of x, in
   increasing order), y (unique values of y, in increasing order) and z
   (matrix of z-values in appropriate order for image/contour/persp).
+}
+\examples{
+data(Boland.alt)
+op = par(no.readonly = TRUE)
+par(mfrow = c(1,1))
+
+# make object for use with image
+imagedata = prep4image(Boland.alt, plot = FALSE)
+image(imagedata, asp = 1)
+contour(imagedata, add = TRUE)
+
+# use directly for plotting
+prep4image(Boland.alt, asp = 1)
+prep4image(Boland.alt, asp = 1, contour = FALSE)
+prep4image(Boland.alt, asp = 1, key = FALSE)
+prep4image(Boland.alt, asp = 1, contour = FALSE, key = FALSE)
+
+par(op)
 }
 
