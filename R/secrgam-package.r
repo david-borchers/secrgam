@@ -7,7 +7,7 @@
 #'   surfaces for Spatially Explicit Capture-Recapture, by means of regression 
 #'   splines.
 #' @details \tabular{ll}{ Package: \tab secrgam \cr Type: \tab Package \cr 
-#'   Version: \tab 1.0 \cr Date: \tab 2014-01-12 \cr License: \tab GNU General
+#'   Version: \tab 1.0 \cr Date: \tab 2014-01-12 \cr License: \tab GNU General 
 #'   Public License Version 2 or later \cr }
 #'   
 #'   Package \code{secrgam} uses regression splines to implement flexible 
@@ -18,15 +18,17 @@
 #'   functions that set up the regression spline bases and then call 
 #'   \code{\link{secr}}.\cr
 #'   
-#'   The package currently implements only additive 1-dimensional regression 
-#'   splines (B-splines).
+#'   The package currently allows spline models to be specified using syntax 
+#'   from package \code{\link{mgcv}} using the \code{\link{s}} and 
+#'   \code{\link{te}} functions. The \code{\link{gam}} function is used with
+#'   \code{fit=FALSE} to obtain regression spline design matrices.
 #'   
 #' @author David Borchers \email{dlb@@st-andrews.ac.uk}
 #' @author Darren Kidney \email{darrenkidney@@googlemail.com}
-#' 
-#' Maintainer: David Borchers \email{dlb@@st-andrews.ac.uk}
-#' 
-#' @keywords spatially explicit, capture-recapture, regression spline,
+#'   
+#'   Maintainer: David Borchers \email{dlb@@st-andrews.ac.uk}
+#'   
+#' @keywords spatially explicit, capture-recapture, regression spline, 
 #'   generalized
 #'   
 #' @seealso \code{\link{secr}}

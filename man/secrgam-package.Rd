@@ -22,8 +22,10 @@ Implements Genaralized Additive Models for modelling density
   functions that set up the regression spline bases and then call
   \code{\link{secr}}.\cr
 
-  The package currently implements only additive 1-dimensional regression
-  splines (B-splines).
+  The package currently allows spline models to be specified using syntax
+  from package \code{\link{mgcv}} using the \code{\link{s}} and
+  \code{\link{te}} functions. The \code{\link{gam}} function is used with
+  \code{fit=FALSE} to obtain regression spline design matrices.
 }
 \examples{
 library(secrgam)
@@ -62,7 +64,7 @@ David Borchers \email{dlb@st-andrews.ac.uk}
 
 Darren Kidney \email{darrenkidney@googlemail.com}
 
-Maintainer: David Borchers \email{dlb@st-andrews.ac.uk}
+  Maintainer: David Borchers \email{dlb@st-andrews.ac.uk}
 }
 \seealso{
 \code{\link{secr}}
