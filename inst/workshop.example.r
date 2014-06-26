@@ -4,7 +4,7 @@ load("Boland.mask.rda") # revised mask to include landuse and related covariates
 
 cameras=traps(Boland.CH)
 image.plot.mask(Boland.mask,covariate="alt",asp=1,col=terrain.colors(30))
-plot(cameras,add=TRUE)
+plot(cameras,add=TRUE,detpar=list(pch="+",cex=1.2,col="black"))
 image.plot.mask(Boland.mask,covariate="dist2.Urban",asp=1)
 plot(cameras,add=TRUE)
 image.plot.mask(Boland.mask,covariate="dist2.Water",asp=1)
@@ -90,8 +90,6 @@ keep=covariates(Boland.mask2)$Landuse!=4 & covariates(Boland.mask2)$Landuse!=5 #
 Boland.mask2=Boland.mask2[keep,]
 covariates(Boland.mask2)=covariates(Boland.mask2)[keep,]
 
-#save(list=c(Boland.mask2,cameras2),file="./data/Boland.leopards2.rda")
-
 image.plot.mask(Boland.mask2,covariate="alt",asp=1); points(cameras2,pch="+")
 image.plot.mask(Boland.mask2,covariate="dist2.Urban",asp=1); points(cameras2,pch="+")
 image.plot.mask(Boland.mask2,covariate="dist2.Water",asp=1); points(cameras2,pch="+")
@@ -101,16 +99,16 @@ image.plot.mask(Boland.mask2,covariate="dist2.Water",asp=1); points(cameras2,pch
 popn = sim.popn.secrgam(fit=fit.ex,N=150,mask=Boland.mask2)
 head(popn)
 dim(popn)
-simCH=sim.capthist(cameras2,popn,noccasions=13,detectpar=list(g0=0.19,sigma=2500),seed=123457)
-plot(simCH,border=0,rad=500,tracks=TRUE,icolour=colors()[seq(2,202,10)],gridlines=FALSE)
+Boland.CH2=sim.capthist(cameras2,popn,noccasions=13,detectpar=list(g0=0.19,sigma=2500),seed=123457)
+plot(Boland.CH2,border=0,rad=500,tracks=TRUE,icolour=colors()[seq(2,202,10)],gridlines=FALSE)
 
 model.N.a3.dW3 = list(D ~ Natural+s(alt,k=3,fx=TRUE)+s(dist2.Water,k=3,fx=TRUE), g0 ~ 1, sigma ~ 1) 
-system.time(fit2.N.a3.dW3<-secrgam.fit(capthist=simCH,model=model.N.a3.dW3,mask=Boland.mask2,trace=FALSE))
+system.time(fit2.N.a3.dW3<-secrgam.fit(capthist=Boland.CH2,model=model.N.a3.dW3,mask=Boland.mask2,trace=FALSE))
 
 model.a3.dW3 = list(D ~ s(alt,k=3,fx=TRUE)+s(dist2.Water,k=3,fx=TRUE), g0 ~ 1, sigma ~ 1) 
-system.time(fit2.a3.dW3<-secrgam.fit(capthist=simCH,model=model.a3.dW3,mask=Boland.mask2,trace=FALSE))
+system.time(fit2.a3.dW3<-secrgam.fit(capthist=Boland.CH2,model=model.a3.dW3,mask=Boland.mask2,trace=FALSE))
 
-fit2.0<-secrgam.fit(capthist=simCH,model=list(D~1),mask=Boland.mask2,trace=FALSE)
+fit2.0<-secrgam.fit(capthist=Boland.CH2,model=list(D~1),mask=Boland.mask2,trace=FALSE)
 
 AIC(fit2.N.a3.dW3,fit2.a3.dW3,fit2.0)
 
@@ -118,12 +116,47 @@ plot(fit2.a3.dW3, asp = 1)
 points(cameras2, col="black",pch="+")
 region.N(fit2.a3.dW3)
 region.N(fit2.0)
-plotDgam(fit2.N.a3.dW3)
+plotDgam(fit2.a3.dW3)
 
 
+# Repeat for the original design:
+Boland.CH1=sim.capthist(cameras,popn,noccasions=13,detectpar=list(g0=0.19,sigma=2500),seed=123457)
+plot(Boland.CH1,border=0,rad=500,tracks=TRUE,icolour=colors()[seq(2,202,10)],gridlines=FALSE)
+Boland.mask1=Boland.mask
+save(list=c("Boland.mask1","Boland.CH1"),file="./data/Boland.leopards1.rda")
 
+model.a3.dW3 = list(D ~ s(alt,k=3,fx=TRUE)+s(dist2.Water,k=3,fx=TRUE), g0 ~ 1, sigma ~ 1) 
+system.time(fit1.a3.dW3<-secrgam.fit(capthist=Boland.CH1,model=model.a3.dW3,mask=Boland.mask1,trace=FALSE))
 
+model.a3 = list(D ~ s(alt,k=3,fx=TRUE), g0 ~ 1, sigma ~ 1)
+system.time(fit1.a3<-secrgam.fit(capthist=Boland.CH1,model=model.a3,mask=Boland.mask1,trace=FALSE))
 
+model.a4 = list(D ~ s(alt,k=4,fx=TRUE), g0 ~ 1, sigma ~ 1)
+system.time(fit1.a4<-secrgam.fit(capthist=Boland.CH1,model=model.a4,mask=Boland.mask1,trace=FALSE))
+
+fit1.0<-secrgam.fit(capthist=Boland.CH1,model=list(D~1),mask=Boland.mask1,trace=FALSE)
+
+AIC(fit1.a4,fit1.a3,fit1.a3.dW3,fit1.0)
+
+plot(fit1.a3, asp = 1)
+plot(fit1.a4, asp = 1)
+points(cameras2, col="black",pch="+")
+plot(fit1.a3.dW3, asp = 1)
+points(cameras2, col="black",pch="+")
+region.N(fit1.a4)
+region.N(fit1.a3)
+region.N(fit1.a3.dW3)
+region.N(fit1.0)
+plotDgam(fit1.a4)
+A=nrow(Boland.mask1)*attr(Boland.mask1, "a")  # total area of mask
+Dhat=Nhat/A              # density within mask
+
+# Save data objects for package:
+save(list=c("Boland.mask1","Boland.CH1"),file="./data/Boland.leopards1.rda")
+save(list=c("Boland.mask2","Boland.CH2"),file="./data/Boland.leopards2.rda")
+
+save(list=c("fit1.0","fit1.a3","fit1.a4","fit1.a3.dW3"),file="./data/Boland.fits1.rda")
+save(list=c("fit2.0","fit2.a3.dW3","fit2.N.a3.dW3"),file="./data/Boland.fits2.rda")
 
 
 

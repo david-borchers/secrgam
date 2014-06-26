@@ -78,37 +78,106 @@ NULL
 NULL
 
 
-#' @name Boland.leopards
-#' @title Data from 2010 camera-trap survey of leopards in the Boland, South 
+#' @name Boland.leopards1
+#' @title Simulated data from 2010 camera-trap survey of leopards in the Boland, South 
 #' Africa.
 #' @docType data
-#' @description The data are from a camera-trap survey of leopards in the Boland region of 
-#' South Africa. Cameras were checked weekly and data recorded in binary format (i.e. only 
+#' @description The data are simulated from a camera-trap survey of leopards in the Boland 
+#' region of South Africa, using a fit to the real data to create the simulated population. 
+#' Cameras were checked weekly and data recorded in binary format (i.e. only 
 #' whether or not an animal was detected on each occasion, not the number of detections
 #' within occasions). 
-#' @usage data(Boland.leopards)
+#' @usage data(Boland.leopards1)
 #' @format An object containing list with the following two data objects.
 #'  \describe{
-#'    \item{\code{Boland.CH}:}{ an \code{\link{secr}} capture history object with camera-trap 
+#'    \item{\code{Boland.CH1}:}{ an \code{\link{secr}} capture history object with camera-trap 
 #'    detections of leopards in the form of binary data over 13 occasions.}
-#'    \item{\code{Boland.mask}:}{ an \code{\link{secr}} mask object for the data in \code{Boland.CH}.
+#'    \item{\code{Boland.mask1}:}{ an \code{\link{secr}} mask object for the data in \code{Boland.CH}.
 #'    It contans the following covariates:
 #'    \describe{
 #'    \item{\code{alt}:}{altitude}
-#'    \item{\code{xalt}:}{product of x and altitude, scaled by dividing by its mean}
-#'    \item{\code{yalt}:}{product of y and altitude, scaled by dividing by its mean}
+#'    \item{\code{Landuse}:}{Landuse category (1=Natural, 2=Cultivated, 3=Degraded, 4=Plantation)}
 #'    \item{\code{Natural}:}{binary variable: 1=Natural land use category, 0=not}
-#'    \item{\code{Cultivated}:}{binary variable: 1=Cultivated land use category, 0=not}
-#'    \item{\code{Degraded}:}{binary variable: 1=Degraded land use category, 0=not}
-#'    \item{\code{Plantation}:}{binary variable: 1=Plantation land use category, 0=not}
 #'    \item{\code{dist2.Urban}:}{distance to closest Urban land use category cell}
 #'    \item{\code{dist2.Water}:}{distance to closest Water land use category cell}
 #'    \item{\code{dist2.Natural}:}{distance to closest Natural land use category cell}
-#'    \item{\code{Landuse}:}{Landuse category (1=Natural, 2=Cultivated, 3=Degraded, 4=Plantation)}
-#'    \item{\code{lufactor}:}{Landuse category as a factor variable}
+#'    \item{\code{LUfactor}:}{Landuse category as a factor variable}
 #'    }
 #'  }
 #'}
-#' @source \code{Boland.CH} and \code{Boland.mask} were provided by the Cape Leopard Trust 
-#' Boland Leopard Project (http://capeleopard.org.za/research/leopard/boland). 
+#' @source \code{Boland.mask1} was provided by the Cape Leopard Trust Boland Leopard Project 
+#' (http://capeleopard.org.za/research/leopard/boland). \code{Boland.CH1} was simulated using 
+#' a model fitted to the real data.
+NULL
+
+
+
+#' @name Boland.leopards2
+#' @title Simulated data from a more extensive simulated survey than the real 
+#' 2010 camera-trap survey of leopards in the Boland, South Africa.
+#' @docType data
+#' @description The data are simulated from a camera-trap survey of leopards in the Boland 
+#' region of South Africa, using a fit to the real data to create the simulated population, 
+#' but using a more extensive array of (simulated) camera traps than was used on the real survey. 
+#' Cameras were checked weekly and data recorded in binary format (i.e. only 
+#' whether or not an animal was detected on each occasion, not the number of detections
+#' within occasions). 
+#' @usage data(Boland.leopards2)
+#' @format An object containing list with the following two data objects.
+#'  \describe{
+#'    \item{\code{Boland.CH2}:}{ an \code{\link{secr}} capture history object with camera-trap 
+#'    detections of leopards in the form of binary data over 13 occasions.}
+#'    \item{\code{Boland.mask2}:}{ an \code{\link{secr}} mask object for the data in \code{Boland.CH}.
+#'    It contans the following covariates:
+#'    \describe{
+#'    \item{\code{alt}:}{altitude}
+#'    \item{\code{Landuse}:}{Landuse category (1=Natural, 2=Cultivated, 3=Degraded, 4=Plantation)}
+#'    \item{\code{Natural}:}{binary variable: 1=Natural land use category, 0=not}
+#'    \item{\code{dist2.Urban}:}{distance to closest Urban land use category cell}
+#'    \item{\code{dist2.Water}:}{distance to closest Water land use category cell}
+#'    \item{\code{dist2.Natural}:}{distance to closest Natural land use category cell}
+#'    \item{\code{LUfactor}:}{Landuse category as a factor variable}
+#'    }
+#'  }
+#'}
+#' @source \code{Boland.CH2} and \code{Boland.mask2} were simulated from data provided by the 
+#' Cape Leopard Trust Boland Leopard Project (http://capeleopard.org.za/research/leopard/boland). 
+NULL
+
+#' @name Boland.fits1
+#' @title SECR  models fitted to \code{Boland.CH1}.
+#' @docType data
+#' @description Models with nonhomogeneous Poisson Process models for density, fitted to 
+#' \code{Boland.CH1}.
+#' @usage data(Boland.fits1)
+#' @format An object containing list with the following objects of class \code{secrgam}.
+#'  \describe{
+#'    \item{\code{fit1.0}:}{ an \code{\link{secrgam}} object with homogeneous density.}
+#'    \item{\code{fit1.a3}:}{ an \code{\link{secrgam}} object with fitted density being a 
+#'    smooth of altitude (\code{alt}), with 3 degrees of freedom.}
+#'    \item{\code{fit1.a4}:}{ an \code{\link{secrgam}} object with fitted density being a 
+#'    smooth of altitude (\code{alt}), with 4 degrees of freedom.}
+#'    \item{\code{fit1.a3.dW3}:}{ an \code{\link{secrgam}} object with fitted density being a 
+#'    smooth of altitude (\code{alt}), with 3 degrees of freedom and distance from water (\code{dist2.Water}),
+#'    with 3 degrees of freedom.}
+#'  }
+NULL
+
+
+#' @name Boland.fits2
+#' @title SECR  models fitted to \code{Boland.CH2}.
+#' @docType data
+#' @description Models with nonhomogeneous Poisson Process models for density, fitted to 
+#' \code{Boland.CH2}.
+#' @usage data(Boland.fits1)
+#' @format An object containing list with the following objects of class \code{secrgam}.
+#'  \describe{
+#'    \item{\code{fit2.0}:}{ an \code{\link{secrgam}} object with homogeneous density.}
+#'    \item{\code{fit2.a3.dW3}:}{ an \code{\link{secrgam}} object with fitted density being 
+#'    smooths of altitude (\code{alt}) with 3 degrees of freedom and distance from water 
+#'    (\code{dist2.Water}) with 3 degrees of freedom.}
+#'    \item{\code{fit2.N.a3.dW3}:}{ an \code{\link{secrgam}} object with fitted density being a 
+#'    linear functoin of the factor \code{Natural}, and smooths of altitude (\code{alt}) with 3 
+#'    degrees of freedom and distance from water (\code{dist2.Water}) with 3 degrees of freedom.}
+#'  }
 NULL

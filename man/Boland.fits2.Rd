@@ -1,0 +1,22 @@
+\docType{data}
+\name{Boland.fits2}
+\alias{Boland.fits2}
+\title{SECR  models fitted to \code{Boland.CH2}.}
+\format{An object containing list with the following objects of class \code{secrgam}.
+ \describe{
+   \item{\code{fit2.0}:}{ an \code{\link{secrgam}} object with homogeneous density.}
+   \item{\code{fit2.a3.dW3}:}{ an \code{\link{secrgam}} object with fitted density being
+   smooths of altitude (\code{alt}) with 3 degrees of freedom and distance from water
+   (\code{dist2.Water}) with 3 degrees of freedom.}
+   \item{\code{fit2.N.a3.dW3}:}{ an \code{\link{secrgam}} object with fitted density being a
+   linear functoin of the factor \code{Natural}, and smooths of altitude (\code{alt}) with 3
+   degrees of freedom and distance from water (\code{dist2.Water}) with 3 degrees of freedom.}
+ }}
+\usage{
+data(Boland.fits1)
+}
+\description{
+Models with nonhomogeneous Poisson Process models for
+density, fitted to \code{Boland.CH2}.
+}
+

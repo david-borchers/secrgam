@@ -1,0 +1,23 @@
+\docType{data}
+\name{Boland.fits1}
+\alias{Boland.fits1}
+\title{SECR  models fitted to \code{Boland.CH1}.}
+\format{An object containing list with the following objects of class \code{secrgam}.
+ \describe{
+   \item{\code{fit1.0}:}{ an \code{\link{secrgam}} object with homogeneous density.}
+   \item{\code{fit1.a3}:}{ an \code{\link{secrgam}} object with fitted density being a
+   smooth of altitude (\code{alt}), with 3 degrees of freedom.}
+   \item{\code{fit1.a4}:}{ an \code{\link{secrgam}} object with fitted density being a
+   smooth of altitude (\code{alt}), with 4 degrees of freedom.}
+   \item{\code{fit1.a3.dW3}:}{ an \code{\link{secrgam}} object with fitted density being a
+   smooth of altitude (\code{alt}), with 3 degrees of freedom and distance from water (\code{dist2.Water}),
+   with 3 degrees of freedom.}
+ }}
+\usage{
+data(Boland.fits1)
+}
+\description{
+Models with nonhomogeneous Poisson Process models for
+density, fitted to \code{Boland.CH1}.
+}
+
