@@ -41,6 +41,19 @@
 #' # fitted mean density across all mask points plus upper and lower 95% CI
 #' Dhat = fitted(fit1.a3, se = TRUE, type = "mean") ; Dhat
 #' Nhat = lapply(Dhat, function(x) x * A) ; Nhat
+#' 
+#' \dontrun{
+#' # fitted density values at each mask point plus approx CV at each point
+#' par(mfrow = c(1,2))
+#' relrange=(Dhat$upper-Dhat$lower)/Dhat$estimate/4
+#' prep4image(data.frame(x = fit1.a3$mask$x,
+#'                       y = fit1.a3$mask$y,
+#'                       z = Dhat$estimate), 
+#'                       main = "Estimate", asp = 1, zlim = range(Dhat))
+#' prep4image(data.frame(x = fit1.a3$mask$x,
+#'                       y = fit1.a3$mask$y,
+#'                       z = relrange), asp = 1,main="Approx Relative SE")
+#' }
 #' @export
 #' @seealso \link{plot.secrgam}
 
