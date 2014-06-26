@@ -97,7 +97,7 @@ fitted.secrgam = function(fit, mask = NULL, se = FALSE, type = c("individual","m
       
     }else{
       
-      Cov = fit$fit$hessian[fit$parindx$D,fit$parindx$D]
+      Cov = solve(fit$fit$hessian[fit$parindx$D,fit$parindx$D])
       
       if(!all(is.finite(Cov))){
         
