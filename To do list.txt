@@ -17,7 +17,7 @@
 
 4. Added sim.popn.secrgam
 
-5. Added fitted.secrgam
+5. Added fitted.secrgam - works for individual mask points and mean density
 
 6. Added plot.secrgam
 
@@ -25,21 +25,21 @@
 
 # still to do -----
 
-- PRIORITY = predict.secrgam - function to calculate abundance from a fitted model, giving upper and lower estimates using numericDeriv 
-  - use lognormal ci and david's utility function (to stop lower bound going below n)
-  - also give results in terms of density (trivial after you've calculated abundance)
+- consider adding response = c("density","abundance") as an argument to fitted.secrgam
+
+- predict.secrgam - give average D and then results of predit.secr (minus the D bit)
 
 - amend plot.secrgam to visualise gam smooths (borrow from mgcv?) - plotDgam for single dimension smooths (try and find a way to only plot univariate smooths, eg. te(x), s(x) - need to identify bivariate+ and ignore them)
-
-- write a make.design.matrix function to get X - use in fitted.secrgam and secrgam.fit
 
 - update prepare.mask.bases help file
 
 - tidy up sim.popn.secrgam - add comments to help file to make these things clear
 
-- predict.secrgam - give average D and then results of predit.secr (minus the D bit)
-
 - check that fx = TRUE for gam
+
+- check plotDgam - update it so that it gives 1D smooths
+
+
 
 
 
