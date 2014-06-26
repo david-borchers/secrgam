@@ -46,12 +46,12 @@
 #' @export
 
 sim.popn.secrgam = function(fit = NULL, N = NULL, Dmodel = NULL, Dpars = NULL, Dlink = "log", mask = NULL){
+
+  # if no mask supplied use original mask
+  if(is.null(mask)) mask = fit$orig.mask
   
   # if a fitted model is supplied, then extract Dmodel, Dpars, Dlink and mask
   if(!is.null(fit)){
-    
-    # use mask from fitted model if mask not supplied separately
-    mask = if(is.null(mask)) fit$mask else mask 
     
     D = fitted(fit, mask)
     
