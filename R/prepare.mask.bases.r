@@ -6,24 +6,29 @@
 #' toghether with non-smoothed variables (but excluding "x" and "y", which are
 #' in mask already). 
 #' 
-#' Also adds a list of basis functions to
-#' attributes(mask)$bases, and the df of each basis in
-#' attributes(mask)$bases.df. The list attribtes(mask)$bases contains original
-#' variables as 1D matrix if the variable is not smoothed, and spline basis
-#' object (a >1D matrix with attributes givning knots, etc.) if it is smoothed. 
-#' The vector attr(mask,"bases.df") contains the degrees of freedom of the
-#' smooths.
+# Also adds a list of basis functions to
+# attributes(mask)$bases, and the df of each basis in
+# attributes(mask)$bases.df. The list attribtes(mask)$bases contains original
+# variables as 1D matrix if the variable is not smoothed, and spline basis
+# object (a >1D matrix with attributes givning knots, etc.) if it is smoothed. 
+# The vector attr(mask,"bases.df") contains the degrees of freedom of the
+# smooths.
 #' 
 #' @param model secr model specification list.
 #' @param mask secr mask object.
 #'   
 #' @details (None as yet...)
 #' 
-#' @return Returns NULL if the Density model in model has no smooth terms (of
-#'   form "s(x,k=b)"), else returns mask object with attributes "bases" and
-#'   "covariates" as described above.
+#' @return Returns a \code{mask} object with updated covariates.
 #' @export
 #' @importFrom mgcv gam
+#' @examples
+#' data(Boland.leopards1)
+#' head(Boland.mask1)
+#' head(covariates(Boland.mask1))
+#' newmask = prepare.mask.bases(~s(x, k = 3), Boland.mask1)
+#' head(newmask)
+#' head(covariates(newmask))
 
 prepare.mask.bases = function(Dmodel, mask){
   
