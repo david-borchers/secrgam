@@ -36,34 +36,34 @@ to calculate standard errors for fitted values.
 details...
 }
 \examples{
-data(Boland.leopards)
+data(Boland.leopards1)
 op = par(no.readonly = TRUE)
 
 # fitted density values at each mask point
-Dhat = fitted(Boland.fit)
+Dhat = fitted(fit1.a3)
 par(mfrow = c(1,1))
-prep4image(list(x = Boland.fit$mask$x,
-                y = Boland.fit$mask$y,
+prep4image(list(x = fit1.a3$mask$x,
+                y = fit1.a3$mask$y,
                 z = Dhat), asp = 1)
 
 # fitted density values at each mask point plus upper and lower 95\% CIs
-Dhat = fitted(Boland.fit, se = TRUE)
+Dhat = fitted(fit1.a3, se = TRUE)
 par(mfrow = c(1,3))
 for(i in names(Dhat))
-  prep4image(list(x = Boland.fit$mask$x,
-                  y = Boland.fit$mask$y,
+  prep4image(list(x = fit1.a3$mask$x,
+                  y = fit1.a3$mask$y,
                   z = Dhat[[i]]), main = i, asp = 1, zlim = range(Dhat))
 par(op)
 
 # fitted mean density across all mask points
-Dhat = fitted(Boland.fit, type = "mean") ; Dhat
-M = nrow(Boland.fit$mask) ; M # number of mask points
-a = attr(Boland.fit$mask, "a") ; a # area of each mask cell
+Dhat = fitted(fit1.a3, type = "mean") ; Dhat
+M = nrow(fit1.a3$mask) ; M # number of mask points
+a = attr(fit1.a3$mask, "a") ; a # area of each mask cell
 A = M * a ; A # total area of mask
 Nhat = Dhat * A ; Nhat # abundance within mask
 
 # fitted mean density across all mask points plus upper and lower 95\% CI
-Dhat = fitted(Boland.fit, se = TRUE, type = "mean") ; Dhat
+Dhat = fitted(fit1.a3, se = TRUE, type = "mean") ; Dhat
 Nhat = lapply(Dhat, function(x) x * A) ; Nhat
 }
 \seealso{

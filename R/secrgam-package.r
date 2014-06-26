@@ -22,8 +22,7 @@
 #'   splines (B-splines).
 #'   
 #' @author David Borchers \email{dlb@@st-andrews.ac.uk}
-#' 
-#' Contributors: Darren Kidney \email{darrenkidney@@googlemail.com}
+#' @author Darren Kidney \email{darrenkidney@@googlemail.com}
 #' 
 #' Maintainer: David Borchers \email{dlb@@st-andrews.ac.uk}
 #' 

@@ -29,31 +29,31 @@ The package currently implements only additive
 \examples{
 library(secrgam)
 
-data(Boland.leopards)
+data(Boland.leopards1)
 data(Boland.alt.image)
 
 # plot survey region and traps
-Boland.cameras = traps(Boland.CH)
+Boland.cameras = traps(Boland.CH1)
 image(Boland.alt.image, col = terrain.colors(60),main="Altitude map")
 contour(Boland.alt.image, add = TRUE)
 plot(Boland.cameras, add = TRUE, detpar = list(pch = "+", cex = 1.2))
 
 # summarise and plot capture histories
-summary(Boland.CH)
-plot(Boland.CH, border = 0, rad = 0.01, tracks = TRUE, icolour = colors()[seq(2, 202, 10)])
+summary(Boland.CH1)
+plot(Boland.CH1, border = 0, rad = 0.01, tracks = TRUE, icolour = colors()[seq(2, 202, 10)])
 
 # make a model with dependence on altitude via smooth with 2 degrees of freedom
 model = list(D ~ s(alt, k = 2), g0 ~ 1, sigma ~ 1)
 
 # fit model
 \dontrun{
-fit <- secrgam.fit(capthist = Boland.CH, model = model, mask = Boland.mask, trace = FALSE)
+fit <- secrgam.fit(capthist = Boland.CH1, model = model, mask = Boland.mask1, trace = FALSE)
 fit # look at fit results
 
 # plot fitted surface:
 Dsurface <- predictDsurface(fit)
 plot(Dsurface, border = 0, polyc = 'blue', plottype = 'shaded', col = terrain.colors(30), breaks = 25, meshcol = NA)
-plot(traps(Boland.CH), add = TRUE)
+plot(traps(Boland.CH1), add = TRUE)
 
 # plot smooths:
 plotDgam(fit)
@@ -62,8 +62,7 @@ plotDgam(fit)
 \author{
 David Borchers \email{dlb@st-andrews.ac.uk}
 
-Contributors: Darren Kidney
-\email{darrenkidney@googlemail.com}
+Darren Kidney \email{darrenkidney@googlemail.com}
 
 Maintainer: David Borchers \email{dlb@st-andrews.ac.uk}
 }

@@ -34,16 +34,16 @@ description...
 details...
 }
 \examples{
-data(Boland.leopards)
+data(Boland.leopards1)
 
 # use a fitted model
-popn = sim.popn.secrgam(Boland.fit) ; head(popn) ; dim(popn)
-plot(Boland.fit, asp = 1)
+popn = sim.popn.secrgam(fit1.a3) ; head(popn) ; dim(popn)
+plot(fit1.a3, asp = 1)
 points(popn, cex = 0.5, pch = 19)
 
 # use an inflated density surface from a fitted model
-popn = sim.popn.secrgam(Boland.fit, N = 1000) ; head(popn) ; dim(popn)
-plot(Boland.fit, asp = 1)
+popn = sim.popn.secrgam(fit1.a3, N = 1000) ; head(popn) ; dim(popn)
+plot(fit1.a3, asp = 1)
 points(popn, cex = 0.5, pch = 19)
 
 \dontrun{

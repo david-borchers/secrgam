@@ -53,7 +53,7 @@ will be overwritten.
 }
 \examples{
 # load mask and raster data
-data(Boland.leopards)
+data(Boland.leopards1)
 data(Boland.landuse.image)
 data(Boland.alt.image)
 
@@ -62,12 +62,12 @@ op = par(no.readonly = TRUE)
 
 # single landcover type
 par(mfrow = c(1,1), mar = c(2,2,2,2), oma = c(0,0,0,0))
-newmask = addcov2mask(Boland.mask, Boland.alt.image, "altitude")
+newmask = addcov2mask(Boland.mask1, Boland.alt.image, "altitude")
 head(attributes(newmask)$covariates)
 
 # mutiple landcover types
 newmask = addcov2mask(
-  Boland.mask, Boland.landuse.image,
+  Boland.mask1, Boland.landuse.image,
   names = c("Unknown", "Natural", "Cultivated", "Degraded", "Urban", "Water", "Plantation"),
   cols = c("black", "green3", "yellow", "tan", "dimgray", "blue", "gold2"),
 )
@@ -76,7 +76,7 @@ head(attributes(newmask)$covariates)
 # mutiple landcover types - including distance to water and urbarn
 par(mfrow = c(1,3))
 newmask = addcov2mask(
-  Boland.mask, Boland.landuse.image,
+  Boland.mask1, Boland.landuse.image,
   names = c("Unknown", "Natural", "Cultivated", "Degraded", "Urban", "Water", "Plantation"),
   cols = c("black", "green3", "yellow", "tan", "dimgray", "blue", "gold2"),
   distance.to = c("Urban","Water")
