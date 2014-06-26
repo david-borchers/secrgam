@@ -7,7 +7,7 @@
   criterion = c("AICc", "AIC"))
 }
 \arguments{
-\item{object}{secr object output from the function secr.fit, or a list of such objects with
+\item{object}{secr object output from the function \code{\link{secr.fit}}, or a list of such objects with
 class c("list","secrlist").}
 
 \item{...}{other secr objects}
@@ -21,7 +21,7 @@ class c("list","secrlist").}
 \item{criterion}{character, criterion to use for model comparison and weights.}
 }
 \description{
-Same as the function of same name in package \code{secr}, but with explicit
+Same as the function of same name in package \code{\link{secr}}, but with explicit
 call to secr:::oneline.secr rather than just onleline.secr.
 }
 \details{

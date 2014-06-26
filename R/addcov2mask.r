@@ -1,7 +1,7 @@
 
 #' @title Add covariates to mask from raster data
 #'   
-#' @description Adds covaraiates to a habitat mask from a GIS landcover data in 
+#' @description Adds covariates to a habitat mask from a GIS landcover data in 
 #'   raster format.
 #'   
 #' @param mask \code{\link{mask}} object (as used by \code{\link{secrgam.fit}} 

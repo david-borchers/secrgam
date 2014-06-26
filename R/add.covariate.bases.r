@@ -5,7 +5,8 @@
 #'  explanatory variables, as a single data frame. (This data frame is not currently used
 #'  but seems necessary for use with secr.fit.)
 #'  
-#' @param mask secr \code{\link{mask}} object.
+#' @param mask \code{\link{mask}} object (as used by \code{\link{secrgam.fit}} 
+#'   and \code{\link{secr.fit}}).
 #' @export
 add.covariate.bases=function(mask){
   bases=attr(mask,"bases")

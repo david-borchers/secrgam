@@ -9,10 +9,18 @@ $y (vector of unique longitudes, in increasing order) and $z (matrix of altitude
 www.ngdc.noaa.gov/mgg/global/
 }
 \usage{
-data(WCape.alt)
+data(WCape.alt.image)
 }
 \description{
 Altitudes of terrain in the Western Cape, South Africa.
+}
+\examples{
+data(WCape.alt.image)
+op = par(no.readonly = TRUE)
+par(mfrow = c(1,1))
+image(WCape.alt.image, asp = 1)
+contour(WCape.alt.image, add = TRUE)
+par(op)
 }
 \references{
 Amante, C. and B. W. Eakins, ETOPO1 1 Arc-Minute Global Relief Model: Procedures, Data Sources

@@ -36,7 +36,7 @@ column with the integer integer values.}
 Returns a new mask object.
 }
 \description{
-Adds covaraiates to a habitat mask from a GIS landcover data in
+Adds covariates to a habitat mask from a GIS landcover data in
   raster format.
 }
 \details{

@@ -3,8 +3,8 @@
 \name{Boland.landuse.image}
 \alias{Boland.landuse.image}
 \title{Land use class in the Boland (in fromat for plotting).}
-\format{A list with the following elements: $x (vector of unique longitudes, in increasing order),
-$y (vector of unique longitudes, in increasing order) and $z (matrix of land use
+\format{A list with the following elements: \code{x} (vector of unique longitudes, in increasing order),
+\code{y} (vector of unique longitudes, in increasing order) and \code{landuse} (matrix of land use
 categories: 1="Natural", 2="Cultivated", 3="Degraded", 4="Urban", 5="Water",
 6="Plantation").}
 \source{
@@ -15,6 +15,15 @@ data(Boland.landuse.image)
 }
 \description{
 Land use class of terrain in the the Boland, South Africa.
+}
+\examples{
+\dontrun{
+data(Boland.landuse.image)
+op = par(no.readonly = TRUE)
+par(mfrow = c(1,1))
+image(Boland.landuse.image, asp = 1, col = c("black", "green3", "yellow", "tan", "dimgray", "blue", "gold2"))
+par(op)
+}
 }
 \references{
 http://bgis.sanbi.org/landcover/Landcover2009.pdf

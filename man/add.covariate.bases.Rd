@@ -6,7 +6,8 @@
 add.covariate.bases(mask)
 }
 \arguments{
-\item{mask}{secr \code{\link{mask}} object.}
+\item{mask}{\code{\link{mask}} object (as used by \code{\link{secrgam.fit}}
+and \code{\link{secr.fit}}).}
 }
 \description{
 Adds all basis functions to attr(mask,"covariates"), including linear (non-smoothed)

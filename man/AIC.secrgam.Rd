@@ -7,7 +7,7 @@
   criterion = c("AICc", "AIC"))
 }
 \arguments{
-\item{object}{secr object output from the function secr.fit, secrgam.fit, or a list of such
+\item{object}{secr object output from the function \code{\link{secr.fit}}, \code{\link{secrgam.fit}}, or a list of such
 objects with class c("list","secrlist").}
 
 \item{...}{other secr objects}
@@ -21,7 +21,7 @@ objects with class c("list","secrlist").}
 \item{criterion}{character, criterion to use for model comparison and weights.}
 }
 \description{
-Terse report on the fit of one or more spatially explicit capture–recapture models.
+Terse report on the fit of one or more spatially explicit capture-recapture models.
 Models with smaller values of AIC (Akaike's Information Criterion) are preferred.
 }
 \details{

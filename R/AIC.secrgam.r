@@ -1,9 +1,9 @@
 #' @title Compare SECRgam models.
 #'   
-#' @description Terse report on the fit of one or more spatially explicit capture–recapture models. 
+#' @description Terse report on the fit of one or more spatially explicit capture-recapture models. 
 #' Models with smaller values of AIC (Akaike's Information Criterion) are preferred.
 #'   
-#' @param object secr object output from the function secr.fit, secrgam.fit, or a list of such 
+#' @param object secr object output from the function \code{\link{secr.fit}}, \code{\link{secrgam.fit}}, or a list of such 
 #' objects with class c("list","secrlist").
 #' @param ...  other secr objects
 #' @param sort  logical for whether rows should be sorted by ascending AICc
@@ -14,7 +14,7 @@
 #' @details Same as the function of same name in package \code{secr}, but also takes objects of
 #' class \code{secrgam} as input. See \code{help(AIC.secr)} for details.
 #' 
-#' @details NOTE: This function can be used to compare objects of class "secrgam" (output by secrgam.fit)
+#' @details NOTE: This function can be used to compare objects of class "secrgam" (output by \code{\link{secrgam.fit}})
 #' and those of class "secr" PROVIDING that the first object passed to the function is of class "secrgam". 
 #' 
 #' @export
@@ -35,10 +35,10 @@ AIC.secrgam=function(object,...,sort=TRUE,k=2,dmax=10,criterion=c("AICc","AIC"))
 
 #' @title Prints AIC table using AIC.secr output as input.
 #'   
-#' @description Same as the function of same name in package \code{secr}, but with explicit 
+#' @description Same as the function of same name in package \code{\link{secr}}, but with explicit 
 #' call to secr:::oneline.secr rather than just onleline.secr.
 #'   
-#' @param object secr object output from the function secr.fit, or a list of such objects with 
+#' @param object secr object output from the function \code{\link{secr.fit}}, or a list of such objects with 
 #' class c("list","secrlist").
 #' @param ...	other secr objects
 #' @param sort	logical for whether rows should be sorted by ascending AICc
