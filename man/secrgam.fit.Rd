@@ -27,4 +27,19 @@ Fits GAM using regression splines for the density model. Does this
 Returns an object of class c("secrgam","secr"), the latter being same class of
   object as is returned by \code{secr.fit} of package \code{\link{secr}}.
 }
+\examples{
+\dontrun{
+data(Boland.leopards1)
+model = list(D ~ s(alt, k = 4), g0 ~ 1, sigma ~ 1)
+fit = secrgam.fit(capthist = Boland.CH1, model = model, mask = Boland.mask1, trace = FALSE)
+fit # look at fit results
+
+# plot fitted surface:
+plot(fit, asp=1)
+plot(traps(Boland.CH1), add = TRUE)
+
+# plot smooths:
+plotDgam(fit)
+}
+}
 
