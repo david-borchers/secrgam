@@ -38,7 +38,8 @@ prepare.mask.bases = function(Dmodel, mask){
   # add range of original covariates in Dmodel as an attribute
   # (will be added to fitted model for help with plotting)
   covs = attr(X, "term.labels") # names of covariates in Dmodel
-  attr(mask, "cov.range") = apply(cbind(mask, covariates(mask))[, covs, drop = FALSE], 2, range)
+  if(length(covs) > 0)
+    attr(mask, "cov.range") = apply(cbind(mask, covariates(mask))[, covs, drop = FALSE], 2, range)
   
   # replace the mask covariates with the design matrix
   covariates(mask) = as.data.frame(X)

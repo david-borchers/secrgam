@@ -34,9 +34,9 @@
 
 secrgam.fit = function(capthist, model, mask, ...){
   
-  # need to deal with fixed density...
-  
   # make sure model is a named list
+  if ("formula" %in% class(model)) 
+    model = list(model)
   model = secr:::stdform(model)
   orig.model = model # save model in original form 
   orig.mask = mask # save mask in original form
