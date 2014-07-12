@@ -84,7 +84,6 @@
 #' data(Boland.leopards2) # get larger mask
 #' # calculate abundance and density estimates on fitting mask:
 #' region.ND(fit1.a3.dW3,Boland.mask2)
-
 #' }
 region.ND=function (object, region = NULL, spacing = NULL, session = NULL, 
           group = NULL, se.N = TRUE, alpha = 0.05, loginterval = TRUE, 
