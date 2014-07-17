@@ -30,19 +30,97 @@
 #' head(newmask)
 #' head(covariates(newmask))
 
-prepare.mask.bases = function(Dmodel, mask){
+prepare.mask.bases = function(Dmodel, mask, sessioncov = NULL, nsessions = 1){
   
-  # make the design matrix
-  X = make.density.design.matrix(Dmodel, mask) # head(X)
+  # convert mask to a list (if it's not already a list)
+  if(!inherits(mask, "list")) mask = list(mask)
+  
+  if(nsessions > 1){
+    
+    if(length(mask) == 1){
+      
+      # single mask supplied, so make list of duplicate masks
+      mask = lapply(1:nsessions, function(i) mask)
+      
+    }else{
+      
+      # mask supplied as list, so check length = nsessions
+      if(length(mask) != nsessions)
+        stop("if mask supplied as a list, then length(mask) must equal nsessions")         
+      
+    }
+    
+    # default session variables
+    Session = (1:nsessions)-1 
+    session = factor(Session) 
+    
+    if(is.null(sessioncov)){
+      
+      # no sessioncov supplied, so make default sessioncov data frame
+      sessioncov = data.frame(Session, session) 
+      
+    }else{
+      
+      # sessionov supplied, so check nrows = nsessions
+      if(nrow(sessioncov) != nsessions)
+        stop("if sessioncov supplied as a list, then nrow(sessioncov) must equal nsessions")         
+      
+      # and add session and Session variables if not already present 
+      if(is.null(sessioncov$Session)) sessioncov$Session = Session
+      if(is.null(sessioncov$session)) sessioncov$session = session
+      
+    }
+    
+  }  
+  
+  # add session covariates to mask covariates
+  for(i in 1:nsessions){ # i=1
+    
+    covariates(mask[[i]]) = if(is.null(covariates(mask[[i]]))){
+      
+      data.frame(
+        Session = rep(sessioncov$Session[i], nrow(mask[[i]])),
+        session = rep(sessioncov$session[i], nrow(mask[[i]]))
+      )
+      
+    }else{
+      
+      cbind(covariates(mask[[i]]), sessioncov[i,])
+      
+    }
+    
+  }
+  
+  # the design matrix
+  X = make.density.design.matrix(Dmodel = Dmodel, mask = mask, nsessions = nsessions) # head(X)
   
   # add range of original covariates in Dmodel as an attribute
   # (will be added to fitted model for help with plotting)
   covs = attr(X, "term.labels") # names of covariates in Dmodel
-  if(length(covs) > 0)
-    attr(mask, "cov.range") = apply(cbind(mask, covariates(mask))[, covs, drop = FALSE], 2, range)
   
-  # replace the mask covariates with the design matrix
-  covariates(mask) = as.data.frame(X)
+  if(length(covs) > 0){
+#         temp = if(is.null(covariates(mask[[i]]))) mask[[i]] else
+#           cbind(mask[[i]], covariates(mask[[i]]))
+#         attr(mask, "cov.range") = apply(temp[, covs, drop = FALSE], 2, range)
+    
+    attr(mask, "cov.range") = do.call(cbind, lapply(covs, function(cov){
+      
+      range(do.call(c, lapply(mask, function(x){
+        
+        if(cov %in% c("x","y")) x[,cov] else covariates(x)[,cov]
+        
+      })))
+      
+    }))
+    
+    colnames(attr(mask, "cov.range")) = covs
+    
+  }
+  
+  # replace the mask covariates with the design matrices
+  for(i in 1:nsessions) covariates(mask[[i]]) = as.data.frame(X[attr(X, "session.id") == i,])
+  
+  if(nsessions == 1) mask = mask[[1]]
   
   return(mask)   
   

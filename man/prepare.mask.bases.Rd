@@ -3,7 +3,7 @@
 \alias{prepare.mask.bases}
 \title{Add spline basis functions to mask covariates.}
 \usage{
-prepare.mask.bases(Dmodel, mask)
+prepare.mask.bases(Dmodel, mask, sessioncov = NULL, nsessions = 1)
 }
 \arguments{
 \item{model}{secr model specification list.}

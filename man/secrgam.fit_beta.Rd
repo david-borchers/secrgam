@@ -4,7 +4,7 @@
 \title{SECR fit with flexible Density models - beta version.}
 \usage{
 secrgam.fit_beta(capthist, model = list(D ~ 1, g0 ~ 1, sigma ~ 1),
-  mask = NULL, buffer = 100, ...)
+  mask = NULL, buffer = 100, sessioncov = NULL, ...)
 }
 \arguments{
 \item{capthist}{capture history, as for function \code{secr.fit}.}

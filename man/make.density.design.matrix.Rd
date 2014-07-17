@@ -3,12 +3,12 @@
 \alias{make.density.design.matrix}
 \title{Construct a design matrix from a density model}
 \usage{
-make.density.design.matrix(Dmodel, mask)
+make.density.design.matrix(Dmodel, mask, nsessions = 1)
 }
 \arguments{
 \item{model}{density model}
 
-\item{mask}{secr mask object.}
+\item{mask}{secr mask object (or list of mask objects).}
 }
 \value{
 Returns a matrix with number of rows equal to the number of rows in \code{mask}, and number of columns equal to the number of parameters required to implement the regresssion spline specified in \code{model}.
