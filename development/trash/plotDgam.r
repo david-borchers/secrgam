@@ -28,14 +28,14 @@
 #' 
 #' par(op)
 
-plotDgam_beta = function(fit, type = "link", mask.rug = FALSE, det.rug = TRUE, npts = 200, show.knots = FALSE){
+plotDgam = function(fit, type = "link", mask.rug = FALSE, det.rug = TRUE, npts = 200, show.knots = FALSE){
   
-  if(!type %in% c("link", "response")){
+  if(type != "link" & type != "response") {
     type = "link"
     warning("Invalid type; reset to `link'.")
   }
-  if(show.knots) warning("Knot plotting not yet implemented")
-  
+  if(show.knots) warning("Knot plotting not yet implemented"
+  )
   # get smooth terms and associted variables:
   Dmodel = as.character(fit$Dmodel)
   terms = strsplit(Dmodel, " + ", fixed = TRUE)[[2]]
@@ -59,22 +59,22 @@ plotDgam_beta = function(fit, type = "link", mask.rug = FALSE, det.rug = TRUE, n
   }
   
   # loop through all smooths:
-  for(i in 1:nsp) { # i=1
+  for(i in 1:nsp) {
     # get ith covariate range
-    #     if(svar[i] == "x"){
-    #       vrange = range(fit$mask$x)
-    #     }else if(svar[i] == "y"){
-    #       vrange = range(fit$mask$y)
-    #     }else {
-    vrange = fit$cov.range[, svar[i]]
-    #     }
+    if(svar[i] == "x"){
+      vrange = range(fit$mask$x)
+    }else if(svar[i] == "y"){
+      vrange = range(fit$mask$y)
+    }else {
+      vrange = fit$cov.range[, svar[i]]
+    }
     
     # calculate ith linear predictor over covariate range
-    newdata = data.frame(D = rep(1, npts))
-    newdata[[svar[i]]] = seq(vrange[1], vrange[2], length = npts) # values to span range of svar[i]
+    mask = data.frame(D = rep(1, npts), v = seq(vrange[1], vrange[2], length = npts)) # values to span range of svar[i]
+    names(mask)[2] = svar[i]
     form = update.formula(as.formula(paste("~", sterms[i], sep = "")), D ~ .) # complete fomula
-    
-    X = make.density.design.matrix(Dmodel = form, mask = newdata) # don't need nsessions argument here
+        
+    X = make.density.design.matrix(form, mask)
     
     keepcoeff = c(1, which(is.element(cnames, colnames(X)))) # extract cols for smooth from X (incude intercept)
     
@@ -107,34 +107,27 @@ plotDgam_beta = function(fit, type = "link", mask.rug = FALSE, det.rug = TRUE, n
     
     meansm = mean(smooth.x)
     
-    plot(newdata[[svar[i]]], smooth.x - meansm, type = "l", ylim = range(c(smooth.x, lower, upper) - meansm), xlab = svar[i], ylab = paste("Smooth of", svar[i]), main = sterms[i])
+    plot(mask[, 2], smooth.x - meansm, type = "l", ylim = range(c(smooth.x, lower, upper) - meansm), xlab = svar[i], ylab = paste("Smooth of", svar[i]), main = sterms[i])
     
-    lines(newdata[[svar[i]]], lower - meansm, lty = 2)
-    lines(newdata[[svar[i]]], upper - meansm, lty = 2)
+    lines(mask[, 2], lower - meansm, lty = 2)
+    lines(mask[, 2], upper - meansm, lty = 2)
     
     # plot mask rug and detector rug if asked to
     if(mask.rug | det.rug){
-      
-      # won't work for session level covariates
-      if(!svar[i] %in% c("Session","session", colnames(fit$sessioncov))){
-        
-        # get observed variable values on mask:
-        if(svar[i] %in% c("x","y")){
-          zvals = fit$mask[[svar[i]]]
-          det.zvals = traps(fit$capthist)[[svar[i]]]  
-        }else{
-          zvals = attr(fit$orig.mask, "covariates")[[svar[i]]]
-          det.zvals = trap.covar(traps(fit$capthist), fit$orig.mask, svar[i])
-        }
-        
-        # then add rug:
-        if(mask.rug)
-          points(zvals, rep(min(lower-meansm), length(zvals)), pch = "|", cex = 0.5, col = "gray")
-        if(det.rug)
-          points(det.zvals, rep(min(lower-meansm), length(det.zvals)), pch = "|", cex = 0.75)
-        lines(newdata[[svar[i]]], lower-meansm) # replot line over rug
-
+      # get observed variable values on mask:
+      if(svar[i] == "x" | svar[i] == "y") {
+        zvals = fit$mask[[svar[i]]]
+        det.zvals = traps(fit$capthist)[[svar[i]]]
+      } else {
+        zvals = attr(fit$orig.mask, "covariates")[[svar[i]]]
+        det.zvals = trap.covar(traps(fit$capthist), fit$orig.mask, svar[i])
       }
+      # then add rug:
+      if(mask.rug)
+        points(zvals, rep(min(lower-meansm), length(zvals)), pch = "|", cex = 0.5, col = "gray")
+      if(det.rug)
+        points(det.zvals, rep(min(lower-meansm), length(det.zvals)), pch = "|", cex = 0.75)
+      lines(mask[, 2], lower-meansm) # replot line over rug
     }
   }
 }

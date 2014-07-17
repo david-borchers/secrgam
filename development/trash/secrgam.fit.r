@@ -1,5 +1,5 @@
 
-#' @title SECR fit with flexible Density models - beta version.
+#' @title SECR fit with flexible Density models.
 #'   
 #' @description Fits GAM using regression splines for the density model. Does this
 #'   by creating spline basis functions (which are stored as covariates in a mask object) 
@@ -21,7 +21,7 @@
 #' \dontrun{
 #' data(Boland.leopards1)
 #' model = list(D ~ s(alt, k = 4), g0 ~ 1, sigma ~ 1)
-#' fit = secrgam.fit_beta(capthist = Boland.CH1, model = model, mask = Boland.mask1, trace = FALSE)
+#' fit = secrgam.fit(capthist = Boland.CH1, model = model, mask = Boland.mask1, trace = FALSE)
 #' fit # look at fit results
 #' 
 #' # plot fitted surface:
@@ -32,39 +32,20 @@
 #' plotDgam(fit)
 #' }
 
-secrgam.fit_beta = function(capthist, model = list(D ~ 1, g0 ~ 1, sigma ~ 1), mask = NULL, buffer = 100, sessioncov = NULL, ...){
-  
-  # multi-session data?
-  nsessions = if(is.list(capthist)) length(capthist) else 1
-  
-  # check sessioncov
-  if(!is.null(sessioncov))
-    if(!is.data.frame(sessioncov))
-      stop("please enter sessioncov as a dataframe")
-  
-  # make default mask if no mask supplied
-  if(is.null(mask)){
-    mask = make.mask(traps(capthist), buffer = buffer, type = "trapbuffer")
-    message("using 'trapbuffer' mask with buffer = ", buffer)
-  }
-  
-  # convert mask to a list (if not already a list)
-  if(!inherits(mask, "list")) mask = list(mask)
+secrgam.fit = function(capthist, model, mask, ...){
   
   # make sure model is a named list
-  if("formula" %in% class(model)) model = list(model)
+  if ("formula" %in% class(model)) 
+    model = list(model)
   model = secr:::stdform(model)
   orig.model = model # save model in original form 
   orig.mask = mask # save mask in original form
   
-  if(is.null(model$D)) model$D = ~1
-  
-  # replace mask covariates with gam model terms
-  mask = prepare.mask.bases(Dmodel = model$D, mask = mask, sessioncov = sessioncov, nsessions = nsessions)
+  if(!is.null(model$D)) mask = prepare.mask.bases(model$D, mask) # head(mask) ; head(covariates(mask)) ; attr(mask, "cov.range")
   
   # get the design matrix term names 
   # Dparnames = colnames(attr(gamask, "covariates")) 
-  Dparnames = colnames(covariates(mask[[1]])) 
+  Dparnames = colnames(covariates(mask)) 
   
   # identify whether or not there is an explicit intercept term
   int = grepl("Intercept", Dparnames) 
