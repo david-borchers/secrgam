@@ -84,7 +84,7 @@ secrgam.fit = function(capthist, model = list(D ~ 1, g0 ~ 1, sigma ~ 1), mask = 
   model$D = formula(form)
   
   # fit with secr.fit
-  fit = secr.fit(capthist = capthist, model = model, mask = mask, ...)
+  fit = secr.fit(capthist = capthist, model = model, mask = mask, sessioncov = sessioncov, ...)
   
   # add original model and orginal mask to fit object
   fit$Dmodel = orig.model$D

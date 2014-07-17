@@ -22,14 +22,14 @@ make.density.design.matrix = function(Dmodel, mask, nsessions = 1){
   
   if(length(mask) != nsessions)
     stop("if mask supplied as a list, then length(mask) must equal nsessions")         
-
+  
   # index for mask-session
   sessionid = rep(1:nsessions, lapply(mask, nrow)) 
-    
+  
   # add a dummy 'D' column 
   # combine mask with mask covariates (if there are any)
   # combine individual session masks into single mask
-  tempdata = do.call(rbind, lapply(mask, function(x){
+  tempdata = do.call(rbind, lapply(mask, function(x){ # x = mask[[1]]
     x$D = 1
     if(is.null(covariates(x))) x else cbind(x, covariates(x))
   }))
@@ -50,17 +50,17 @@ make.density.design.matrix = function(Dmodel, mask, nsessions = 1){
   colnames(X) = gsub("\\(", ".", colnames(X)) 
   colnames(X) = gsub("[\\)]|[,]", "", colnames(X)) 
   
-  # split X by session and return as a list
-#   X = lapply(1:nsessions, function(i) X[sessionid == sessionid[i],])
-
-# add session id as attribute
+  ## split X by session and return as a list
+  # X = lapply(1:nsessions, function(i) X[sessionid == sessionid[i],])
+  
+  # add session id as attribute
   attr(X, "session.id") = sessionid 
   
   # add names of original covariates as an attribute
   temp = rownames(attributes(G$terms)$factors)
   temp = temp[temp != "D"]
   attr(X, "term.labels") = temp 
-    
+  
   return(X)   
   
 }
