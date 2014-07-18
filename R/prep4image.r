@@ -20,7 +20,12 @@
 #' @details Sorts z on values of x first, then y, then creates a matrix of 
 #'   z-values from this. Returns a list with elements x (unique values of x, in 
 #'   increasing order), y (unique values of y, in increasing order) and z 
-#'   (matrix of z-values in appropriate order for image/contour/persp).
+#'   (matrix of z-values in appropriate order for image/contour/persp). 
+#'   
+#'   If the original z is a factor variabele, the z returned is a matrix of integers 
+#'   between 1 and length(levels(z)) and the output list has an attributes called 
+#'   ``facnames'' that is a character vector containing the levels as factor 
+#'   variables, with z=1 corresponding to the first name, z=2 to the second, etc.
 #' @export
 #' @importFrom fields image.plot
 #' @examples
@@ -43,12 +48,29 @@
 
 prep4image = function(data, plot = TRUE, contour = TRUE, key = TRUE, ...){
   
+  # convert factor data$z to integer:
+  zfactor=FALSE
+  if(is.factor(data$z)) {
+    zfactor=TRUE
+    fac=data$z
+    facnames=levels(fac)
+    nlevels=length(facnames)
+    data$z=rep(0,length(fac))
+    got=rep(FALSE,nlevels)
+    for(i in 1:nlevels){
+      j=which(fac==facnames[i])
+      if(length(j)>0) got[i]=TRUE
+      data$z[j]=i
+    }
+    facnames=facnames[got] # remove factor names not in mask
+  }
   data = as.matrix(data)
   
   x = sort(unique(data[,"x"]))
   y = sort(unique(data[,"y"]))
   
   z = matrix(NA, nr = length(x), nc = length(y))
+  
   for(i in 1:length(x)){
     for(j in 1:length(y)){
       m = which(data[,"x"] == x[i] & data[,"y"] == y[j]) ; m
@@ -65,6 +87,9 @@ prep4image = function(data, plot = TRUE, contour = TRUE, key = TRUE, ...){
     if(contour) contour(x, y, z, add = TRUE)
   }
   
-  invisible(list(x = x, y = y, z = z))
+  outlist=list(x = x, y = y, z = z)
+  if(zfactor) attributes(outlist)$facnames=facnames
+  
+  invisible(outlist)
   
 }
