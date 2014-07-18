@@ -1,16 +1,19 @@
 library(secrgam)
-data(Boland.leopards)
-load("Boland.mask.rda") # revised mask to include landuse and related covariates
+data(Boland.leopards1)
+#load("Boland.mask.rda") # revised mask to include landuse and related covariates
 
-cameras=traps(Boland.CH)
-image.plot.mask(Boland.mask,covariate="alt",asp=1,col=terrain.colors(30))
+cameras=traps(Boland.CH1)
+image.plot.mask(Boland.mask1,covariate="alt",asp=1,col=terrain.colors(30))
 plot(cameras,add=TRUE,detpar=list(pch="+",cex=1.2,col="black"))
-image.plot.mask(Boland.mask,covariate="dist2.Urban",asp=1)
+image.plot.mask(Boland.mask1,covariate="dist2.Urban",asp=1)
 plot(cameras,add=TRUE)
-image.plot.mask(Boland.mask,covariate="dist2.Water",asp=1)
+image.plot.mask(Boland.mask1,covariate="dist2.Water",asp=1)
 plot(cameras,add=TRUE)
-image.plot.mask(Boland.mask,covariate="LUfactor",asp=1)
+image.plot.mask(Boland.mask1,covariate="LUfactor",asp=1,
+                col=c("black","yellow","green3","blue"))
 plot(cameras,add=TRUE)
+#'   names = c("Unknown", "Natural", "Cultivated", "Degraded", "Urban", "Water", "Plantation"), 
+#'   cols = c("black", "green3", "yellow", "tan", "dimgray", "blue", "gold2"),
 
 model.ex = list(D ~ s(alt,k=3,fx=TRUE)+s(dist2.Water,k=3,fx=TRUE), g0 ~ 1, sigma ~ 1) # smooth of altitude with 3 degrees of freedom
 system.time(fit.ex <- secrgam.fit(capthist = Boland.CH, model = model.ex, mask = Boland.mask, trace = FALSE))

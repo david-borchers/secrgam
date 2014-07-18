@@ -11,17 +11,33 @@ par(mfrow = c(1,2))
 fit0 = secrgam.fit(ovenCH, list(D = ~ 1), ovenmask, trace = FALSE)
 print(AIC(fit0)[,"AIC"])
 
-# log-linear session
+# Factor session
 fit.session = secrgam.fit(ovenCH, list(D = ~ session), ovenmask, trace = FALSE)
 print(AIC(fit0)[,"AIC"])
 
-# smooth of Session
-fit1 = secrgam.fit(ovenCH, list(D = ~ s(Session, k=3)), ovenmask, trace = FALSE)
-print(AIC(fit1)[,"AIC"])
-plotDgam(fit1)
+# smooth of Session df=3
+ofit.S3 = secrgam.fit(ovenCH, list(D = ~ s(Session, k=3)), ovenmask, trace = FALSE)
+print(AIC(ofit.S3)[,"AIC"])
+plotDgam(ofit.S3)
 
-AIC(fit0,ovenbird.model.D,fit.session,fit1)
-AIC(fit.session,fit1,ovenbird.model.D)
+AIC(fit0,ovenbird.model.D,fit.session,ofit.S3)
+AIC(fit.session,ofit.S3,ovenbird.model.D)
+
+# smooth of Session df=4
+ofit.S4 = secrgam.fit(ovenCH, list(D = ~ s(Session, k=4)), ovenmask, trace = FALSE)
+print(AIC(ofit.S4)[,"AIC"])
+plotDgam(ofit.S4)
+
+AIC(fit0,ovenbird.model.D,fit.session,ofit.S3,ofit.S4)
+AIC(fit.session,ofit.S3,ofit.S4,ovenbird.model.D)
+
+# smooth of Session df=5
+ofit.S5 = secrgam.fit(ovenCH, list(D = ~ s(Session, k=5)), ovenmask, trace = FALSE)
+print(AIC(ofit.S5)[,"AIC"])
+plotDgam(ofit.S5)
+
+AIC(fit0,ovenbird.model.D,fit.session,ofit.S3,ofit.S4,ofit.S5)
+AIC(fit.session,ofit.S3,ofit.S4,ofit.S5,ovenbird.model.D)
 
 # should be exactly the same as above (just to show you can use your own covariates)
 fit2 = secrgam.fit(ovenCH, list(D = ~ s(scov, k=3)), ovenmask, sessioncov = data.frame(scov = 0:4), trace = FALSE)
