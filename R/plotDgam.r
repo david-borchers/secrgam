@@ -13,6 +13,8 @@
 #' @param bounds \code{TRUE} if 95% confidence bounds of the smooth are to be
 #' plotted.
 #' @param npts number of points on x-axis at which to evaluate smooth.
+#' @param main if TRUE, a main heading reflecting the smooth term in the model
+#' that is being plotted, is added to the plot; else no main heading is plotted.
 #'   
 #' @details
 #' Plots smooth on link or response scale, together with rug plot showing locations
@@ -35,7 +37,7 @@
 #' par(op)
 
 plotDgam = function(fit, type = "response", mask.rug = FALSE, det.rug = TRUE, 
-                    bounds=TRUE, npts = 200){
+                    bounds=TRUE, npts = 200, main=TRUE){
   
   if(!type %in% c("link", "response")){
     type = "link"
@@ -120,7 +122,9 @@ plotDgam = function(fit, type = "response", mask.rug = FALSE, det.rug = TRUE,
     if(bounds) ylim = range(c(smooth.x, lower, upper) - meansm)
     else ylim=range(smooth.x-meansm)
     
-    plot(newdata[[svar[i]]], smooth.x - meansm, type = "l", ylim=ylim, xlab = svar[i], ylab = paste("Smooth of", svar[i]), main = sterms[i])
+    if(main) maintitle=sterms[i]
+    else maintitle=""
+    plot(newdata[[svar[i]]], smooth.x - meansm, type = "l", ylim=ylim, xlab = svar[i], ylab = paste("Smooth of", svar[i]), main = maintitle)
     
     if(bounds) {
       lines(newdata[[svar[i]]], lower - meansm, lty = 2)
