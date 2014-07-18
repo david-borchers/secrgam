@@ -10,11 +10,17 @@
 #'   covariate dimension is to be plotted.
 #' @param det.rug \code{TRUE} if a rugplot of locations of detectors in the
 #'   covariate dimension is to be plotted.
+#' @param bounds \code{TRUE} if 95% confidence bounds of the smooth are to be
+#' plotted.
 #' @param npts number of points on x-axis at which to evaluate smooth.
-#' @param show.knots if \code{TRUE}, puts crosses on smooth at knot locations.
-#'   NOT YET IMPLEMENTED.
 #'   
-#' @details (None as yet)
+#' @details
+#' Plots smooth on link or response scale, together with rug plot showing locations
+#' of detectors in covariate space (if det.rug==TRUE), rug plot showing locations
+#' of mask points (if mask.rug==TRUE) and 95% confidence bounds (if bounds=TRUE).
+#' 
+#' Be aware that using mask.rug=TRUE will result in it taking quite a while to 
+#' produce the plot
 #' @export
 #' @examples
 #' op = par(no.readonly = TRUE)
@@ -28,13 +34,13 @@
 #' 
 #' par(op)
 
-plotDgam = function(fit, type = "link", mask.rug = FALSE, det.rug = TRUE, npts = 200, show.knots = FALSE){
+plotDgam = function(fit, type = "response", mask.rug = FALSE, det.rug = TRUE, 
+                    bounds=TRUE, npts = 200){
   
   if(!type %in% c("link", "response")){
     type = "link"
     warning("Invalid type; reset to `link'.")
   }
-  if(show.knots) warning("Knot plotting not yet implemented")
   
   # get smooth terms and associted variables:
   Dmodel = as.character(fit$Dmodel)
@@ -81,36 +87,45 @@ plotDgam = function(fit, type = "link", mask.rug = FALSE, det.rug = TRUE, npts =
     scoeff = coeff[keepcoeff]
     smooth.x = as.numeric(X %*% scoeff)
     
-    # Var[Sum(a_i beta_i)] = Sum(a_i * a_j * Cov[beta_i, beta_j])
-    # X is matrix of covariates
-    # Cov is the covariance matrix for beta
-    
-    Cov = solve(fit$fit$hessian[keepcoeff,keepcoeff])
-    p = ncol(X)
-    n = nrow(X)
-    se = sapply(1:n, function(i){ # i = 1
-      sqrt(sum(sapply(1:p, function(j){ # j = 1
-        sapply(1:p, function(k){ # k = 1
-          as.numeric(X[i,j] * X[i,k] * Cov[j,k])
-        })
-      })))
-    })
-    
-    lower = smooth.x - qt(0.975, n-1) * se
-    upper = smooth.x + qt(0.975, n-1) * se
+    if(bounds){
+      # Var[Sum(a_i beta_i)] = Sum(a_i * a_j * Cov[beta_i, beta_j])
+      # X is matrix of covariates
+      # Cov is the covariance matrix for beta
+      
+      Cov = solve(fit$fit$hessian[keepcoeff,keepcoeff])
+      p = ncol(X)
+      n = nrow(X)
+      se = sapply(1:n, function(i){ # i = 1
+        sqrt(sum(sapply(1:p, function(j){ # j = 1
+          sapply(1:p, function(k){ # k = 1
+            as.numeric(X[i,j] * X[i,k] * Cov[j,k])
+          })
+        })))
+      })
+      
+      lower = smooth.x - qt(0.975, n-1) * se
+      upper = smooth.x + qt(0.975, n-1) * se
+      
+    }
     
     if(type == "response"){
       smooth.x = exp(smooth.x)
-      lower    = exp(lower)
-      upper    = exp(upper)
+      if(bounds) {
+        lower    = exp(lower)
+        upper    = exp(upper)
+      }
     }
     
     meansm = mean(smooth.x)
+    if(bounds) ylim = range(c(smooth.x, lower, upper) - meansm)
+    else ylim=range(smooth.x-meansm)
     
-    plot(newdata[[svar[i]]], smooth.x - meansm, type = "l", ylim = range(c(smooth.x, lower, upper) - meansm), xlab = svar[i], ylab = paste("Smooth of", svar[i]), main = sterms[i])
+    plot(newdata[[svar[i]]], smooth.x - meansm, type = "l", ylim=ylim, xlab = svar[i], ylab = paste("Smooth of", svar[i]), main = sterms[i])
     
-    lines(newdata[[svar[i]]], lower - meansm, lty = 2)
-    lines(newdata[[svar[i]]], upper - meansm, lty = 2)
+    if(bounds) {
+      lines(newdata[[svar[i]]], lower - meansm, lty = 2)
+      lines(newdata[[svar[i]]], upper - meansm, lty = 2)
+    }
     
     # plot mask rug and detector rug if asked to
     if(mask.rug | det.rug){
@@ -128,11 +143,13 @@ plotDgam = function(fit, type = "link", mask.rug = FALSE, det.rug = TRUE, npts =
         }
         
         # then add rug:
+        if(bounds) rug.y=min(lower-meansm)
+        else rug.y=min(smooth.x-meansm)
         if(mask.rug)
-          points(zvals, rep(min(lower-meansm), length(zvals)), pch = "|", cex = 0.5, col = "gray")
+          points(zvals, rep(rug.y, length(zvals)), pch = "|", cex = 0.5, col = "gray")
         if(det.rug)
-          points(det.zvals, rep(min(lower-meansm), length(det.zvals)), pch = "|", cex = 0.75)
-        lines(newdata[[svar[i]]], lower-meansm) # replot line over rug
+          points(det.zvals, rep(rug.y, length(det.zvals)), pch = "|", cex = 0.75)
+        if(bounds) lines(newdata[[svar[i]]], lower-meansm,lty=2) # replot line over rug
 
       }
     }
