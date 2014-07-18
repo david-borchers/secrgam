@@ -11,4 +11,6 @@
 # 10. Add option to plot relative SE to plot.secrgam?
 # 11. Temporal smooths with Session.
 # 12. fitted.secrgam vs region.ND?
+# 13. Fix AIC.secrgam( ) so that it works even if 1st object is class secr rather than secrgam
+# 14. Easy function for plotting ovenbird predictions?
 
