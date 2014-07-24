@@ -1,4 +1,4 @@
-# 1. Add argument for creation of legend in image plot. Use image.plot() from library(fields) instead?
+# 1. DONE: Add argument for creation of legend in image plot. Use image.plot() from library(fields) instead?
 # 2. Better plotting of factors in image.plot.mask
 # 3. Update documentation, including:
 #    b. Make help for "secrgam" rather than (or as well as) "secrgam-package"
@@ -13,4 +13,6 @@
 # 12. fitted.secrgam vs region.ND?
 # 13. Fix AIC.secrgam( ) so that it works even if 1st object is class secr rather than secrgam
 # 14. Easy function for plotting ovenbird predictions?
+# 15. Help files for ?Boland.mask1, ?Boland.CH1, rather than just ?Boland.leopards1?
+#     and same for ?Boland.mask2, ?Boland.CH2.
 
