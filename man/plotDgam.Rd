@@ -3,8 +3,8 @@
 \alias{plotDgam}
 \title{SECR Density spline plotting.}
 \usage{
-plotDgam(fit, type = "link", mask.rug = FALSE, det.rug = TRUE,
-  npts = 200, show.knots = FALSE)
+plotDgam(fit, type = "response", mask.rug = FALSE, det.rug = TRUE,
+  bounds = TRUE, npts = 200, main = TRUE)
 }
 \arguments{
 \item{fit}{object returned by \code{\link{secrgam.fit}}.}
@@ -18,17 +18,25 @@ covariate dimension is to be plotted.}
 \item{det.rug}{\code{TRUE} if a rugplot of locations of detectors in the
 covariate dimension is to be plotted.}
 
+\item{bounds}{\code{TRUE} if 95% confidence bounds of the smooth are to be
+plotted.}
+
 \item{npts}{number of points on x-axis at which to evaluate smooth.}
 
-\item{show.knots}{if \code{TRUE}, puts crosses on smooth at knot locations.
-  NOT YET IMPLEMENTED.}
+\item{main}{if TRUE, a main heading reflecting the smooth term in the model
+that is being plotted, is added to the plot; else no main heading is plotted.}
 }
 \description{
 Plots regression spline smooth components of an secr density
 model.
 }
 \details{
-(None as yet)
+Plots smooth on link or response scale, together with rug plot showing locations
+of detectors in covariate space (if det.rug==TRUE), rug plot showing locations
+of mask points (if mask.rug==TRUE) and 95% confidence bounds (if bounds=TRUE).
+
+Be aware that using mask.rug=TRUE will result in it taking quite a while to
+produce the plot
 }
 \examples{
 op = par(no.readonly = TRUE)

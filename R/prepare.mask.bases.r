@@ -77,12 +77,24 @@ prepare.mask.bases = function(Dmodel, mask, sessioncov = NULL, nsessions = 1){
   for(i in 1:nsessions){ # i=1
     
     covariates(mask[[i]]) = if(is.null(covariates(mask[[i]]))){
-            
-      do.call(rbind, lapply(1:nrow(mask[[i]]), function(j) sessioncov[i,,drop = FALSE]))
-            
+      
+      if(is.null(sessioncov)) NULL else{
+        
+        do.call(rbind, lapply(1:nrow(mask[[i]]), function(j) sessioncov[i,,drop = FALSE]))
+        
+      }
+      
     }else{
       
-      cbind(covariates(mask[[i]]), sessioncov[i,])
+      if(is.null(sessioncov)){
+        
+        covariates(mask[[i]])
+        
+      }else{
+        
+        cbind(covariates(mask[[i]]), sessioncov[i,])
+        
+      }
       
     }
     
@@ -96,9 +108,9 @@ prepare.mask.bases = function(Dmodel, mask, sessioncov = NULL, nsessions = 1){
   covs = attr(X, "term.labels") # names of covariates in Dmodel
   
   if(!is.null(covs)){
-#         temp = if(is.null(covariates(mask[[i]]))) mask[[i]] else
-#           cbind(mask[[i]], covariates(mask[[i]]))
-#         attr(mask, "cov.range") = apply(temp[, covs, drop = FALSE], 2, range)
+    #         temp = if(is.null(covariates(mask[[i]]))) mask[[i]] else
+    #           cbind(mask[[i]], covariates(mask[[i]]))
+    #         attr(mask, "cov.range") = apply(temp[, covs, drop = FALSE], 2, range)
     
     attr(mask, "cov.range") = do.call(cbind, lapply(covs, function(cov){
       
@@ -117,8 +129,13 @@ prepare.mask.bases = function(Dmodel, mask, sessioncov = NULL, nsessions = 1){
   # replace the mask covariates with the design matrices
   for(i in 1:nsessions) covariates(mask[[i]]) = as.data.frame(X[attr(X, "session.id") == i,,drop = FALSE])
   
+  # add Dparnames attribute
+  Dparnames = colnames(covariates(mask[[1]])) 
+  
   if(nsessions == 1) mask = mask[[1]]
   
+  attr(mask, "Dparnames") = Dparnames 
+
   return(mask)   
   
 }

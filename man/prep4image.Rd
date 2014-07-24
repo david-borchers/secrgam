@@ -32,6 +32,11 @@ Sorts z on values of x first, then y, then creates a matrix of
   z-values from this. Returns a list with elements x (unique values of x, in
   increasing order), y (unique values of y, in increasing order) and z
   (matrix of z-values in appropriate order for image/contour/persp).
+
+  If the original z is a factor variabele, the z returned is a matrix of integers
+  between 1 and length(levels(z)) and the output list has an attributes called
+  ``facnames'' that is a character vector containing the levels as factor
+  variables, with z=1 corresponding to the first name, z=2 to the second, etc.
 }
 \examples{
 data(Boland.alt)

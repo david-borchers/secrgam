@@ -63,8 +63,7 @@ secrgam.fit = function(capthist, model = list(D ~ 1, g0 ~ 1, sigma ~ 1), mask = 
   mask = prepare.mask.bases(Dmodel = model$D, mask = mask, sessioncov = sessioncov, nsessions = nsessions)
   
   # get the design matrix term names 
-  # Dparnames = colnames(attr(gamask, "covariates")) 
-  Dparnames = colnames(covariates(mask[[1]])) 
+  Dparnames = attr(mask, "Dparnames")
   
   # identify whether or not there is an explicit intercept term
   int = grepl("Intercept", Dparnames) 
