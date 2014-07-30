@@ -15,6 +15,11 @@ print(AIC(fit0)[,"AIC"])
 fit.session = secrgam.fit(ovenCH, list(D = ~ session), ovenmask, trace = FALSE)
 print(AIC(fit0)[,"AIC"])
 
+# smooth of Session df=2
+ofit.S2 = secrgam.fit(ovenCH, list(D = ~ Session), ovenmask, trace = FALSE)
+print(AIC(ofit.S2)[,"AIC"])
+plotDgam(ofit.S2)
+
 # smooth of Session df=3
 ofit.S3 = secrgam.fit(ovenCH, list(D = ~ s(Session, k=3)), ovenmask, trace = FALSE)
 print(AIC(ofit.S3)[,"AIC"])
