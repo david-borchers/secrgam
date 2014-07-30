@@ -1,18 +1,22 @@
-# 1. DONE: Add argument for creation of legend in image plot. Use image.plot() from library(fields) instead?
-# 2. Better plotting of factors in image.plot.mask
-# 3. Update documentation, including:
-#    b. Make help for "secrgam" rather than (or as well as) "secrgam-package"
-# 4. PlotDgam: 
-#    a. ?Fix CI bound plotting in plotDgam (missing beta_0?)
-#    b. Add option not to plot CI?
-#    c. (Maybe) rename "plotDgam" to "plotsmooth"?
-#    d. Bivariates smooths: plot marginals and 3D plot?
-#    e. Adapt plotDgam to plot 1D smooths when there are some multivariate smooth terms
-# 10. Add option to plot relative SE to plot.secrgam?
-# 11. Temporal smooths with Session.
-# 12. fitted.secrgam vs region.ND?
-# 13. Fix AIC.secrgam( ) so that it works even if 1st object is class secr rather than secrgam
-# 14. Easy function for plotting ovenbird predictions?
-# 15. Help files for ?Boland.mask1, ?Boland.CH1, rather than just ?Boland.leopards1?
-#     and same for ?Boland.mask2, ?Boland.CH2.
+P=  Rethink plotting function names and change accordingly, e.g. rename "plotDgam" to "plotsmooths"?
+P=  Make image.plot.mask deal with sessions properly.
+P=  PlotDgam: 
+P=    a. Make plot.secrgam and plotDgam deal with session properly
+P=    b. Add option not to plot CI?
+P=    d. LATER: Bivariates smooths: plot marginals and 3D plot?
+P=    e. Adapt plotDgam to deal sensibly with 1D smooths when there are some multivariate smooth terms
+         and/or specify which to plot.
+P=  Add option to plot relative SE to plot.secrgam?
+P=  fitted.secrgam vs region.ND?
+P=  Remove D.bspline.r
+P=  Remove trap.covar.r (Superceded by secr function addCovariates?)
+P=  Change AIC.secrgam documentation to say need secrgam object first.
+    LATER: Fix AIC.secrgam( ) so that it works even if 1st object is class secr rather than secrgam
+P=  Help files for ?Boland.mask1, ?Boland.CH1, rather than just ?Boland.leopards1?
+       and same for ?Boland.mask2, ?Boland.CH2.
+P= LATER: Vignettes?
+   * mask constuction
+   * example analysis with spatial and temporal variables
+P= Put on CRAN?
+P= LATER?: Set up unit testing or something similar.
 
