@@ -1,7 +1,4 @@
-P=  Help files for ?Boland.mask1, ?Boland.CH1, rather than just ?Boland.leopards1?
-       and same for ?Boland.mask2, ?Boland.CH2.
 
-# amend readme to give installation instructions and test
 
 ## plotting
 P=  Rethink plotting function names and change accordingly, e.g. rename "plotDgam" to "plotsmooths"? - make plot.secrgam, if type = "density" and multisession return "plotting of density for multi-session data not yet implemented".
@@ -26,4 +23,6 @@ P= Put on CRAN?
 P= LATER?: Set up unit testing or something similar.
 
 DONE:
-  Removed D.bspline.r
+  removed D.bspline.r
+  added aliases for Boland.mask1, Boland.CH1, Boland.mask2 and Boland.CH2.
+  amended readme to give installation instructions (tested on pc classroom computer)
