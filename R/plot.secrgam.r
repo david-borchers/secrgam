@@ -4,9 +4,16 @@
 #' @description Plot the fitted density surface or fitted detection function from an \code{secrgam} model.
 #'   
 #' @param fit a fitted \code{\link{secrgam}} or \code{\link{secr}} model
-#' @param density if \code{TRUE} then the fitted density surface will be plotted, if \code{FALSE} then \code{\link{plot.secr}} is used to plot the fitted detection function
-#' @param mask an optional \code{\link{mask}} object to use for plotting the fitted density surface
-#' @param ... aditional arguments to pass to \code{prep4image} (if \code{density = TRUE}), or \code{plot.secr} (if \code{density = FALSE})
+#' @param type the type of plot to produce (see Details)
+#' @param mask an optional \code{\link{mask}} object to use when \code{type = "density"}
+#' @param ... aditional arguments to pass to the relevant ploting function
+#' @details \tabular{ll}{ 
+#' type      \tab plotting function \cr 
+#' "default" \tab \code{\link{plot.secr}} \cr 
+#' "density" \tab \code{\link{prep4image}} \cr 
+#' "smooth"  \tab \code{\link{plotDgam}} \cr 
+#' 
+#' }
 #' @examples
 #' data(Boland.leopards1)
 #' data(Boland.fits1)
@@ -23,9 +30,22 @@
 #' @export
 #' @seealso \code{\link{fitted.secrgam}}
 
-plot.secrgam = function(fit, density = TRUE, mask = NULL, ...){
+plot.secrgam = function(fit, type = c("default", "density", "smooth"), mask = NULL, ...){
   
-  if(density){
+  type = match.arg(type)
+  
+  if(type == "default"){
+    
+    secr:::plot.secr(fit, ...)
+    
+  }else{
+    
+    if(ms(fit$capthist)) 
+      stop("plotting methods for density smooths not yet implemented for multi-session data")
+    
+  }
+  
+  if(type == "density"){
     
     # plot fitted density surface
     
@@ -39,10 +59,11 @@ plot.secrgam = function(fit, density = TRUE, mask = NULL, ...){
       
     }
     
-  }else{
+  }
+  
+  if(type == "smooth"){
     
-    # plot fitted detection function
-    secr:::plot.secr(fit, ...)
+    plotDgam(fit, ...)
     
   }
   

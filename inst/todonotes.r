@@ -26,3 +26,4 @@ DONE:
   removed D.bspline.r
   added aliases for Boland.mask1, Boland.CH1, Boland.mask2 and Boland.CH2.
   amended readme to give installation instructions (tested on pc classroom computer)
+  changed image.plot.mask to image.mask so that it works with generic image function

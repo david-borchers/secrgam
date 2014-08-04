@@ -9,8 +9,8 @@
 \arguments{
 \item{mask}{object of class \code{mask}.}
 
-\item{covariate}{value of covariate on mask points: one of the column names of the data frame
-\code{covariates(mask)}.}
+\item{covariate}{value of covariate on mask points: one of the column names
+of the data frame \code{covariates(mask)}.}
 
 \item{contours}{logical to plot contours on top of image plot.}
 
@@ -18,31 +18,32 @@
 
 \item{ylab}{label for x-axis. If NULL, prints "y".}
 
-\item{ppoly}{logical for whether the bounding polygon should be plotted (if mask has a `polygon' attribute),}
+\item{ppoly}{logical for whether the bounding polygon should be plotted (if
+mask has a `polygon' attribute),}
 
 \item{polycol}{color of bounding polygon line.}
 
 \item{main}{main title of plot.}
 
-\item{...}{other arguments to \code{\link{image.plot}}
-(which includes arguments to \code{\link{image}}).}
+\item{...}{other arguments to \code{\link{image.plot}} (which includes
+  arguments to \code{\link{image.default}}).}
 }
 \description{
 Creates an image plot with a legend of a covariate in a mask.
 }
 \details{
-See \code{\link{image.plot}} and \code{\link{image}}.
+See \code{\link{image.plot}} and \code{\link{image.default}}.
 }
 \examples{
 data(Boland.leopards1)
 data(possums)
 
 # plot image of distance to urban areas, with contours, and plot traps on top of it
-image(Boland.mask1,"dist2.Urban",asp=1,axes=FALSE,xlab="Easting",ylab="Northing",main="Distance to Urban")
-plot(traps(Boland.CH1),add=TRUE)
+image(Boland.mask1, "dist2.Urban", asp = 1, axes = FALSE, xlab = "Easting", ylab = "Northing", main = "Distance to Urban")
+plot(traps(Boland.CH1), add = TRUE)
 
 # a plot with different colour scheme, no contours and 1:1 aspect ratio:
-image(possummask,"d.to.shore",col=terrain.colors(30),contours=FALSE)
-plot(traps(possumCH),add=TRUE)
+image(possummask,"d.to.shore", col = terrain.colors(30), contours = FALSE)
+plot(traps(possumCH), add = TRUE)
 }
 

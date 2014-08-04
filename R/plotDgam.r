@@ -36,12 +36,11 @@
 #' 
 #' par(op)
 
-plotDgam = function(fit, type = "response", mask.rug = FALSE, det.rug = TRUE, 
-                    bounds=TRUE, npts = 200, main=TRUE){
+plotDgam = function(fit, type = "response", mask.rug = FALSE, det.rug = TRUE, bounds = TRUE, npts = 200, main = TRUE){
   
   if(!type %in% c("link", "response")){
     type = "link"
-    warning("Invalid type; reset to `link'.")
+    warning("Invalid type; reset to 'link'.")
   }
   
   # get smooth terms and associted variables:

@@ -3,19 +3,29 @@
 \alias{plot.secrgam}
 \title{Plot fitted density surface or detection function}
 \usage{
-\method{plot}{secrgam}(fit, density = TRUE, mask = NULL, ...)
+\method{plot}{secrgam}(fit, type = c("default", "density", "smooth"),
+  mask = NULL, ...)
 }
 \arguments{
 \item{fit}{a fitted \code{\link{secrgam}} or \code{\link{secr}} model}
 
-\item{density}{if \code{TRUE} then the fitted density surface will be plotted, if \code{FALSE} then \code{\link{plot.secr}} is used to plot the fitted detection function}
+\item{type}{the type of plot to produce (see Details)}
 
-\item{mask}{an optional \code{\link{mask}} object to use for plotting the fitted density surface}
+\item{mask}{an optional \code{\link{mask}} object to use when \code{type = "density"}}
 
-\item{...}{aditional arguments to pass to \code{prep4image} (if \code{density = TRUE}), or \code{plot.secr} (if \code{density = FALSE})}
+\item{...}{aditional arguments to pass to the relevant ploting function}
 }
 \description{
 Plot the fitted density surface or fitted detection function from an \code{secrgam} model.
+}
+\details{
+\tabular{ll}{
+type      \tab plotting function \cr
+"default" \tab \code{\link{plot.secr}} \cr
+"density" \tab \code{\link{prep4image}} \cr
+"smooth"  \tab \code{\link{plotDgam}} \cr
+
+}
 }
 \examples{
 data(Boland.leopards1)
