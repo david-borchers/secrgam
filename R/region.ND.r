@@ -1,7 +1,7 @@
 #' @title Abundance and Density in a region.
 #'   
 #' @description Estimate the expected and realised populations in a region, using a 
-#' fitted spatially explicit capture–recapture model. Density is assumed to follow 
+#' fitted spatially explicit capture-recapture model. Density is assumed to follow 
 #' an inhomogeneous Poisson process in two dimensions. Expected N is the volume 
 #' under a fitted density surface; realised N is the number of individuals within 
 #' the region for the current realisation of the process (cf Johnson et al. 2010; 
