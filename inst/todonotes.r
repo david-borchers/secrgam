@@ -1,4 +1,3 @@
-P=  Remove D.bspline.r
 P=  Help files for ?Boland.mask1, ?Boland.CH1, rather than just ?Boland.leopards1?
        and same for ?Boland.mask2, ?Boland.CH2.
 
@@ -26,3 +25,5 @@ P= LATER: Vignettes?
 P= Put on CRAN?
 P= LATER?: Set up unit testing or something similar.
 
+DONE:
+  Removed D.bspline.r
