@@ -30,13 +30,13 @@ constructed on the fly. This argument must be NULL if object is of class \code{s
 log interval for realised N}
 
 \item{RN.method}{character string for method used to calculate realised N (RN)
-and its sampling variance. 'poisson' or `MSPE'.}
+and its sampling variance. 'poisson' or 'MSPE'.}
 }
 \value{
 A list with components \code{$Abundance} and \code{$Density}. If se.N = FALSE,
 these are the numeric values of expected population size and density, otherwise
-they each contain a dataframe with rows `E.N' and `R.N' for \code{$Abundance},
-`E.D' and `R.D' for \code{$Abundance}, with columns as below.
+they each contain a dataframe with rows 'E.N' and 'R.N' for \code{$Abundance},
+'E.D' and 'R.D' for \code{$Abundance}, with columns as below.
 
 estimate   estimate of N (expected or realised, depending on row)
 SE.estimate	 standard error of estimated N
@@ -49,7 +49,7 @@ each component as above.
 }
 \description{
 Estimate the expected and realised populations in a region, using a
-fitted spatially explicit capture–recapture model. Density is assumed to follow
+fitted spatially explicit capture-recapture model. Density is assumed to follow
 an inhomogeneous Poisson process in two dimensions. Expected N is the volume
 under a fitted density surface; realised N is the number of individuals within
 the region for the current realisation of the process (cf Johnson et al. 2010;
@@ -85,7 +85,7 @@ passed in a mask.
 Group-specific N has yet to be implemented.
 
 Population size is adjusted automatically for the number of clusters in
-`mashed' models (see mash). However, the population size reported is that
+'mashed' models (see mash). However, the population size reported is that
 associated with a single cluster unless regionmask is specified.
 }
 \examples{
