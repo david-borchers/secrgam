@@ -18,7 +18,7 @@ constructed on the fly. This argument must be NULL if object is of class \code{s
 
 \item{session}{character session}
 
-\item{group}{group – for future use}
+\item{group}{group for future use}
 
 \item{se.N}{logical for whether to estimate SE(N-hat) and confidence interval}
 

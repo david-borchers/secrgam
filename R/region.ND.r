@@ -17,7 +17,7 @@
 #' @param spacing	spacing between grid points (metres) if region mask is 
 #' constructed on the fly. This argument must be NULL if object is of class \code{sercgam}
 #' @param session	character session
-#' @param group	group – for future use
+#' @param group	group for future use
 #' @param se.N logical for whether to estimate SE(N-hat) and confidence interval
 #' @param alpha	alpha level for confidence intervals
 #' @param loginterval	logical for whether to base interval on log(N)
