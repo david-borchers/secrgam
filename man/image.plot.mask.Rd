@@ -18,7 +18,7 @@ image.plot.mask(mask, covariate = NULL, contours = TRUE, xlab = NULL,
 
 \item{ylab}{label for x-axis. If NULL, prints "y".}
 
-\item{ppoly}{logical for whether the bounding polygon should be plotted (if mask has a ‘polygon’ attribute),}
+\item{ppoly}{logical for whether the bounding polygon should be plotted (if mask has a `polygon' attribute),}
 
 \item{polycol}{color of bounding polygon line.}
 
