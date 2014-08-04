@@ -13,4 +13,3 @@ Depends:
     secr (>= 2.7.0),
     mgcv (>= 1.7-27),
     fields(>= 6.9.1)
-LinkingTo: secr, mgcv, fields

@@ -14,7 +14,6 @@ P=  Add option to plot relative SE to plot.secrgam?
 
 # add a predict function
 
-P=  fitted.secrgam vs region.ND? - is there a big difference? if so, disable ours (for getting CIs) compare simple models
 P=  Remove trap.covar.r (Superceded by secr function addCovariates?)
 P=  Change AIC.secrgam documentation to say need secrgam object first.
     LATER: Fix AIC.secrgam( ) so that it works even if 1st object is class secr rather than secrgam
@@ -32,3 +31,4 @@ DONE:
   incorporated plotDgam into plot.secrgam
   removed standard error estimation from fitted.secrgam
   added session-level smooth example to secrgam.fit help file
+

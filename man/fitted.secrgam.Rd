@@ -26,9 +26,9 @@ op = par(no.readonly = TRUE)
 # fitted density values at each mask point
 Dhat = fitted(fit1.a3)
 par(mfrow = c(1,1))
-prep4image(cbind(x = fit1.a3$mask$x,
-                 y = fit1.a3$mask$y,
-                 z = Dhat), asp = 1)
+prep4image(data.frame(x = fit1.a3$mask$x,
+                      y = fit1.a3$mask$y,
+                      z = Dhat), asp = 1)
 
 # fitted mean density across all mask points
 Dhat = fitted(fit1.a3, type = "mean") ; Dhat
