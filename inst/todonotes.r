@@ -1,8 +1,8 @@
 
 
 ## plotting
-P=  Rethink plotting function names and change accordingly, e.g. rename "plotDgam" to "plotsmooths"? - make plot.secrgam, if type = "density" and multisession return "plotting of density for multi-session data not yet implemented".
 # add overbird session example to secrgam.fit examples 
+
 P=  Make image.plot.mask deal with sessions properly.
 P=  PlotDgam: 
 P=    a. Make plot.secrgam and plotDgam deal with session properly
@@ -27,3 +27,4 @@ DONE:
   added aliases for Boland.mask1, Boland.CH1, Boland.mask2 and Boland.CH2.
   amended readme to give installation instructions (tested on pc classroom computer)
   changed image.plot.mask to image.mask so that it works with generic image function
+  incorporated plotDgam into plot.secrgam

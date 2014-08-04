@@ -148,7 +148,7 @@ region.ND=function (object, region = NULL, spacing = NULL, session = NULL,
     outp=list(Abundance=regN,Density=regD)
   }
   class(outp)="list"
-  attributes(lout)=NULL
+  attributes(outp)=NULL
   return(outp)
 }
 
