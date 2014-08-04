@@ -40,7 +40,12 @@ plot(fit, asp=1)
 plot(traps(Boland.CH1), add = TRUE)
 
 # plot smooths:
-plotDgam(fit)
+plot(fit, type = "smooth")
+
+# session-level smooths
+data(ovenbird)
+ovenfit = secrgam.fit(ovenCH, model = D ~ s(Session,k=3), mask = ovenmask, trace = FALSE)
+plot(ovenfit, type = "smooth")
 }
 }
 

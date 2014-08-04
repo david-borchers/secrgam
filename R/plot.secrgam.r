@@ -38,16 +38,20 @@ plot.secrgam = function(fit, type = c("default", "density", "smooth"), mask = NU
     
     secr:::plot.secr(fit, ...)
     
-  }else{
+  }
+  
+  # de-trended smooths
+  if(type == "smooth"){
     
-    if(ms(fit$capthist)) 
-      stop("plotting methods for density smooths not yet implemented for multi-session data")
+    plotDgam(fit, ...)
     
   }
   
+  # plot fitted density surface
   if(type == "density"){
     
-    # plot fitted density surface
+    if(ms(fit$capthist)) 
+      stop("plotting methods for type = 'density' not yet implemented for multi-session data")
     
     if(is.null(mask)){
       
@@ -58,12 +62,6 @@ plot.secrgam = function(fit, type = c("default", "density", "smooth"), mask = NU
       prep4image(data.frame(x = mask$x, y = mask$y, z = fitted(fit, mask)), ...)  
       
     }
-    
-  }
-  
-  if(type == "smooth"){
-    
-    plotDgam(fit, ...)
     
   }
   

@@ -61,7 +61,7 @@
 #' plot(traps(Boland.CH1), add = TRUE)
 #' 
 #' # plot smooths:
-#' plotDgam(fit)
+#' plot(fit, type = "smooth")
 #' }
 
 NULL

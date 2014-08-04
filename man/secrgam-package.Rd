@@ -56,7 +56,7 @@ plot(fit,asp=1)
 plot(traps(Boland.CH1), add = TRUE)
 
 # plot smooths:
-plotDgam(fit)
+plot(fit, type = "smooth")
 }
 }
 \author{

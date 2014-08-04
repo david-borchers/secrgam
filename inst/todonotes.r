@@ -1,7 +1,7 @@
 
 
 ## plotting
-# add overbird session example to secrgam.fit examples 
+# add ovenbird session example to secrgam.fit examples 
 
 P=  Make image.plot.mask deal with sessions properly.
 P=  PlotDgam: 
@@ -11,6 +11,8 @@ P=    d. LATER: Bivariates smooths: plot marginals and 3D plot?
 P=    e. Adapt plotDgam to deal sensibly with 1D smooths when there are some multivariate smooth terms
          and/or specify which to plot.
 P=  Add option to plot relative SE to plot.secrgam?
+
+# add a predict function
 
 P=  fitted.secrgam vs region.ND? - is there a big difference? if so, disable ours (for getting CIs) compare simple models
 P=  Remove trap.covar.r (Superceded by secr function addCovariates?)
@@ -28,3 +30,5 @@ DONE:
   amended readme to give installation instructions (tested on pc classroom computer)
   changed image.plot.mask to image.mask so that it works with generic image function
   incorporated plotDgam into plot.secrgam
+  removed standard error estimation from fitted.secrgam
+  added session-level smooth example to secrgam.fit help file
