@@ -40,7 +40,7 @@ prepare.mask.bases = function(Dmodel, mask, sessioncov = NULL, nsessions = 1){
     if(length(mask) == 1){
       
       # single mask supplied, so make list of duplicate masks
-      mask = lapply(1:nsessions, function(i) mask)
+      mask = lapply(1:nsessions, function(i) mask[[1]])
       
     }else{
       
@@ -74,25 +74,19 @@ prepare.mask.bases = function(Dmodel, mask, sessioncov = NULL, nsessions = 1){
   }  
   
   # add session covariates to mask covariates
-  for(i in 1:nsessions){ # i=1
+  if(!is.null(sessioncov)){
     
-    covariates(mask[[i]]) = if(is.null(covariates(mask[[i]]))){
+    for(i in 1:nsessions){ # i=1
       
-      if(is.null(sessioncov)) NULL else{
-        
-        do.call(rbind, lapply(1:nrow(mask[[i]]), function(j) sessioncov[i,,drop = FALSE]))
-        
-      }
+      sessioncov.long = do.call(rbind, lapply(1:nrow(mask[[i]]), function(j) sessioncov[i,,drop = FALSE]))
       
-    }else{
-      
-      if(is.null(sessioncov)){
+      covariates(mask[[i]]) = if(is.null(covariates(mask[[i]]))){
         
-        covariates(mask[[i]])
+        sessioncov.long
         
       }else{
         
-        cbind(covariates(mask[[i]]), sessioncov[i,])
+        cbind(covariates(mask[[i]]), sessioncov.long)
         
       }
       
@@ -132,10 +126,16 @@ prepare.mask.bases = function(Dmodel, mask, sessioncov = NULL, nsessions = 1){
   # add Dparnames attribute
   Dparnames = colnames(covariates(mask[[1]])) 
   
-  if(nsessions == 1) mask = mask[[1]]
+  if(nsessions == 1){
+    
+    temp = attr(mask, "cov.range")
+    mask = mask[[1]]
+    attr(mask, "cov.range") = temp
+    
+  }
   
   attr(mask, "Dparnames") = Dparnames 
-
+  
   return(mask)   
   
 }
