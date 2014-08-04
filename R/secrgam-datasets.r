@@ -114,6 +114,7 @@ NULL
 NULL
 
 #' @name Boland.leopards1
+#' @aliases Boland.mask1 Boland.CH1
 #' @title Simulated data from 2010 camera-trap survey of leopards in the Boland, South 
 #' Africa.
 #' @docType data
@@ -146,6 +147,7 @@ NULL
 NULL
 
 #' @name Boland.leopards2
+#' @aliases Boland.mask2 Boland.CH2
 #' @title Simulated data from a more extensive simulated survey than the real 
 #' 2010 camera-trap survey of leopards in the Boland, South Africa.
 #' @docType data
