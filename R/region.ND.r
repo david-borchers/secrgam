@@ -24,7 +24,7 @@
 #' @param nlowerbound	logical for whether to use n as lower bound when computing 
 #' log interval for realised N
 #' @param RN.method	character string for method used to calculate realised N (RN) 
-#' and its sampling variance. `poisson' or `MSPE'.
+#' and its sampling variance. 'poisson' or 'MSPE'.
 #' 
 #' @details If the density surface of the fitted model is flat (i.e. object$model$D == ~1 or 
 #' object$CL == TRUE) then E(N) is simply the density multiplied by the area of 
@@ -51,13 +51,13 @@
 #' Group-specific N has yet to be implemented. 
 #' 
 #' Population size is adjusted automatically for the number of clusters in 
-#' `mashed' models (see mash). However, the population size reported is that 
+#' 'mashed' models (see mash). However, the population size reported is that 
 #' associated with a single cluster unless regionmask is specified.
 #' @return
 #' A list with components \code{$Abundance} and \code{$Density}. If se.N = FALSE, 
 #' these are the numeric values of expected population size and density, otherwise 
-#' they each contain a dataframe with rows `E.N' and `R.N' for \code{$Abundance}, 
-#' `E.D' and `R.D' for \code{$Abundance}, with columns as below. 
+#' they each contain a dataframe with rows 'E.N' and 'R.N' for \code{$Abundance}, 
+#' 'E.D' and 'R.D' for \code{$Abundance}, with columns as below. 
 #' 
 #' estimate   estimate of N (expected or realised, depending on row)
 #' SE.estimate	 standard error of estimated N
@@ -92,7 +92,7 @@ region.ND=function (object, region = NULL, spacing = NULL, session = NULL,
   if(inherits(object,"secrgam") & !is.null(region)){
     
     # stop with error if required to create mask
-    if(!is.null(spacing)) stop("Argument `spacing' must be NULL with secrgam object: can't create mask with covariates automatically.")
+    if(!is.null(spacing)) stop("Argument 'spacing' must be NULL with secrgam object: can't create mask with covariates automatically.")
     
     Dmodel=object$Dmodel
     if(!is.null(Dmodel)) region = prepare.mask.bases(Dmodel, region)
