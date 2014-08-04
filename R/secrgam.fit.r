@@ -53,15 +53,15 @@ secrgam.fit = function(capthist, model = list(D ~ 1, g0 ~ 1, sigma ~ 1), mask = 
     message("using 'trapbuffer' mask with buffer = ", buffer)
   }
   
-  # convert mask to a list (if not already a list)
-  if(!inherits(mask, "list")) mask = list(mask)
-  
   # make sure model is a named list
   if("formula" %in% class(model)) model = list(model)
   model = secr:::stdform(model)
   orig.model = model # save model in original form 
   orig.mask = mask # save mask in original form
   
+  # convert mask to a list (if not already a list)
+  if(!inherits(mask, "list")) mask = list(mask)
+
   if(is.null(model$D)) model$D = ~1
   
   # replace mask covariates with gam model terms
