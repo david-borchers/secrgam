@@ -4,7 +4,7 @@
 #' model.
 #' 
 #' @param fit object returned by \code{\link{secrgam.fit}}.
-#' @param type either \code{"link"} (for plot on link funtion scale) or
+#' @param scale either \code{"link"} (for plot on link funtion scale) or
 #'   \code{"response"} (for plot on response scale).
 #' @param mask.rug \code{TRUE} if a rugplot of locations of mask points in the
 #'   covariate dimension is to be plotted.
@@ -36,11 +36,11 @@
 #' 
 #' par(op)
 
-plotDgam = function(fit, type = "response", mask.rug = FALSE, det.rug = TRUE, bounds = TRUE, npts = 200, main = TRUE){
+plotDgam = function(fit, scale = "response", mask.rug = FALSE, det.rug = TRUE, bounds = TRUE, npts = 200, main = TRUE){
   
-  if(!type %in% c("link", "response")){
-    type = "link"
-    warning("Invalid type; reset to 'link'.")
+  if(!scale %in% c("link", "response")){
+    scale = "link"
+    warning("Invalid scale; reset to 'link'.")
   }
   
   # get smooth terms and associted variables:
@@ -109,7 +109,7 @@ plotDgam = function(fit, type = "response", mask.rug = FALSE, det.rug = TRUE, bo
       
     }
     
-    if(type == "response"){
+    if(scale == "response"){
       smooth.x = exp(smooth.x)
       if(bounds) {
         lower    = exp(lower)

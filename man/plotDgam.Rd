@@ -3,13 +3,13 @@
 \alias{plotDgam}
 \title{SECR Density spline plotting.}
 \usage{
-plotDgam(fit, type = "response", mask.rug = FALSE, det.rug = TRUE,
+plotDgam(fit, scale = "response", mask.rug = FALSE, det.rug = TRUE,
   bounds = TRUE, npts = 200, main = TRUE)
 }
 \arguments{
 \item{fit}{object returned by \code{\link{secrgam.fit}}.}
 
-\item{type}{either \code{"link"} (for plot on link funtion scale) or
+\item{scale}{either \code{"link"} (for plot on link funtion scale) or
 \code{"response"} (for plot on response scale).}
 
 \item{mask.rug}{\code{TRUE} if a rugplot of locations of mask points in the
