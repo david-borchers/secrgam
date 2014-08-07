@@ -21,10 +21,12 @@
 #' par(mfrow = c(1,2), oma = c(0,0,0,0), mar = c(4,4,4,4))
 #' 
 #' # density surface
-#' plot(fit1.a3, asp = 1, key = FALSE, main = "Density")
+#' plot(fit1.a3.dW3,type="density",asp=1,key=FALSE,col=tim.colors(30))
+#' # plot detection function
+#' plot(fit1.a3.dW3,xval=seq(0,11000,length=100), main = "Density")
 #' 
-#' # detection function
-#' plot(fit1.a3, density = FALSE, xval = 0:20000, main = "Detection function")
+#' # plot smooths
+#' plot(fit1.a3.dW3,type="smooth")
 #' 
 #' par(op)
 #' @export
