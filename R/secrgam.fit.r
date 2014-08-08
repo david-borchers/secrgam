@@ -31,10 +31,14 @@
 #' # plot smooths:
 #' plot(fit, type = "smooth")
 #' 
+#' # get abundance and density estimates
+#' region.ND(fit)
+#' 
 #' # session-level smooths
 #' data(ovenbird)
 #' ovenfit = secrgam.fit(ovenCH, model = D ~ s(Session,k=3), mask = ovenmask, trace = FALSE)
 #' plot(ovenfit, type = "smooth")
+#' region.ND(ovenfit)
 #' }
 
 secrgam.fit = function(capthist, model = list(D ~ 1, g0 ~ 1, sigma ~ 1), mask = NULL, buffer = 100, sessioncov = NULL, ...){
