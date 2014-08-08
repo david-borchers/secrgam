@@ -25,7 +25,10 @@ Terse report on the fit of one or more spatially explicit capture-recapture mode
 Models with smaller values of AIC (Akaike's Information Criterion) are preferred.
 }
 \details{
-Same as the function of same name in package \code{secr}, but also takes objects of
-class \code{secrgam} as input. See \code{help(AIC.secr)} for details.
+Same as \code{\link{AIC.secr}} in package \code{secr}, but also takes objects of
+class \code{secrgam} as input. See \code{\link{AIC.secr}} for details.
+
+NOTE: This function can be used to compare objects of class "secrgam" (output by \code{\link{secrgam.fit}})
+and those of class "secr" PROVIDING that the first object passed to the function is of class "secrgam".
 }
 

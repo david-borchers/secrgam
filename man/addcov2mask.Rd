@@ -40,7 +40,9 @@ Adds covariates to a habitat mask from a GIS landcover data in
   raster format.
 }
 \details{
-If \code{typeof(raster$z) = "double"} then elements of
+NOTE: This is a function under development, with rather limited and
+  specific functionality. The \code{secr} function \code{\link{addCovariates}}
+  is probably more useful at this stage. If \code{typeof(raster$z) = "double"} then elements of
   \code{raster$z} are assumed to represent a single layer type. If
   \code{typeof(raster$z) = "integer"} then each unique integer is assumed to
   represent a unique landcover type. If the mask already contains covariates

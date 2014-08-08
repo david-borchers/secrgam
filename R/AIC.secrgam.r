@@ -11,10 +11,10 @@
 #' @param dmax	numeric, maximum AIC difference for inclusion in confidence set
 #' @param criterion	character, criterion to use for model comparison and weights.
 #' 
-#' @details Same as the function of same name in package \code{secr}, but also takes objects of
-#' class \code{secrgam} as input. See \code{help(AIC.secr)} for details.
+#' @details Same as \code{\link{AIC.secr}} in package \code{secr}, but also takes objects of
+#' class \code{secrgam} as input. See \code{\link{AIC.secr}} for details.
 #' 
-#' @details NOTE: This function can be used to compare objects of class "secrgam" (output by \code{\link{secrgam.fit}})
+#' NOTE: This function can be used to compare objects of class "secrgam" (output by \code{\link{secrgam.fit}})
 #' and those of class "secr" PROVIDING that the first object passed to the function is of class "secrgam". 
 #' 
 #' @export
