@@ -10,7 +10,7 @@
 #'   covariate dimension is to be plotted.
 #' @param det.rug \code{TRUE} if a rugplot of locations of detectors in the
 #'   covariate dimension is to be plotted.
-#' @param bounds \code{TRUE} if 95% confidence bounds of the smooth are to be
+#' @param bounds \code{TRUE} if 95\% confidence bounds of the smooth are to be
 #' plotted.
 #' @param npts number of points on x-axis at which to evaluate smooth.
 #' @param main if TRUE, a main heading reflecting the smooth term in the model
@@ -19,7 +19,7 @@
 #' @details
 #' Plots smooth on link or response scale, together with rug plot showing locations
 #' of detectors in covariate space (if det.rug==TRUE), rug plot showing locations
-#' of mask points (if mask.rug==TRUE) and 95% confidence bounds (if bounds=TRUE).
+#' of mask points (if mask.rug==TRUE) and 95\% confidence bounds (if bounds=TRUE).
 #' 
 #' Be aware that using mask.rug=TRUE will result in it taking quite a while to 
 #' produce the plot

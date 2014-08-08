@@ -42,7 +42,7 @@ plot.secrgam = function(fit, type = c("default", "density", "smooth"), mask = NU
     
   }
   
-  # de-trended smooths
+  # scaled smooths
   if(type == "smooth"){
     
     plotDgam(fit, ...)

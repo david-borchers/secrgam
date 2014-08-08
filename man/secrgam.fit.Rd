@@ -42,10 +42,14 @@ plot(traps(Boland.CH1), add = TRUE)
 # plot smooths:
 plot(fit, type = "smooth")
 
+# get abundance and density estimates
+region.ND(fit)
+
 # session-level smooths
 data(ovenbird)
 ovenfit = secrgam.fit(ovenCH, model = D ~ s(Session,k=3), mask = ovenmask, trace = FALSE)
 plot(ovenfit, type = "smooth")
+region.ND(ovenfit)
 }
 }
 
