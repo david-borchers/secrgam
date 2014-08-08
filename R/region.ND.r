@@ -148,7 +148,11 @@ region.ND=function (object, region = NULL, spacing = NULL, session = NULL,
     outp=list(Abundance=regN,Density=regD)
   }
   class(outp)="list"
-  attributes(outp)=NULL
+  attributes(outp)=NULL # to simplify output
+  if(ms(region)) {
+    names(outp)=names(regN)
+    for(i in 1:length(outp)) names(outp[[i]])=c("Abundance","Density")
+  } else names(outp)=c("Abundance","Density")
   return(outp)
 }
 
