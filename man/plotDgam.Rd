@@ -35,6 +35,11 @@ Plots smooth on link or response scale, together with rug plot showing locations
 of detectors in covariate space (if det.rug==TRUE), rug plot showing locations
 of mask points (if mask.rug==TRUE) and 95\% confidence bounds (if bounds=TRUE).
 
+This function is not currently able to deal with interactions between sessions
+and other covariates. It can plot a smooth of session or of mask covariates
+but in the case of mult-session fits, it will plot only smooths of non-session
+covariates for the first session, using the firs session mask.
+
 Be aware that using mask.rug=TRUE will result in it taking quite a while to
 produce the plot
 }

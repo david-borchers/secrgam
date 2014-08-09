@@ -21,6 +21,11 @@
 #' of detectors in covariate space (if det.rug==TRUE), rug plot showing locations
 #' of mask points (if mask.rug==TRUE) and 95\% confidence bounds (if bounds=TRUE).
 #' 
+#' This function is not currently able to deal with interactions between sessions
+#' and other covariates. It can plot a smooth of session or of mask covariates 
+#' but in the case of mult-session fits, it will plot only smooths of non-session
+#' covariates for the first session, using the first session mask.
+#' 
 #' Be aware that using mask.rug=TRUE will result in it taking quite a while to 
 #' produce the plot
 #' @export
@@ -53,6 +58,15 @@ plotDgam = function(fit, scale = "response", mask.rug = FALSE, det.rug = TRUE, b
   for(i in 1:nsp){
     svar[i] = strsplit(strsplit(sterms[i], ", ", fixed = TRUE)[[1]][1], "(", fixed = TRUE)[[1]][2]
   }
+
+#  # if x or y in smooths, need them to be in mask covariates for det.rug to work
+#  if(("x" %in% svar) |("y" %in% svar)) { # put x and y into covariates of all sessions
+#    for(i in 1:length(fit$orig.mask)) {
+#      covariates(fit$orig.mask[[i]])$x=fit$orig.mask[[i]]$x
+#      covariates(fit$orig.mask[[i]])$y=fit$orig.mask[[i]]$y
+#    }  
+#  }
+  
   
   # fit$fit$estimate[fit$parindx$D]
   # fit$betanames[fit$parindx$D]
@@ -138,8 +152,13 @@ plotDgam = function(fit, scale = "response", mask.rug = FALSE, det.rug = TRUE, b
         
         # get observed variable values on mask:
         if(svar[i] %in% c("x","y")){
-          zvals = fit$mask[[svar[i]]]
-          det.zvals = traps(fit$capthist)[[svar[i]]]  
+          if(length(fit$orig.mask)==1) { # here for single-session fit
+            zvals = fit$mask[[svar[i]]]
+            det.zvals = traps(fit$capthist)[[svar[i]]]  
+          } else { # for multi-session fits, use only FIRST SESSION mask and traps
+            zvals = fit$mask[[1]][[svar[i]]]
+            det.zvals = traps(fit$capthist)[[1]][[svar[i]]]  
+          }
         }else{
           zvals = attr(fit$orig.mask, "covariates")[[svar[i]]]
           det.zvals = trap.covar(traps(fit$capthist), fit$orig.mask, svar[i])
