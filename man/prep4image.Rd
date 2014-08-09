@@ -12,7 +12,7 @@ and z being the values of some variable at each coordinate.}
 \item{plot}{if \code{TRUE} then an image plot will be drawn using
 \code{\link{image.plot}}}
 
-\item{contour}{if \code{TRUE} then contours will be added if (only used when
+\item{contour}{if \code{TRUE} then contours will be added (only used when
 \code{plot=TRUE})}
 
 \item{key}{logical for whether or not to include key when \code{plot = TRUE} (\code{\link{image.plot}} is used when \code{key = TRUE}, \code{\link{image}} is used when \code{key = FALSE})}
